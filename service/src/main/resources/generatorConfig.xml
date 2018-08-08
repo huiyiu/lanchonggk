@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="application.properties"/>
+
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+		<property name="javaFileEncoding" value="UTF-8"/>
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="com.lanchong.common.MyMapper"/>
+        </plugin>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/bdm186320220"
+                        userId="root"
+                        password="">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="com.lanchong.ucenter.entity" targetProject="src/main/java"/>
+
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
+
+        <javaClientGenerator targetPackage="com.lanchong.ucenter.mapper" targetProject="src/main/java"
+                             type="XMLMAPPER"/>
+
+        <!--<table tableName="%">-->
+            <!--&lt;!&ndash;mysql 配置&ndash;&gt;-->
+            <!--&lt;!&ndash;<generatedKey column="id" sqlStatement="Mysql" identity="true"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;oracle 配置&ndash;&gt;-->
+            <!--&lt;!&ndash;<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>&ndash;&gt;-->
+        <!--</table>-->
+
+
+        <!-- 账户信息 -->
+        <!--<table tableName = "account"></table>-->
+        <!--<table tableName = "member"></table>-->
+        <!--<table tableName = "accountbank"></table>-->
+        <!--<table tableName = "assetsiorecords"></table>-->
+        <!--<table tableName = "deltaassetsorder"></table>-->
+        <!--<table tableName = "draworder"></table>-->
+
+
+        <!--<table tableName = "data_dictionary"></table>-->
+        <!--<table tableName = "data_dictionary_detail"></table>-->
+
+        <!-- 商户 商品 订单 -->
+        <!--<table tableName = "goods"></table>-->
+        <!--<table tableName = "goodsorder"></table>-->
+        <!--<table tableName = "goodspicture"></table>-->
+        <!--<table tableName = "goodstype"></table>-->
+        <!--<table tableName = "ordergoodsdetail"></table>-->
+        <!--<table tableName = "seller"></table>-->
+
+        <!--<table tableName = "bank"></table>-->
+
+
+<!-- <table tableName = "data_dictionary" domainObjectName="DataDictionary">
+	</table>
+	<table tableName = "data_dictionary_detail" domainObjectName="DataDictionaryDetail">
+	</table>
+	<table tableName = "member" domainObjectName="Member">
+	 <property name="useActualColumnNames" value="true"/>
+	</table>
+	<table tableName = "account" domainObjectName="Account">
+	</table>
+	<table tableName = "channeltrack" domainObjectName="ChannelTrack">
+	<property name="useActualColumnNames" value="true"/>
+	</table>-->
+<!--	<table tableName = "memberprop" domainObjectName="MemberProp">
+	 <property name="useActualColumnNames" value="true"/>
+   </table>
+	<table tableName = "coin" domainObjectName="Coin">
+	 <property name="useActualColumnNames" value="true"/>
+	 </table>
+	 <table tableName = "integral" domainObjectName="Integral">
+	 <property name="useActualColumnNames" value="true"/>
+	 </table>
+	  <table tableName = "integraliorecord" domainObjectName="IntegralRecord">
+	 <property name="useActualColumnNames" value="true"/>
+	 </table>
+	 <table tableName = "accountrpt" domainObjectName="AccountRpt">
+	 <property name="useActualColumnNames" value="true"/>
+	 </table>-->
+	<!-- <table tableName = "blacklist" domainObjectName="BlackList">
+	</table>
+	<table tableName = "sms" domainObjectName="SMS">
+	<property name="useActualColumnNames" value="true"/>
+	</table>
+	<table tableName = "coupon" domainObjectName="Coupon">
+	 <property name="useActualColumnNames" value="true"/>
+	</table>
+	<table tableName = "coupon_apply_bill" domainObjectName="CouponApplyBill">
+	</table>
+	<table tableName = "coupon_bill_relation" domainObjectName="CouponBillRelation">
+	</table>-->
+
+	<table tableName = "ldp_ucenter_members" domainObjectName="Members">
+	</table>
+
+    </context>
+</generatorConfiguration>
