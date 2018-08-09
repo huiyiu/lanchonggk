@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Data
 @Table(name = "ldp_ucenter_members")
-//@Entity
+@Entity
 public class Members implements Serializable {
     @Id
     private Integer uid;

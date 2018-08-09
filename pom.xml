@@ -12,7 +12,7 @@
         <module>common</module>
         <module>service</module>
         <module>online</module>
-        <!--<module>boot-parent</module>-->
+        <module>boot-parent</module>
     </modules>
     <dependencies>
 
@@ -40,12 +40,23 @@
             <version>1.0.18</version>
         </dependency>
 
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+            <version>2.2</version>
+        </dependency>
 
 
         <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-spring-boot-starter</artifactId>
             <version>1.1.4</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.persistence</groupId>
+                    <artifactId>persistence-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -70,6 +81,4 @@
         </dependency>
 
     </dependencies>
-
-
 </project>

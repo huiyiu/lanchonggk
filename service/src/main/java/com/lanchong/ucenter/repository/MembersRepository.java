@@ -1,7 +1,7 @@
 package com.lanchong.ucenter.repository;
 
 import com.lanchong.ucenter.entity.Members;
-//import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
  *
  * Created by bysocket on 09/10/2017.
  */
-//@Repository
-//public interface MembersRepository extends JpaRepository<Members,Long> {
-    //Members findMembersByEmail(String email);
-//}
+@Repository
+public interface MembersRepository extends JpaRepository<Members,Long> {
+    Members findMembersByEmail(String email);
+}

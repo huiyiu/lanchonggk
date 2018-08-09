@@ -14,6 +14,6 @@ public class HelloController {
 
     @RequestMapping("hi")
     public String hello(){
-       return new Gson().toJson(demoService.getById());
+       return new Gson().toJson(demoService.getByEmail());
     }
 }
