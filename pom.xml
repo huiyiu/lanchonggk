@@ -12,7 +12,7 @@
         <module>common</module>
         <module>service</module>
         <module>online</module>
-        <module>boot-parent</module>
+        <!--<module>boot-parent</module>-->
     </modules>
     <dependencies>
 
@@ -40,10 +40,19 @@
             <version>1.0.18</version>
         </dependency>
 
+
+
         <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-spring-boot-starter</artifactId>
             <version>1.1.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version> 4.12</version>
+            <scope>test</scope>
         </dependency>
 
 

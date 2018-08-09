@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>com.smartniu.platform</groupId>
+        <groupId>com.lanchong</groupId>
         <artifactId>boot-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../boot-parent</relativePath>

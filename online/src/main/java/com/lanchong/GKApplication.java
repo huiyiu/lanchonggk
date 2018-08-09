@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages={"com.lanchong"})
+//@EnableJpaRepositories(basePackages = "com.lanchong")
 public class GKApplication {
     public static void main(String[] args) {
         SpringApplication.run(GKApplication.class, args);
