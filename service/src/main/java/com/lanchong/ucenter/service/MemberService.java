@@ -1,13 +1,11 @@
 package com.lanchong.ucenter.service;
 
-import com.lanchong.common.entity.Member;
-import com.lanchong.common.entity.MemberCount;
-import com.lanchong.common.entity.MemberProfile;
-import com.lanchong.common.mapper.MemberCountMapper;
-import com.lanchong.common.mapper.MemberMapper;
-import com.lanchong.common.mapper.MemberProfileMapper;
+import com.lanchong.common.entity.*;
+import com.lanchong.common.mapper.*;
 import com.lanchong.common.repository.MemberProfileRepository;
+import com.lanchong.ucenter.entity.MemberFields;
 import com.lanchong.ucenter.entity.Members;
+import com.lanchong.ucenter.mapper.MemberFieldsMapper;
 import com.lanchong.ucenter.mapper.MembersMapper;
 import com.lanchong.ucenter.repository.MembersRepository;
 import com.lanchong.util.DateUtils;
@@ -32,6 +30,18 @@ public class MemberService {
     MemberProfileMapper memberProfileMapper;
     @Autowired
     MemberCountMapper memberCountMapper;
+    @Autowired
+    MemberStatusMapper memberStatusMapper;
+    @Autowired
+    MemberFieldsMapper memberFieldsMapper;
+    @Autowired
+    OnlineTimeMapper onlineTimeMapper;
+    @Autowired
+    StatusUserMapper statusUserMapper;
+    @Autowired
+    MemberFeildHomeMapper memberFeildHomeMapper;
+    @Autowired
+    MemberFieldForumMapper memberFieldForumMapper;
 
     /**
      * 手机号是否注册
@@ -42,7 +52,7 @@ public class MemberService {
         return memberProfileRepository.findByTelephone(telephone) != null;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void addMember(String phone, String pwd, String ip){
         // md5(md5('pwd').'salt')
         //salt
@@ -113,6 +123,59 @@ public class MemberService {
         MemberCount memberCount = new MemberCount();
         memberCount.setUid(uid);
         memberCountMapper.insertSelective(memberCount);
+/*`uid`,`regip`,`lastip`,`port`,`lastvisit`,`lastactivity`,`lastpost`,`lastsendmail`,`invisible`,`buyercredit`,`sellercredit`,`favtimes`,`sharetimes`,`profileprogress`) values
+                (2247,'58.247.91.82','58.247.91.82',0,1533783966,1533783966,0,0,0,0,0,0,0,0);*/
+        MemberStatus memberStatus = new MemberStatus();
+        memberStatus.setUid(uid);
+        memberStatus.setRegip(ip);
+        memberStatus.setLastip(ip);
+        memberStatus.setLastvisit(DateUtils.now());
+        memberStatus.setLastpost(DateUtils.now());
+        memberStatusMapper.insertSelective(memberStatus);
+
+
+        MemberFields memberFields = new MemberFields();
+        memberFields.setUid(uid);
+        memberFields.setBlacklist("");
+        memberFieldsMapper.insertSelective(memberFields);
+
+
+        Onlinetime onlinetime = new Onlinetime();
+        onlinetime.setLastupdate(DateUtils.now());
+        onlinetime.setUid(uid);
+        onlinetime.setThismonth((short)1); //todo
+        onlinetime.setTotal(1);//todo
+        onlineTimeMapper.insertSelective(onlinetime);
+
+        StatUser statUser = new StatUser();
+        statUser.setDaytime(DateUtils.dayTime());
+        statUser.setUid(uid);
+        statUser.setType("login");
+        statusUserMapper.insertSelective(statUser);
+
+        MemberFieldHome memberFieldHome = new MemberFieldHome();
+        memberFieldHome.setUid(uid);
+        memberFieldHome.setSpacecss("");
+        memberFieldHome.setBlockposition("");
+        memberFieldHome.setPrivacy("");
+        memberFieldHome.setFeedfriend("");
+        memberFieldHome.setRecentnote("");
+        memberFieldHome.setSpacenote("");
+        memberFieldHome.setAcceptemail("");
+        memberFieldHome.setMagicgift("");
+        memberFieldHome.setStickblogs("");
+        memberFeildHomeMapper.insertSelective(memberFieldHome);
+
+        /*insert  into `ldp_common_member_field_forum`(`uid`,`medals`,`sightml`,`groupterms`,`groups`) values
+                (4446,'','','','');*/
+        MemberFieldForum memberFieldForum = new MemberFieldForum();
+        memberFieldForum.setUid(uid);
+        memberFieldForum.setGroups("");
+        memberFieldForum.setMedals("");
+        memberFieldForum.setSightml("");
+        memberFieldForum.setGroupterms("");
+        memberFieldForumMapper.insertSelective(memberFieldForum);
+
     }
 
     @Transactional

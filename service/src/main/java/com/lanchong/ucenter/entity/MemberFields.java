@@ -1,21 +1,22 @@
 package com.lanchong.ucenter.entity;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Objects;
 
 @Entity
 @Table(name = "ldp_ucenter_memberfields")
 public class MemberFields {
-    private Long uid;
+    private Integer uid;
     private String blacklist;
 
     @Id
     @Column(name = "uid")
-    public Long getUid() {
+    public Integer getUid() {
         return uid;
     }
 
-    public void setUid(Long uid) {
+    public void setUid(Integer uid) {
         this.uid = uid;
     }
 

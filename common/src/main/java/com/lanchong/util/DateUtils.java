@@ -1,10 +1,20 @@
 package com.lanchong.util;
 
+import org.joda.time.DateTime;
+
 import java.text.SimpleDateFormat;
 
 public class DateUtils {
     public static Integer now(){
         return Integer.parseInt (""+System.currentTimeMillis()/1000);
+    }
+
+    public static String day(){
+        return new DateTime().toString("yyyyMMdd");
+    }
+
+    public static Integer dayTime(){
+        return Integer.parseInt(new DateTime().toString("yyyyMMdd"));
     }
 
     public static void main(String[] args){

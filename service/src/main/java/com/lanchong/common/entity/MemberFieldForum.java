@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ldp_common_member_field_forum", schema = "bdm186320220", catalog = "")
+@Table(name = "ldp_common_member_field_forum", catalog = "")
 public class MemberFieldForum {
     private Integer uid;
     private Byte publishfeed;
