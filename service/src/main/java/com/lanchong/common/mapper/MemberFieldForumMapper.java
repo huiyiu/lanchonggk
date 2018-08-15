@@ -5,4 +5,6 @@ import com.lanchong.common.entity.MemberFieldForum;
 import com.lanchong.common.entity.MemberFieldHome;
 
 public interface MemberFieldForumMapper extends MyMapper<MemberFieldForum> {
+
+    int insert2(MemberFieldForum memberFieldForum);
 }

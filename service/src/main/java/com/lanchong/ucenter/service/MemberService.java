@@ -174,7 +174,7 @@ public class MemberService {
         memberFieldForum.setMedals("");
         memberFieldForum.setSightml("");
         memberFieldForum.setGroupterms("");
-        memberFieldForumMapper.insertSelective(memberFieldForum);
+        memberFieldForumMapper.insert2(memberFieldForum);
 
     }
 
