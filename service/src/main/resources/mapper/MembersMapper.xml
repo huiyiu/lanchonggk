@@ -5,17 +5,5 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="uid" property="uid" jdbcType="INTEGER" />
-    <result column="username" property="username" jdbcType="CHAR" />
-    <result column="password" property="password" jdbcType="CHAR" />
-    <result column="email" property="email" jdbcType="CHAR" />
-    <result column="myid" property="myid" jdbcType="CHAR" />
-    <result column="myidkey" property="myidkey" jdbcType="CHAR" />
-    <result column="regip" property="regip" jdbcType="CHAR" />
-    <result column="regdate" property="regdate" jdbcType="INTEGER" />
-    <result column="lastloginip" property="lastloginip" jdbcType="INTEGER" />
-    <result column="lastlogintime" property="lastlogintime" jdbcType="INTEGER" />
-    <result column="salt" property="salt" jdbcType="CHAR" />
-    <result column="secques" property="secques" jdbcType="CHAR" />
   </resultMap>
 </mapper>

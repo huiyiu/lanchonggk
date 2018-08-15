@@ -35,5 +35,7 @@ public class Members implements Serializable {
     private String salt;
 
     private String secques;
+    
+    private Integer status;
 
 }
