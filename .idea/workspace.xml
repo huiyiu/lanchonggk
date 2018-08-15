@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="586b0056-f727-4267-a720-dc2ea9068760" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/service/src/main/resources/mapper/MemberFieldForumMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/lanchong/util/Blowfish.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/online/src/main/java/com/lanchong/common/CookieUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/online/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/online/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/lanchong/common/mapper/MemberFieldForumMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/src/main/java/com/lanchong/common/mapper/MemberFieldForumMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/lanchong/exception/Assert.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/lanchong/exception/Assert.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/lanchong/util/StringUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/lanchong/util/StringUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/online/src/main/java/com/lanchong/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/online/src/main/java/com/lanchong/controller/MemberController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/src/main/java/com/lanchong/ucenter/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/src/main/java/com/lanchong/ucenter/service/MemberService.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -44,11 +47,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MemberService.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/service/src/main/java/com/lanchong/ucenter/service/MemberService.java">
+      <file leaf-file-name="MemberController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/online/src/main/java/com/lanchong/controller/MemberController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2527">
-              <caret line="176" column="33" lean-forward="true" selection-start-line="176" selection-start-column="33" selection-end-line="176" selection-end-column="33" />
+            <state relative-caret-position="706">
+              <caret line="43" column="25" selection-start-line="43" selection-start-column="25" selection-end-line="43" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -56,89 +59,103 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MemberFieldForumMapper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/service/src/main/java/com/lanchong/common/mapper/MemberFieldForumMapper.java">
+      <file leaf-file-name="JsonResult.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/src/main/java/com/lanchong/util/JsonResult.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+            <state relative-caret-position="-912">
+              <caret line="21" column="11" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MemberFieldForumMapper.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/service/src/main/resources/mapper/MemberFieldForumMapper.xml">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="66" selection-start-line="66" selection-end-line="66" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CookieUtils.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/online/src/main/java/com/lanchong/common/CookieUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3116">
+              <caret line="164" column="4" selection-start-line="164" selection-start-column="4" selection-end-line="164" selection-end-column="4" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Blowfish.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/src/main/java/com/lanchong/util/Blowfish.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="269">
+              <caret line="103" lean-forward="true" selection-start-line="94" selection-start-column="1" selection-end-line="108" selection-end-column="2" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Assert.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/src/main/java/com/lanchong/exception/Assert.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="114">
+              <caret line="6" column="5" lean-forward="true" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
+              <folding>
+                <element signature="e#725#726#0" expanded="true" />
+                <element signature="e#805#806#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExceptionCode.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/src/main/java/com/lanchong/exception/ExceptionCode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="38">
+              <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Members.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/service/src/main/java/com/lanchong/ucenter/entity/Members.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="133">
-              <caret line="7" column="14" lean-forward="true" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InsertSelectiveMapper.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/tk/mybatis/mapper-base/1.0.5-beta2/mapper-base-1.0.5-beta2.jar!/tk/mybatis/mapper/common/base/insert/InsertSelectiveMapper.class">
+      <file leaf-file-name="MemberService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/service/src/main/java/com/lanchong/ucenter/service/MemberService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MemberFieldsMapper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/service/src/main/java/com/lanchong/ucenter/mapper/MemberFieldsMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="6" column="65" selection-start-line="6" selection-start-column="65" selection-end-line="6" selection-end-column="65" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MemberFieldForum.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/service/src/main/java/com/lanchong/common/entity/MemberFieldForum.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+            <state relative-caret-position="219">
+              <caret line="172" column="18" selection-start-line="172" selection-start-column="18" selection-end-line="172" selection-end-column="18" />
               <folding>
-                <element signature="e#2205#2206#0" expanded="true" />
-                <element signature="e#2241#2242#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Column.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/javax/persistence/hibernate-jpa-2.1-api/1.0.0.Final/hibernate-jpa-2.1-api-1.0.0.Final.jar!/javax/persistence/Column.class">
+      <file leaf-file-name="StringUtil.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/src/main/java/com/lanchong/util/StringUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="91">
-              <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="application.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/online/src/main/resources/application.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="30" column="11" lean-forward="true" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MapperProperties.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/tk/mybatis/mapper-spring-boot-autoconfigure/2.0.4-beta2/mapper-spring-boot-autoconfigure-2.0.4-beta2.jar!/tk/mybatis/mapper/autoconfigure/MapperProperties.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GKApplication.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/online/src/main/java/com/lanchong/GKApplication.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+            <state relative-caret-position="19">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1239#1240#0" expanded="true" />
+                <element signature="e#1271#1272#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -194,16 +211,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/common/entity/Mailcron.java" />
-        <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/common/repository/MemberRepository.java" />
-        <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/common/repository/MemberProfileRepository.java" />
-        <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/common/entity/Session.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/common/entity/CommonSession.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/common/entity/StatUser.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/common/entity/Onlinetime.java" />
         <option value="$PROJECT_DIR$/common/src/main/java/com/lanchong/exception/BaseException.java" />
         <option value="$PROJECT_DIR$/common/src/main/java/com/lanchong/exception/JsonRequestException.java" />
-        <option value="$PROJECT_DIR$/common/src/main/java/com/lanchong/exception/Assert.java" />
         <option value="$PROJECT_DIR$/common/src/main/java/com/lanchong/exception/ExceptionCode.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/util/Common.java" />
         <option value="$PROJECT_DIR$/common/src/main/java/com/lanchong/util/Common.java" />
@@ -212,21 +224,18 @@
         <option value="$PROJECT_DIR$/online/src/main/java/com/lanchong/common/Common.java" />
         <option value="$PROJECT_DIR$/online/src/main/java/com/lanchong/controller/MemberContrller.java" />
         <option value="$PROJECT_DIR$/common/src/main/java/com/lanchong/util/JsonResult.java" />
-        <option value="$PROJECT_DIR$/common/src/main/java/com/lanchong/util/StringUtil.java" />
         <option value="$PROJECT_DIR$/online/src/test/java/test_jiami.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/common/mapper/MembersMapper.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/ucenter/entity/Member.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/ucenter/entity/Members.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/ucenter/mapper/MembersMapper.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/common/mapper/MemberMapper.java" />
-        <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/ucenter/repository/MembersRepository.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/common/mapper/MemberCountMapper.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/common/mapper/MemberProfileMapper.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/ucenter/service/DemoService.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/common/entity/Member.java" />
         <option value="$PROJECT_DIR$/service/src/main/resources/mapper/MembersMapper.xml" />
         <option value="$PROJECT_DIR$/online/src/test/resources/application.properties" />
-        <option value="$PROJECT_DIR$/online/src/main/java/com/lanchong/controller/MemberController.java" />
         <option value="$PROJECT_DIR$/common/src/main/java/com/lanchong/common/MyMapper.java" />
         <option value="$PROJECT_DIR$/service/pom.xml" />
         <option value="$PROJECT_DIR$/online/src/main/java/com/lanchong/conf/DefaultMybatisConfig.java" />
@@ -236,15 +245,23 @@
         <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/ucenter/mapper/MemberFieldsMapper.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/common/mapper/OnlineTimeMapper.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/common/mapper/StatusUserMapper.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/common/src/main/java/com/lanchong/util/DateUtils.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/common/mapper/MemberFeildHomeMapper.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/common/mapper/MemberFeildForumMapper.java" />
         <option value="$PROJECT_DIR$/online/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/common/entity/MemberFieldForum.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/common/mapper/MemberFieldForumMapper.java" />
-        <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/ucenter/service/MemberService.java" />
         <option value="$PROJECT_DIR$/service/src/main/resources/mapper/MemberFieldForumMapper.xml" />
+        <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/ucenter/repository/MembersRepository.java" />
+        <option value="$PROJECT_DIR$/common/src/main/java/com/lanchong/util/CookieUtil.java" />
+        <option value="$PROJECT_DIR$/online/src/main/java/com/lanchong/common/CookieUtil.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/service/src/main/java/com/lanchong/ucenter/service/MemberService.java" />
+        <option value="$PROJECT_DIR$/online/src/main/java/com/lanchong/controller/MemberController.java" />
+        <option value="$PROJECT_DIR$/common/src/main/java/com/lanchong/exception/Assert.java" />
+        <option value="$PROJECT_DIR$/common/src/main/java/com/lanchong/util/StringUtil.java" />
+        <option value="$PROJECT_DIR$/common/src/main/java/com/lanchong/util/Blowfish.java" />
+        <option value="$PROJECT_DIR$/online/src/main/java/com/lanchong/common/CookieUtils.java" />
       </list>
     </option>
   </component>
@@ -288,6 +305,172 @@
             <path>
               <item name="gk" type="b2602c69:ProjectViewProjectNode" />
               <item name="gk" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gk" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gk" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gk" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gk" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gk" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="lanchong" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gk" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="lanchong" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gk" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="lanchong" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gk" type="462c0819:PsiDirectoryNode" />
+              <item name="online" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gk" type="462c0819:PsiDirectoryNode" />
+              <item name="online" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gk" type="462c0819:PsiDirectoryNode" />
+              <item name="online" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gk" type="462c0819:PsiDirectoryNode" />
+              <item name="online" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gk" type="462c0819:PsiDirectoryNode" />
+              <item name="online" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="lanchong" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gk" type="462c0819:PsiDirectoryNode" />
+              <item name="online" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="lanchong" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gk" type="462c0819:PsiDirectoryNode" />
+              <item name="online" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="lanchong" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gk" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gk" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gk" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gk" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gk" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="lanchong" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gk" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="lanchong" type="462c0819:PsiDirectoryNode" />
+              <item name="ucenter" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gk" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="lanchong" type="462c0819:PsiDirectoryNode" />
+              <item name="ucenter" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -350,17 +533,28 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.GKApplication">
+  <component name="RunManager" selected="Application.CookieUtils">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
     </configuration>
-    <configuration name="DateUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.lanchong.util.DateUtils" />
+    <configuration name="Blowfish" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.lanchong.util.Blowfish" />
       <module name="common" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.lanchong.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+    </configuration>
+    <configuration name="CookieUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.lanchong.common.CookieUtils" />
+      <module name="online" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.lanchong.common.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -475,16 +669,18 @@
     <list>
       <item itemvalue="Spring Boot.GKApplication" />
       <item itemvalue="JUnit.test_jiami.encryptPwd" />
-      <item itemvalue="Application.DateUtils" />
       <item itemvalue="JUnit.test_jiami.testMd5" />
       <item itemvalue="JUnit.test_jiami" />
+      <item itemvalue="Application.Blowfish" />
+      <item itemvalue="Application.CookieUtils" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.CookieUtils" />
+        <item itemvalue="Application.Blowfish" />
         <item itemvalue="JUnit.test_jiami" />
         <item itemvalue="JUnit.test_jiami.testMd5" />
         <item itemvalue="JUnit.test_jiami.encryptPwd" />
-        <item itemvalue="Application.DateUtils" />
       </list>
     </recent_temporary>
   </component>
@@ -506,7 +702,7 @@
       <workItem from="1533803551727" duration="6811000" />
       <workItem from="1533864739038" duration="10234000" />
       <workItem from="1534208610548" duration="4584000" />
-      <workItem from="1534214057106" duration="25999000" />
+      <workItem from="1534214057106" duration="32963000" />
     </task>
     <task id="LOCAL-00001" summary="修改pom">
       <created>1533715713679</created>
@@ -550,7 +746,14 @@
       <option name="project" value="LOCAL" />
       <updated>1534311521550</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="mysql关键字报错处理">
+      <created>1534317352062</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1534317352062</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -586,10 +789,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75965000" />
+    <option name="totallyTimeSpent" value="82929000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="FindBugs-IDEA" order="7" />
@@ -606,13 +810,13 @@
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32952926" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info anchor="bottom" id="Java Enterprise" order="12" />
-      <window_info anchor="bottom" id="Run" order="5" sideWeight="0.49932975" visible="true" weight="0.20970044" />
+      <window_info active="true" anchor="bottom" id="Run" order="5" sideWeight="0.49932975" visible="true" weight="0.23252496" />
       <window_info anchor="bottom" id="Version Control" order="13" weight="0.32952926" />
       <window_info anchor="bottom" id="Spring" order="14" />
       <window_info anchor="bottom" id="CheckStyle" order="15" />
       <window_info anchor="bottom" id="Terminal" order="16" />
-      <window_info id="Persistence" order="3" sideWeight="0.38447654" side_tool="true" visible="true" weight="0.23324397" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.61552346" visible="true" weight="0.23324397" />
+      <window_info id="Persistence" order="3" sideWeight="0.38475835" side_tool="true" visible="true" weight="0.23324397" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.61524165" visible="true" weight="0.23324397" />
       <window_info anchor="right" id="Bean Validation" order="4" weight="0.3297587" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.47075605" />
@@ -663,73 +867,10 @@
     <MESSAGE value="整合mybatis和jpa" />
     <MESSAGE value="修改 tkmybatis版本至2.0.4-beta；解决@Transactional注解无效的bug" />
     <MESSAGE value="bug修改" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug修改" />
+    <MESSAGE value="mysql关键字报错处理" />
+    <option name="LAST_COMMIT_MESSAGE" value="mysql关键字报错处理" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/common/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/lanchong/util/Common.java" />
-    <entry file="file://$PROJECT_DIR$/online/src/main/java/com/lanchong/common/MapUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1786">
-          <caret line="107" column="37" selection-start-line="107" selection-start-column="37" selection-end-line="107" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/online/src/main/java/com/lanchong/common/Common.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="32" column="8" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#900#901#0" expanded="true" />
-            <element signature="e#944#945#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/lanchong/util/JsonResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="21" column="11" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/Program Files (x86)/Java/jdk1.8.0_144/src.zip!/java/util/UUID.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2223">
-          <caret line="140" column="23" selection-start-line="140" selection-start-column="23" selection-end-line="140" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/lanchong/util/StringUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="722">
-          <caret line="45" column="5" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/online/src/test/java/test_jiami.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/service/src/main/java/com/lanchong/common/repository/MemberProfileRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
@@ -744,13 +885,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/com/lanchong/ucenter/entity/Members.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/tk/mybatis/mapper/3.4.3/mapper-3.4.3.jar!/tk/mybatis/mapper/common/base/insert/InsertMapper.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
@@ -762,16 +896,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
           <caret line="6" column="1" lean-forward="true" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/com/lanchong/ucenter/repository/MembersRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="45" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -898,16 +1022,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/online/src/main/java/com/lanchong/controller/MemberController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="31" column="31" selection-start-line="31" selection-start-column="22" selection-end-line="31" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/service/src/main/java/com/lanchong/common/mapper/MemberStatusMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
@@ -933,13 +1047,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
           <caret line="6" column="54" selection-start-line="6" selection-start-column="51" selection-end-line="6" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="69" column="40" selection-start-line="69" selection-start-column="40" selection-end-line="69" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -1066,14 +1173,125 @@
     <entry file="file://$PROJECT_DIR$/service/src/main/resources/mapper/MemberFieldForumMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
-          <caret line="7" column="14" lean-forward="true" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+          <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/com/lanchong/ucenter/repository/MembersRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/com/lanchong/ucenter/entity/Members.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/lanchong/util/CookieUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="244" column="28" lean-forward="true" selection-start-line="244" selection-start-column="28" selection-end-line="244" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online/src/main/java/com/lanchong/common/CookieUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1073">
+          <caret line="41" column="44" lean-forward="true" selection-start-line="41" selection-start-column="44" selection-end-line="41" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/lanchong/util/JsonResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-912">
+          <caret line="21" column="11" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="66" selection-start-line="66" selection-end-line="66" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/service/src/main/java/com/lanchong/ucenter/service/MemberService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2527">
-          <caret line="176" column="33" lean-forward="true" selection-start-line="176" selection-start-column="33" selection-end-line="176" selection-end-column="33" />
+        <state relative-caret-position="219">
+          <caret line="172" column="18" selection-start-line="172" selection-start-column="18" selection-end-line="172" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/lanchong/exception/ExceptionCode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/lanchong/exception/Assert.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="5" lean-forward="true" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
+          <folding>
+            <element signature="e#725#726#0" expanded="true" />
+            <element signature="e#805#806#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online/src/main/java/com/lanchong/controller/MemberController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="706">
+          <caret line="43" column="25" selection-start-line="43" selection-start-column="25" selection-end-line="43" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/lanchong/util/StringUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1239#1240#0" expanded="true" />
+            <element signature="e#1271#1272#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/lanchong/util/Blowfish.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="103" lean-forward="true" selection-start-line="94" selection-start-column="1" selection-end-line="108" selection-end-column="2" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online/src/main/java/com/lanchong/common/CookieUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3116">
+          <caret line="164" column="4" selection-start-line="164" selection-start-column="4" selection-end-line="164" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

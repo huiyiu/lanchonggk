@@ -20,4 +20,8 @@ public class Assert {
         if (!o)
             throw new JsonRequestException(msg, ExceptionCode.PARAM_TRUE);
     }
+
+    public static void error(String msg) {
+        throw new JsonRequestException(msg, ExceptionCode.NETWORK_ERROR);
+    }
 }

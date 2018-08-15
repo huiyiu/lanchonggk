@@ -48,4 +48,15 @@ public class StringUtil {
   /*  public static String salt(){
         return UUID.randomUUID().toString();
     }*/
+
+    /**
+     * 字符串v如果为空串，则返回默认值d，否则为v本身。
+     *
+     * @param v
+     * @param d
+     * @return
+     */
+    public static String getDefault(String v, String d) {
+        return isEmpty(v) ? d : v;
+    }
 }

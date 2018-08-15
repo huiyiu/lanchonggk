@@ -3,6 +3,7 @@ package com.lanchong.ucenter.service;
 import com.lanchong.common.entity.*;
 import com.lanchong.common.mapper.*;
 import com.lanchong.common.repository.MemberProfileRepository;
+import com.lanchong.exception.Assert;
 import com.lanchong.ucenter.entity.MemberFields;
 import com.lanchong.ucenter.entity.Members;
 import com.lanchong.ucenter.mapper.MemberFieldsMapper;
@@ -77,24 +78,10 @@ public class MemberService {
         Member member = new Member();
         member.setUsername(phone);
         member.setPassword(pwd);
-//        member.setStatus((byte)0);
-//        member.setEmailstatus((byte)0);
-//        member.setAvatarstatus((byte)0);
-//        member.setVideophotostatus((byte)0);
-//        member.setAdminid((byte)0);
         member.setGroupid((short)10);  //10是什么组
-//        member.setGroupexpiry(0);
         member.setRegdate(DateUtils.now());
-//        member.setCredits(0);
-//        member.setNotifysound((byte)0);
         member.setTimeoffset("9999");
-//        member.setNewpm((short)0);
         member.setNewprompt((short)1);
-//        member.setAccessmasks((byte)0);
-//        member.setAllowadmincp((byte)0);
-//        member.setOnlyacceptfriendpm((byte)0);
-//        member.setConisbind((byte)0);
-//        member.setFreeze((byte)0);
         memberMapper.insertSelective(member);
 
         Members membersDb = membersRepository.findByUsername(phone);
@@ -102,13 +89,10 @@ public class MemberService {
 
         MemberProfile memberProfile = new MemberProfile();
         memberProfile.setUid(uid);
-        //gender`,`birthyear`,`birthmonth`,`birthday
-        //memberProfile.setGender((byte)0);
-        //memberProfile.setBirthyear((short)0);
-        //memberProfile.setBirthmonth((byte)0);
-        //memberProfile.setBirthday((byte)0);
         memberProfile.setIdcardtype("身份证");
         memberProfile.setBio("");
+        memberProfile.setTelephone(phone);
+        memberProfile.setMobile(phone);
         memberProfile.setInterest("");
         memberProfile.setField1("");
         memberProfile.setField2("");
@@ -123,8 +107,7 @@ public class MemberService {
         MemberCount memberCount = new MemberCount();
         memberCount.setUid(uid);
         memberCountMapper.insertSelective(memberCount);
-/*`uid`,`regip`,`lastip`,`port`,`lastvisit`,`lastactivity`,`lastpost`,`lastsendmail`,`invisible`,`buyercredit`,`sellercredit`,`favtimes`,`sharetimes`,`profileprogress`) values
-                (2247,'58.247.91.82','58.247.91.82',0,1533783966,1533783966,0,0,0,0,0,0,0,0);*/
+
         MemberStatus memberStatus = new MemberStatus();
         memberStatus.setUid(uid);
         memberStatus.setRegip(ip);
@@ -138,7 +121,6 @@ public class MemberService {
         memberFields.setUid(uid);
         memberFields.setBlacklist("");
         memberFieldsMapper.insertSelective(memberFields);
-
 
         Onlinetime onlinetime = new Onlinetime();
         onlinetime.setLastupdate(DateUtils.now());
@@ -166,8 +148,7 @@ public class MemberService {
         memberFieldHome.setStickblogs("");
         memberFeildHomeMapper.insertSelective(memberFieldHome);
 
-        /*insert  into `ldp_common_member_field_forum`(`uid`,`medals`,`sightml`,`groupterms`,`groups`) values
-                (4446,'','','','');*/
+
         MemberFieldForum memberFieldForum = new MemberFieldForum();
         memberFieldForum.setUid(uid);
         memberFieldForum.setGroups("");
@@ -181,5 +162,19 @@ public class MemberService {
     @Transactional
     public  String salt(){
         return UUID.randomUUID().toString().substring(0,6);
+    }
+
+    /**
+     *
+     * @param phone
+     * @param pwd
+     * @return
+     */
+    public Members login(String phone,String pwd){
+        MemberProfile mp =  memberProfileRepository.findByTelephone(phone);
+        Assert.notNull(mp,"该用户不存在！");
+        Members members = membersRepository.findByUsername(phone);
+        Assert.isTrue(DigestUtils.md5(pwd+"."+members.getSalt()).equals(members.getPassword()),"用户名或者密码不正确！");
+        return members;
     }
 }
