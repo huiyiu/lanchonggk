@@ -59,4 +59,23 @@ public class StringUtil {
     public static String getDefault(String v, String d) {
         return isEmpty(v) ? d : v;
     }
+
+    /**
+     *
+     * @param counts 随机数位数
+     * @return
+     */
+    public static String getRandomCode(int counts) {
+
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        for(int i = 0; i < counts;i++) {
+            sb.append(Math.abs(random.nextInt())%10);
+        }
+        return sb.toString();
+    }
+
+    public static boolean isTrue(String v) {
+        return "true".equalsIgnoreCase(v) || "1".equals(v);
+    }
 }

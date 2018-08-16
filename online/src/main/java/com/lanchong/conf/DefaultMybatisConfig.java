@@ -77,10 +77,4 @@ public class DefaultMybatisConfig {
     public SqlSessionTemplate defaultSessionTemplate(@Qualifier("defaultsessionFactory") SqlSessionFactory sqlSessionFactory){
         return new SqlSessionTemplate(sqlSessionFactory);
     }
-
-
-
-
-
-
 }

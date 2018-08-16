@@ -12,7 +12,7 @@
     <parent>
         <groupId>com.lanchong</groupId>
         <artifactId>boot-parent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0-SNAPSHOT</version>
         <relativePath>../boot-parent</relativePath>
     </parent>
 
