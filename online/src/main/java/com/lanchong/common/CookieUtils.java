@@ -18,6 +18,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.security.Key;
 import java.util.Base64;
+import java.util.Map;
 
 @Slf4j
 public class CookieUtils {
@@ -140,21 +141,49 @@ public class CookieUtils {
      * @param username
      * @param uid
      */
-    public static String setVerify(String username, String uid) {
+    public static String setVerify(String username, Integer uid) {
         String md5Value = DigestUtils.md5Hex(username + COOKIEKEY + uid);
         log.debug("setVerify:" + username + COOKIEKEY + uid);
         return md5Value;
     }
 
+    public static boolean checkVerify(HttpServletRequest request,HttpServletResponse response) {
+        Cookies cookies = Cookies.initFromServlet(request,response);
+        String username = cookies.get("username");
+        String uid = cookies.get("uid");
+        String verify = cookies.get("verify");
 
-    public static void markLogin(HttpServletRequest request, HttpServletResponse response, Members members) {
+        String md5Value = DigestUtils.md5Hex(username + COOKIEKEY + uid);
+        if (md5Value.equalsIgnoreCase(verify)) {
+            return true;
+        }
+
+        if (!StringUtil.isEmpty(username) || !StringUtil.isEmpty(uid) ||  !StringUtil.isEmpty(verify)){
+            markLogout(request,response);
+        }
+        return false;
+    }
+
+
+    public static Map<String,String> markLogin(HttpServletRequest request, HttpServletResponse response, UserInfo members) {
         Cookies cookies = Cookies.initFromServlet(request,response);
         try {
             cookies.set("uid",members.getUid());
             cookies.set("username",members.getUsername());
+            cookies.set("verify",setVerify(members.getUsername(),members.getUid()));
         } catch (CookieSerializationException e) {
             Assert.error("cookie设置异常！");
         }
+        return cookies.get();
+    }
+
+    public static void markLogout(HttpServletRequest request,HttpServletResponse response) {
+        Cookies cookies = Cookies.initFromServlet(request,response);
+        cookies.remove("uid");
+        //cookies.remove("nick");
+        cookies.remove("verify");
+        //cookies.remove("userLever");
+        //cookies.remove("userInfo");
     }
 
     public static HttpServletRequest getRequest() {
@@ -163,6 +192,11 @@ public class CookieUtils {
         return request;
     }
 
+    public static HttpServletResponse getResponse() {
+        HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder
+                .getRequestAttributes()).getResponse();
+        return response;
+    }
 
     public static void main(String[] args) throws Exception  {
 
@@ -172,4 +206,24 @@ public class CookieUtils {
 
     }
 
+    /**
+     *
+     * @param login
+     * @return
+     */
+    public static UserInfo getUserIfo(boolean login) {
+        if(login && checkVerify(getRequest(),getResponse())){
+            Cookies cookies = Cookies.initFromServlet(getRequest(),getResponse());
+            String username = cookies.get("username");
+            String uid = cookies.get("uid");
+            return new UserInfo(Integer.parseInt(uid),username);
+        }else{
+            Assert.unLogin("您尚未登陆！");
+        }
+        return null;
+    }
+
+    public static Cookies get(){
+        return Cookies.initFromServlet(getRequest(),getResponse());
+    }
 }

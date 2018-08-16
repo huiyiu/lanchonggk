@@ -36,6 +36,6 @@ public class Members implements Serializable {
 
     private String secques;
     
-    private Integer status;
+    //private Integer status;
 
 }

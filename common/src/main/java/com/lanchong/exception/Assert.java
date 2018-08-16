@@ -24,4 +24,8 @@ public class Assert {
     public static void error(String msg) {
         throw new JsonRequestException(msg, ExceptionCode.NETWORK_ERROR);
     }
+
+    public static void unLogin(String msg) {
+        throw new JsonRequestException(msg, ExceptionCode.UNLOGIN);
+    }
 }

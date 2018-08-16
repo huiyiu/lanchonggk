@@ -3,6 +3,7 @@ package com.lanchong.ucenter.service;
 import com.lanchong.common.entity.*;
 import com.lanchong.common.mapper.*;
 import com.lanchong.common.repository.MemberProfileRepository;
+import com.lanchong.common.repository.MemberRepository;
 import com.lanchong.exception.Assert;
 import com.lanchong.ucenter.entity.MemberFields;
 import com.lanchong.ucenter.entity.Members;
@@ -43,6 +44,8 @@ public class MemberService {
     MemberFeildHomeMapper memberFeildHomeMapper;
     @Autowired
     MemberFieldForumMapper memberFieldForumMapper;
+    @Autowired
+    MemberRepository memberRepository;
 
     /**
      * 手机号是否注册
@@ -171,10 +174,15 @@ public class MemberService {
      * @return
      */
     public Members login(String phone,String pwd){
+        pwd = DigestUtils.md5Hex(pwd);
         MemberProfile mp =  memberProfileRepository.findByTelephone(phone);
         Assert.notNull(mp,"该用户不存在！");
         Members members = membersRepository.findByUsername(phone);
-        Assert.isTrue(DigestUtils.md5(pwd+"."+members.getSalt()).equals(members.getPassword()),"用户名或者密码不正确！");
+        Assert.isTrue(DigestUtils.md5Hex(pwd+"."+members.getSalt()).equals(members.getPassword()),"用户名或者密码不正确！");
         return members;
+    }
+
+    public Member getMember(Integer uid) {
+        return memberRepository.findByUid(uid);
     }
 }
