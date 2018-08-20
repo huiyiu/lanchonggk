@@ -142,4 +142,8 @@ public class VerifyCodeService {
 			if(System.currentTimeMillis()>=getExpired(k)) vc.remove(k);
 		}
 	}
+
+	public static void main(String[] args) {
+
+	}
 }
