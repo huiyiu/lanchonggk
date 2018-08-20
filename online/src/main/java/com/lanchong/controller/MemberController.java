@@ -15,13 +15,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("member")
-public class MemberController {
+public class MemberController{
 
     @Autowired
     MemberService memberService;
@@ -35,7 +34,6 @@ public class MemberController {
         return new JsonResult().toJson();
     }
 
-
     @PostMapping("login")
     @ApiOperation(value = "登陆", notes = "登陆")
     public String login(HttpServletRequest request,HttpServletResponse response,String phone, String pwd) {
@@ -46,7 +44,6 @@ public class MemberController {
         return jr.toJson();
     }
 
-
     @GetMapping
     @ApiOperation(value = "获取用户信息", notes = "获取用户信息")
     public String getUserInfo(){
@@ -55,8 +52,6 @@ public class MemberController {
         jr.attr("member",memberService.getMember(userInfo.getUid()));
         return jr.toJson();
     }
-
-
 
 
     @GetMapping("phoneIsSign")
@@ -87,5 +82,4 @@ public class MemberController {
         String verifyCodeTmp =  CookieUtils.get().get("vc");
         return !StringUtil.isEmpty(verifyCodeTmp) && DigestUtils.md5Hex(DigestUtils.md5Hex(verifyCode)+"TH").equalsIgnoreCase(verifyCodeTmp);
     }
-
 }

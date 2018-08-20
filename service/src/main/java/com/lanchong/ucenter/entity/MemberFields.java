@@ -1,7 +1,6 @@
 package com.lanchong.ucenter.entity;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Objects;
 
 @Entity

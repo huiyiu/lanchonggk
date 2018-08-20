@@ -1,16 +1,15 @@
 package com.lanchong.common;
 
 import com.lanchong.util.StringUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.MessageDigest;
 import java.util.Random;
 
 
+@Slf4j
 public class Common {
-	private final static Logger logger = LoggerFactory.getLogger(Common.class);
 	private final static String PASSPORT_DOMAIN="http:// /";
 	
 
@@ -37,7 +36,7 @@ public class Common {
 	public static Long getIpValue(String ip) {
 		long ipv = 0;
 		if(!StringUtil.isIpAddr(ip)){
-			logger.warn("IP地址【{}】格式不正确！",ip);
+			log.warn("IP地址【{}】格式不正确！",ip);
 			return ipv;
 		}
 		for(String ips : ip.split("\\.")){
@@ -52,7 +51,7 @@ public class Common {
 	 */
 	public static String getIpAddr(HttpServletRequest request) {
 		Object o=request.getParameter("_remote_ip");
-		logger.debug("getIpAddr _remote_ip:"+ o);
+		log.debug("getIpAddr _remote_ip:"+ o);
 		if(null!=o && !"".equals(o.toString())){
 			return o.toString();
 		}
@@ -73,7 +72,7 @@ public class Common {
 		if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
 			ip = request.getRemoteAddr();
 		}
-		logger.debug("time :"+ (System.currentTimeMillis()-start) +" getIpAddr:"+ip);
+		log.debug("time :"+ (System.currentTimeMillis()-start) +" getIpAddr:"+ip);
 		return ip;
 	}
 

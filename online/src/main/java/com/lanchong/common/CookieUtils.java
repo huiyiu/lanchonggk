@@ -3,7 +3,6 @@ package com.lanchong.common;
 import com.github.jscookie.javacookie.CookieSerializationException;
 import com.github.jscookie.javacookie.Cookies;
 import com.lanchong.exception.Assert;
-import com.lanchong.ucenter.entity.Members;
 import com.lanchong.util.Blowfish;
 import com.lanchong.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
