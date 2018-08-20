@@ -23,12 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("member")
 public class MemberController {
 
-    //@Autowired
-    //MemberProfileRepository memberProfileRepository;、
     @Autowired
     MemberService memberService;
-
-
 
     @PostMapping("signUp")
     @ApiOperation(value = "注册", notes = "注册")
