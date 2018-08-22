@@ -62,6 +62,14 @@ public class MemberController{
         return new JsonResult(isSign,"").toJson();
     }
 
+    @PostMapping("nameIsSign")
+    @ApiOperation(value = "用户名是否注册", notes = "用户名是否注册")
+    public String userNameCheck(String username){
+        Assert.isTrue(username.trim().length() >=3 && username.trim().length() <= 15,"用户名由3到15个字符组成！");
+        boolean isSign =  memberService.userNameSignedIn(username);
+        return new JsonResult(isSign,"").toJson();
+    }
+
     /**
      * 检查图形验证是否正确
      * @param verifyCode

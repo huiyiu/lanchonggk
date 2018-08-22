@@ -79,22 +79,11 @@ public class GlobalController {
 //		CookieUtil.setCookie(response, "vct", capText, 0);
 		Cookies cookies = Cookies.initFromServlet(request,response);
 		cookies.set("vc",codecode);
-		ServletOutputStream out = null;
-		try {
-			out = response.getOutputStream();
-			ImageIO.write(bi, "jpg", out);
-			out.flush();
-		} catch (Exception e) {
-			log.warn("生成图片验证码失败："+e.getMessage());
-			e.printStackTrace();
-		} finally {
-			try {
-				if(out!=null)
-				out.close();
-			} catch (IOException e) {
 
-				e.printStackTrace();
-			}
+		try (ServletOutputStream out = response.getOutputStream()){
+			ImageIO.write(bi, "jpg", out);
+		}catch (Exception e){
+			log.warn("生成图片验证码失败："+e.getMessage());
 		}
 	}
 }

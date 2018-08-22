@@ -185,4 +185,8 @@ public class MemberService {
     public Member getMember(Integer uid) {
         return memberRepository.findByUid(uid);
     }
+
+    public boolean userNameSignedIn(String username) {
+        return membersRepository.findByUsername(username) != null;
+    }
 }
