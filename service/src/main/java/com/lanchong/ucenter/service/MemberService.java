@@ -41,7 +41,7 @@ public class MemberService {
     @Autowired
     StatusUserMapper statusUserMapper;
     @Autowired
-    MemberFeildHomeMapper memberFeildHomeMapper;
+    MemberFieldHomeMapper memberFeildHomeMapper;
     @Autowired
     MemberFieldForumMapper memberFieldForumMapper;
     @Autowired
