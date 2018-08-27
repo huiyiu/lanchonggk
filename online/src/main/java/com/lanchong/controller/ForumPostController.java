@@ -9,6 +9,7 @@ import com.lanchong.util.JsonResult;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,7 @@ public class ForumPostController {
             @ApiImplicitParam(defaultValue = "1", name = "page", value = "页数", paramType = "query"),
             @ApiImplicitParam(defaultValue = "100", name = "pageSize", value = "页面大小", paramType = "query")
     })
+    @ApiResponse(response = Post.class,code = 200,message = "成功")
     @ApiOperation(value = "我的帖子", notes = "我的帖子")
     public String phoneCheck(@RequestParam(value = "page",defaultValue = "1",required = false)int page,
                              @RequestParam(value = "pageSize",defaultValue = "10",required = false)int pageSize){

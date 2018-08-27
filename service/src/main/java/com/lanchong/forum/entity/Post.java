@@ -1,5 +1,7 @@
 package com.lanchong.forum.entity;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,10 +12,15 @@ public class Post {
     private Integer fid;
     private Integer tid;
     private Byte first;
+    @ApiModelProperty(value = "作者")
     private String author;
+    @ApiModelProperty(value = "作者编号")
     private Integer authorid;
+    @ApiModelProperty(value = "主题")
     private String subject;
+    @ApiModelProperty(value = "发布时间")
     private Integer dateline;
+    @ApiModelProperty(value = "内容")
     private String message;
     private String useip;
     private Short port;
@@ -26,9 +33,12 @@ public class Post {
     private Byte parseurloff;
     private Byte attachment;
     private Short rate;
+    //
+    @ApiModelProperty(value = "评分次数")
     private Integer ratetimes;
     private Integer status;
     private String tags;
+    @ApiModelProperty(value = "是否存在点评")
     private Byte comment;
     private Integer replycredit;
     private Integer position;
