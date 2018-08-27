@@ -35,7 +35,7 @@ public class MemberController{
     }
 
     @PostMapping("login")
-    @ApiOperation(value = "登陆", notes = "登陆")
+    @ApiOperation(value = "登陆(15829773057,a11111)", notes = "登陆")
     public String login(HttpServletRequest request,HttpServletResponse response,String phone, String pwd) {
         Assert.isTrue(StringUtil.isTelephone(phone),"请检查手机号码格式");
         Members members = memberService.login(phone,pwd);
