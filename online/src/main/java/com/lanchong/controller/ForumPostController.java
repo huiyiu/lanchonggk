@@ -29,7 +29,7 @@ public class ForumPostController {
             @ApiImplicitParam(defaultValue = "1", name = "page", value = "页数", paramType = "query"),
             @ApiImplicitParam(defaultValue = "100", name = "pageSize", value = "页面大小", paramType = "query")
     })
-    @ApiResponse(response = Post.class,code = 200,message = "成功")
+    //@ApiResponse(response = Post.class,code = 200,message = "成功")
     @ApiOperation(value = "我的帖子", notes = "我的帖子")
     public String phoneCheck(@RequestParam(value = "page",defaultValue = "1",required = false)int page,
                              @RequestParam(value = "pageSize",defaultValue = "10",required = false)int pageSize){
