@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Objects;
 
-@Table(name = "ldp_common_session", schema = "bdm186320220", catalog = "")
+@Table(name = "ldp_common_session", catalog = "")
 public class CommonSession {
     private String sid;
     private Byte ip1;

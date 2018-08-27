@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ldp_common_member_field_home", schema = "bdm186320220", catalog = "")
+@Table(name = "ldp_common_member_field_home", catalog = "")
 public class MemberFieldHome {
     private Integer uid;
     private String videophoto;

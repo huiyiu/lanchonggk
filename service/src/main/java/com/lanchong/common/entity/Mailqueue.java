@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ldp_common_mailqueue", schema = "bdm186320220", catalog = "")
+@Table(name = "ldp_common_mailqueue", catalog = "")
 public class Mailqueue {
     private Integer qid;
     private Integer cid;

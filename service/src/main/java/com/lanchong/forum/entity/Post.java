@@ -26,7 +26,7 @@ public class Post {
     private Byte parseurloff;
     private Byte attachment;
     private Short rate;
-    private Byte ratetimes;
+    private Integer ratetimes;
     private Integer status;
     private String tags;
     private Byte comment;
@@ -236,11 +236,11 @@ public class Post {
 
     @Basic
     @Column(name = "ratetimes")
-    public Byte getRatetimes() {
+    public Integer getRatetimes() {
         return ratetimes;
     }
 
-    public void setRatetimes(Byte ratetimes) {
+    public void setRatetimes(Integer ratetimes) {
         this.ratetimes = ratetimes;
     }
 

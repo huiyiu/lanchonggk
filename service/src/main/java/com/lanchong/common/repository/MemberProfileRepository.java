@@ -4,5 +4,5 @@ import com.lanchong.common.entity.MemberProfile;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MemberProfileRepository extends JpaRepository<MemberProfile,Integer> {
-    MemberProfile findByTelephone(String telephone);
+    MemberProfile findByMobile(String mobile);
 }

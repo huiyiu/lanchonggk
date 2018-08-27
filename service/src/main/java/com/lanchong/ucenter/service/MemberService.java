@@ -53,7 +53,7 @@ public class MemberService {
      * @return
      */
     public boolean isSignedIn(String telephone){
-        return memberProfileRepository.findByTelephone(telephone) != null;
+        return memberProfileRepository.findByMobile(telephone) != null;
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -62,8 +62,8 @@ public class MemberService {
         //salt
         pwd = DigestUtils.md5Hex(pwd);
         String salt = salt();
-        String pwdEnytp = DigestUtils.md5Hex(pwd+"."+salt);
-
+        //String pwdEnytp = DigestUtils.md5Hex(pwd+"."+salt);
+        String pwdEnytp = DigestUtils.md5Hex(pwd + salt);
         Members members = new Members();
         members.setEmail("");
         members.setPassword(pwdEnytp);
@@ -175,10 +175,11 @@ public class MemberService {
      */
     public Members login(String phone,String pwd){
         pwd = DigestUtils.md5Hex(pwd);
-        MemberProfile mp =  memberProfileRepository.findByTelephone(phone);
+        MemberProfile mp =  memberProfileRepository.findByMobile(phone);
         Assert.notNull(mp,"该用户不存在！");
-        Members members = membersRepository.findByUsername(phone);
-        Assert.isTrue(DigestUtils.md5Hex(pwd+"."+members.getSalt()).equals(members.getPassword()),"用户名或者密码不正确！");
+        Members members = membersRepository.findByUid(mp.getUid());
+        //Assert.isTrue(DigestUtils.md5Hex(pwd+"."+members.getSalt()).equals(members.getPassword()),"用户名或者密码不正确！");
+        Assert.isTrue(DigestUtils.md5Hex(pwd+members.getSalt()).equals(members.getPassword()),"用户名或者密码不正确！");
         return members;
     }
 
