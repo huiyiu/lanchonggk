@@ -169,6 +169,7 @@ public class CookieUtils {
         try {
             cookies.set("uid",members.getUid());
             cookies.set("username",members.getUsername());
+            cookies.set("mobile",members.getMobile());
             cookies.set("verify",setVerify(members.getUsername(),members.getUid()));
         } catch (CookieSerializationException e) {
             Assert.error("cookie设置异常！");
@@ -214,8 +215,9 @@ public class CookieUtils {
         if(login && checkVerify(getRequest(),getResponse())){
             Cookies cookies = Cookies.initFromServlet(getRequest(),getResponse());
             String username = cookies.get("username");
+            String mobile = cookies.get("mobile");
             String uid = cookies.get("uid");
-            return new UserInfo(Integer.parseInt(uid),username);
+            return new UserInfo(Integer.parseInt(uid),username,mobile);
         }else{
             Assert.unLogin("您尚未登陆！");
         }

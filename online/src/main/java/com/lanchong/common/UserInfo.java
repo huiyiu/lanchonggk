@@ -3,13 +3,15 @@ package com.lanchong.common;
 public class UserInfo {
     private Integer uid;
     private String username;
+    private String mobile;
 
     public UserInfo() {
     }
 
-    public UserInfo(Integer uid, String username) {
+    public UserInfo(Integer uid, String username, String mobile) {
         this.uid = uid;
         this.username = username;
+        this.mobile = mobile;
     }
 
     public Integer getUid() {
@@ -26,5 +28,13 @@ public class UserInfo {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }

@@ -3,12 +3,14 @@ package com.lanchong.controller;
 import com.lanchong.common.Common;
 import com.lanchong.common.CookieUtils;
 import com.lanchong.common.UserInfo;
+import com.lanchong.common.entity.Member;
 import com.lanchong.exception.Assert;
 import com.lanchong.ucenter.entity.Members;
 import com.lanchong.ucenter.service.MemberService;
 import com.lanchong.util.JsonResult;
 import com.lanchong.util.StringUtil;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,12 +42,13 @@ public class MemberController{
         Assert.isTrue(StringUtil.isTelephone(phone),"请检查手机号码格式");
         Members members = memberService.login(phone,pwd);
         JsonResult jr = new JsonResult();
-        jr.adMap(CookieUtils.markLogin(request,response,new UserInfo(members.getUid(),phone)));
+        jr.adMap(CookieUtils.markLogin(request,response,new UserInfo(members.getUid(),members.getUsername(),phone)));
         return jr.toJson();
     }
 
     @GetMapping
     @ApiOperation(value = "获取用户信息", notes = "获取用户信息")
+    @ApiResponse(code = 200,response = Member.class,message = "用户基本信息")
     public String getUserInfo(){
         UserInfo userInfo = CookieUtils.getUserIfo(true);
         JsonResult jr = new JsonResult();

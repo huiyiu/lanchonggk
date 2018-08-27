@@ -1,12 +1,15 @@
 package com.lanchong.forum.entity;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiResponse;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "ldp_forum_post", schema = "lanchonggk", catalog = "")
 @IdClass(PostPK.class)
+@ApiModel
 public class Post {
     private Integer pid;
     private Integer fid;
