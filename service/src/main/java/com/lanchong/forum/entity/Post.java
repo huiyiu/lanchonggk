@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiResponse;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ldp_forum_post", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_post", catalog = "")
 @IdClass(PostPK.class)
 @ApiModel
 public class Post {
@@ -46,6 +46,9 @@ public class Post {
     private Integer replycredit;
     private Integer position;
     private String readuser;
+
+    @Transient
+    private String attachmentUrl;
 
     @Basic
     @Column(name = "pid")
@@ -315,6 +318,14 @@ public class Post {
 
     public void setReaduser(String readuser) {
         this.readuser = readuser;
+    }
+
+    public String getAttachmentUrl() {
+        return attachmentUrl;
+    }
+
+    public void setAttachmentUrl(String attachmentUrl) {
+        this.attachmentUrl = attachmentUrl;
     }
 
     @Override

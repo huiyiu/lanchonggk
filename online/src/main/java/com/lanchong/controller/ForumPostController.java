@@ -1,21 +1,23 @@
 package com.lanchong.controller;
 
-import com.github.pagehelper.PageInfo;
 import com.lanchong.common.CookieUtils;
 import com.lanchong.common.UserInfo;
+import com.lanchong.exception.Assert;
 import com.lanchong.forum.entity.Post;
 import com.lanchong.forum.service.PostService;
 import com.lanchong.util.JsonResult;
+import com.lanchong.util.StringUtil;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.ws.Action;
 
 @RestController
 @RequestMapping("post")
@@ -25,18 +27,15 @@ public class ForumPostController {
     PostService postService;
 
     @GetMapping
-    @ApiImplicitParams({
-            @ApiImplicitParam(defaultValue = "1", name = "page", value = "页数", paramType = "query"),
-            @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")
-    })
-    @ApiOperation(value = "我的帖子", notes = "我的帖子",response = Post.class)
-    public String phoneCheck(@RequestParam(value = "page",defaultValue = "1",required = false)int page,
-                             @RequestParam(value = "pageSize",defaultValue = "10",required = false)int pageSize){
+    @ApiOperation(value = "我的帖子", notes = "我的帖子")
+    @ApiImplicitParams({ @ApiImplicitParam(defaultValue = "0", name = "page", value = "页数", paramType = "query"),
+            @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
+    public String phoneCheck(@RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "10")int pageSize){
         UserInfo userInfo = CookieUtils.getUserIfo(true);
-        PageInfo<Post> pageInfo = postService.getByUid(userInfo.getUid(),page,pageSize);
+        Page pageInfo = postService.getByUid(userInfo.getUid(),page,pageSize);
         JsonResult jr = new JsonResult();
-        jr.setList(pageInfo.getList());
-        jr.setTotalCount(pageInfo.getTotal());
+        jr.setTotalCount(pageInfo.getTotalElements());
+        jr.setList(pageInfo.getContent());
         return jr.toJson();
     }
 

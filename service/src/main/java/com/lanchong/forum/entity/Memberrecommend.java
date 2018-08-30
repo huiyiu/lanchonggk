@@ -2,8 +2,8 @@ package com.lanchong.forum.entity;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "ldp_forum_memberrecommend", schema = "lanchonggk", catalog = "",uniqueConstraints=@UniqueConstraint(columnNames={"tid", "recommenduid"}))
+//@Entity
+@Table(name = "ldp_forum_memberrecommend", schema = "lanchonggk")
 public class Memberrecommend {
     private Integer tid;
     private Integer recommenduid;
