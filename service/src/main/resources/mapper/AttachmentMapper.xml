@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lanchong.forum.mapper.AttachmentMapper" >
+  <resultMap id="BaseResultMap" type="com.lanchong.forum.entity.Attachment" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <association property="attachmentN" javaType="com.lanchong.forum.entity.AttachmentN" autoMapping="true">
+      <!--<result column="attachment" jdbcType="VARCHAR" property="attachment" />-->
+    </association>
+  </resultMap>
+  <select id="findByPid" resultMap="BaseResultMap">
+    select a.*,b.attachment,b.description,b.isimage from ldp_forum_attachment a
+    left join ldp_forum_attachment_1 b on b.aid = a.aid
+    where a.pid = #{pid}
+    union
+    select a.*,b.attachment,b.description,b.isimage from ldp_forum_attachment a
+    left join ldp_forum_attachment_2 b on b.aid = a.aid
+    where a.pid = #{pid}
+    union
+    select a.*,b.attachment,b.description,b.isimage from ldp_forum_attachment a
+    left join ldp_forum_attachment_3 b on b.aid = a.aid
+    where a.pid = #{pid}
+    union
+    select a.*,b.attachment,b.description,b.isimage from ldp_forum_attachment a
+    left join ldp_forum_attachment_4 b on b.aid = a.aid
+    where a.pid = #{pid}
+    union
+    select a.*,b.attachment,b.description,b.isimage from ldp_forum_attachment a
+    left join ldp_forum_attachment_5 b on b.aid = a.aid
+    where a.pid = #{pid}
+    union
+    select a.*,b.attachment,b.description,b.isimage from ldp_forum_attachment a
+    left join ldp_forum_attachment_6 b on b.aid = a.aid
+    where a.pid = #{pid}
+    union
+    select a.*,b.attachment,b.description,b.isimage from ldp_forum_attachment a
+    left join ldp_forum_attachment_7 b on b.aid = a.aid
+    where a.pid = #{pid}
+    union
+    select a.*,b.attachment,b.description,b.isimage from ldp_forum_attachment a
+    left join ldp_forum_attachment_8 b on b.aid = a.aid
+    where a.pid = #{pid}
+     union
+    select a.*,b.attachment,b.description,b.isimage from ldp_forum_attachment a
+    left join ldp_forum_attachment_9 b on b.aid = a.aid
+    where a.pid = #{pid}
+  </select>
+</mapper>

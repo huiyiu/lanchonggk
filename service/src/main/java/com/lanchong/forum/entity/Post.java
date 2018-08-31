@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiResponse;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "ldp_forum_post", catalog = "")
@@ -26,7 +27,7 @@ public class Post {
     @ApiModelProperty(value = "内容")
     private String message;
     private String useip;
-    private Short port;
+    private Integer port;
     private Byte invisible;
     private Byte anonymous;
     private Byte usesig;
@@ -47,8 +48,8 @@ public class Post {
     private Integer position;
     private String readuser;
 
-    @Transient
-    private String attachmentUrl;
+
+    private List<Attachment> attachments;
 
     @Basic
     @Column(name = "pid")
@@ -152,11 +153,11 @@ public class Post {
 
     @Basic
     @Column(name = "port")
-    public Short getPort() {
+    public Integer getPort() {
         return port;
     }
 
-    public void setPort(Short port) {
+    public void setPort(Integer port) {
         this.port = port;
     }
 
@@ -320,12 +321,15 @@ public class Post {
         this.readuser = readuser;
     }
 
-    public String getAttachmentUrl() {
-        return attachmentUrl;
+
+
+    @Transient
+    public List<Attachment> getAttachments() {
+        return attachments;
     }
 
-    public void setAttachmentUrl(String attachmentUrl) {
-        this.attachmentUrl = attachmentUrl;
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
     }
 
     @Override
