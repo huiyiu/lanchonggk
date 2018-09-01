@@ -12,10 +12,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.xml.ws.Action;
 
@@ -36,6 +33,18 @@ public class ForumPostController {
         JsonResult jr = new JsonResult();
         jr.setTotalCount(pageInfo.getTotalElements());
         jr.setList(pageInfo.getContent());
+        return jr.toJson();
+    }
+
+
+    @GetMapping("{pid}")
+    @ApiOperation(value = "帖子详情", notes = "帖子详情",response = Post.class)
+    @ApiImplicitParam(name = "pid", value = "帖子编号", paramType = "path",dataType = "Integer")
+    public String postDetail(@PathVariable Integer pid){
+        //UserInfo userInfo = CookieUtils.getUserIfo(true);
+        Post post = postService.getByPid(pid);
+        JsonResult jr = new JsonResult();
+        jr.attr("post",post);
         return jr.toJson();
     }
 

@@ -21,7 +21,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 
@@ -101,5 +100,18 @@ public class PostService {
                         }
                 ).stream().collect(Collectors.toList());
         return postPage;
+    }
+
+    /**
+     * 获取帖子详情
+     * @param pid
+     * @return
+     */
+    public Post getByPid(Integer pid) {
+        Post post = postRepository.findByPid(pid);
+        if(null != post){
+            post.setAttachments(getAttachment(pid));
+        }
+        return post;
     }
 }
