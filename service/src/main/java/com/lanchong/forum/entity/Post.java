@@ -1,5 +1,6 @@
 package com.lanchong.forum.entity;
 
+import com.lanchong.home.entity.Favorite;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiResponse;

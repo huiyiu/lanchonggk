@@ -30,9 +30,22 @@ public class ForumPostController {
     @ApiOperation(value = "我的帖子", notes = "我的帖子",response = Post.class)
     @ApiImplicitParams({ @ApiImplicitParam(defaultValue = "0", name = "page", value = "页数", paramType = "query"),
             @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
-    public String phoneCheck(@RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "10")int pageSize){
+    public String myPost(@RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "10")int pageSize){
         UserInfo userInfo = CookieUtils.getUserIfo(true);
         Page pageInfo = postService.getByUid(userInfo.getUid(),page,pageSize);
+        JsonResult jr = new JsonResult();
+        jr.setTotalCount(pageInfo.getTotalElements());
+        jr.setList(pageInfo.getContent());
+        return jr.toJson();
+    }
+
+    @GetMapping("favor")
+    @ApiOperation(value = "我的收藏", notes = "我的收藏",response = Post.class)
+    @ApiImplicitParams({ @ApiImplicitParam(defaultValue = "0", name = "page", value = "页数", paramType = "query"),
+            @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
+    public String myFavorite(@RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "10")int pageSize){
+        UserInfo userInfo = CookieUtils.getUserIfo(true);
+        Page pageInfo = postService.getFavoriteByUid(userInfo.getUid(),page,pageSize);
         JsonResult jr = new JsonResult();
         jr.setTotalCount(pageInfo.getTotalElements());
         jr.setList(pageInfo.getContent());

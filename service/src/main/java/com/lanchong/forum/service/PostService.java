@@ -9,6 +9,8 @@ import com.lanchong.forum.mapper.AttachmentMapper;
 import com.lanchong.forum.mapper.PostMapper;
 import com.lanchong.forum.repository.AttachmentRepository;
 import com.lanchong.forum.repository.PostRepository;
+import com.lanchong.home.entity.Favorite;
+import com.lanchong.home.repository.FavoriteRepository;
 import com.lanchong.util.StringUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +33,20 @@ public class PostService {
     AttachmentRepository attachmentRepository;
     @Autowired
     AttachmentMapper attachmentMapper;
-
+    @Autowired
+    FavoriteRepository favoriteRepository;
     @Autowired
     PostMapper postMapper;
-
     @Value("${attachment.forum.dir}")
     String attachmentForum;
 
+    /**
+     * 我的帖子
+     * @param uid
+     * @param page
+     * @param pageSize
+     * @return
+     */
     public Page<Post> getByUid(Integer uid, int page, int pageSize) {
         Page<Post> postPage = postRepository.findByAuthorid(uid, PageRequest.of(page,pageSize, Sort.by(Sort.Order.desc("dateline"))));
         postPage
@@ -59,6 +68,11 @@ public class PostService {
         return attachmentRepository.findByPid(pid);
     }*/
 
+    /**
+     * 获取帖子 附件地址
+     * @param pid
+     * @return
+     */
    public  List<Attachment> getAttachment(Integer pid){
        return attachmentMapper.findByPid(pid)
                .stream()
@@ -70,4 +84,22 @@ public class PostService {
                .collect(Collectors.toList());
    }
 
+    /**
+     * 我的收藏
+     * @param uid
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    public Page<Favorite> getFavoriteByUid(Integer uid, int page, int pageSize) {
+        Page<Favorite> postPage = favoriteRepository.findByUid(uid, PageRequest.of(page,pageSize, Sort.by(Sort.Order.desc("dateline"))));
+        postPage
+                .filter(favorite->favorite.getPost().getAttachment() != 0)
+                .map(favorite->{
+                    favorite.getPost().setAttachments(getAttachment(favorite.getPost().getPid()));
+                            return favorite;
+                        }
+                ).stream().collect(Collectors.toList());
+        return postPage;
+    }
 }

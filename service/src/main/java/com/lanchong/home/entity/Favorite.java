@@ -1,19 +1,32 @@
 package com.lanchong.home.entity;
 
+import com.lanchong.forum.entity.AttachmentN;
+import com.lanchong.forum.entity.Post;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ldp_home_favorite", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_home_favorite", catalog = "")
 public class Favorite {
     private Integer favid;
+
     private Integer uid;
+    @ApiModelProperty(value = "帖子编号")
     private Integer id;
     private String idtype;
     private Integer spaceuid;
+    @ApiModelProperty(value = "帖子标题")
     private String title;
+    @ApiModelProperty(value = "帖子描述")
     private String description;
+    @ApiModelProperty(value = "收藏时间")
     private Integer dateline;
+
+    @ApiModelProperty(value = "帖子")
+    private Post post;
 
     @Id
     @Column(name = "favid")
@@ -114,5 +127,16 @@ public class Favorite {
     public int hashCode() {
 
         return Objects.hash(favid, uid, id, idtype, spaceuid, title, description, dateline);
+    }
+
+    @ManyToOne
+    @JoinColumns({@JoinColumn(name = "id",insertable = false, updatable = false),@JoinColumn(name = "uid",insertable = false, updatable = false)})
+    //@JoinColumns({@JoinColumn(name = "id"),@JoinColumn(name = "uid")})
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
     }
 }
