@@ -1,5 +1,7 @@
 package com.lanchong.forum.entity;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -12,9 +14,10 @@ public class Attachment implements Serializable{
     private Integer pid;
     private Integer uid;
     private Byte tableid;
+    @ApiModelProperty(value = "下载次数")
     private Integer downloads;
 
-
+    @ApiModelProperty(value = "附件详细信息")
     private AttachmentN attachmentN;
 
     @Id

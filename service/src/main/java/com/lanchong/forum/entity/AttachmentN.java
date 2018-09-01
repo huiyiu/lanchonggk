@@ -1,6 +1,7 @@
 package com.lanchong.forum.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,11 +17,14 @@ public class AttachmentN implements Serializable{
     private Integer dateline;
     private String filename;
     private Integer filesize;
+    @ApiModelProperty(value = "附件地址")
     private String attachment;
     private Byte remote;
+    @ApiModelProperty(value = "附件描述")
     private String description;
     private Byte readperm;
     private Short price;
+    @ApiModelProperty(value = "是否为图片")
     private Byte isimage;
     private Short width;
     private Byte thumb;

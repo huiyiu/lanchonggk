@@ -49,6 +49,7 @@ public class Post {
     private String readuser;
 
 
+    @ApiModelProperty(value = "附件列表")
     private List<Attachment> attachments;
 
     @Basic

@@ -27,7 +27,7 @@ public class ForumPostController {
     PostService postService;
 
     @GetMapping
-    @ApiOperation(value = "我的帖子", notes = "我的帖子")
+    @ApiOperation(value = "我的帖子", notes = "我的帖子",response = Post.class)
     @ApiImplicitParams({ @ApiImplicitParam(defaultValue = "0", name = "page", value = "页数", paramType = "query"),
             @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
     public String phoneCheck(@RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "10")int pageSize){
