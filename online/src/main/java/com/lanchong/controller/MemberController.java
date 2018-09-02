@@ -4,6 +4,7 @@ import com.lanchong.common.Common;
 import com.lanchong.common.CookieUtils;
 import com.lanchong.common.UserInfo;
 import com.lanchong.common.entity.Member;
+import com.lanchong.common.service.CreditService;
 import com.lanchong.exception.Assert;
 import com.lanchong.ucenter.entity.Members;
 import com.lanchong.ucenter.service.MemberService;
@@ -26,6 +27,8 @@ public class MemberController{
 
     @Autowired
     MemberService memberService;
+    @Autowired
+    CreditService creditService;
 
     @PostMapping("signUp")
     @ApiOperation(value = "注册", notes = "注册")
@@ -84,6 +87,15 @@ public class MemberController{
         return new JsonResult(checkVerifyCode(verifyCode),"").toJson();
     }
 
+    @GetMapping("credits")
+    @ApiOperation(value = "我的积分", notes = "我的积分")
+    public String myIntegral(){
+        UserInfo userInfo = CookieUtils.getUserIfo(true);
+        JsonResult jr = new JsonResult();
+        jr.adMap(creditService.summary(userInfo.getUid()).rowMap());
+        return jr.toJson();
+    }
+
     /**
      * 检查图形验证码
      * @param verifyCode
@@ -93,4 +105,6 @@ public class MemberController{
         String verifyCodeTmp =  CookieUtils.get().get("vc");
         return !StringUtil.isEmpty(verifyCodeTmp) && DigestUtils.md5Hex(DigestUtils.md5Hex(verifyCode)+"TH").equalsIgnoreCase(verifyCodeTmp);
     }
+
+
 }

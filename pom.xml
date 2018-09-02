@@ -130,5 +130,29 @@
             <version>1.5</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.xk72/pherialize -->
+        <dependency>
+            <groupId>com.xk72</groupId>
+            <artifactId>pherialize</artifactId>
+            <version>1.2.4</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.eweb4j/fel -->
+        <dependency>
+            <groupId>org.eweb4j</groupId>
+            <artifactId>fel</artifactId>
+            <version>0.8</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>25.1-jre</version>
+        </dependency>
+
+
+
+
     </dependencies>
 </project>
