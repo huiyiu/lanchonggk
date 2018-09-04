@@ -1,4 +1,4 @@
-package com.lanchong.common;
+package com.lanchong.cons;
 
 public class UserInfo {
     private Integer uid;

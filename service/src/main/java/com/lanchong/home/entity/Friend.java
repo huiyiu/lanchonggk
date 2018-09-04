@@ -10,10 +10,18 @@ public class Friend {
     private Integer uid;
     private Integer fuid;
     private String fusername;
+
     private Short gid;
     private Integer num;
     private Integer dateline;
     private String note;
+
+
+    @Transient
+    private String gName;
+    @Transient
+    private String avatar;
+
 
     @Id
     @Column(name = "uid")
@@ -103,5 +111,21 @@ public class Friend {
     public int hashCode() {
 
         return Objects.hash(uid, fuid, fusername, gid, num, dateline, note);
+    }
+
+    public String getgName() {
+        return gName;
+    }
+
+    public void setgName(String gName) {
+        this.gName = gName;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

@@ -1,6 +1,5 @@
 package com.lanchong.home.repository;
 
-import com.lanchong.forum.entity.Post;
 import com.lanchong.home.entity.Favorite;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

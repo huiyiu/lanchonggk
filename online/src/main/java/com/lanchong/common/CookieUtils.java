@@ -2,6 +2,7 @@ package com.lanchong.common;
 
 import com.github.jscookie.javacookie.CookieSerializationException;
 import com.github.jscookie.javacookie.Cookies;
+import com.lanchong.cons.UserInfo;
 import com.lanchong.exception.Assert;
 import com.lanchong.util.Blowfish;
 import com.lanchong.util.StringUtil;

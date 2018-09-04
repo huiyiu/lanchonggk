@@ -1,20 +1,16 @@
 package com.lanchong.controller;
 
 import com.lanchong.common.CookieUtils;
-import com.lanchong.common.UserInfo;
-import com.lanchong.exception.Assert;
+import com.lanchong.cons.UserInfo;
 import com.lanchong.forum.entity.Post;
 import com.lanchong.forum.service.PostService;
 import com.lanchong.util.JsonResult;
-import com.lanchong.util.StringUtil;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-
-import javax.xml.ws.Action;
 
 @RestController
 @RequestMapping("post")

@@ -2,14 +2,17 @@ package com.lanchong.controller;
 
 import com.lanchong.common.Common;
 import com.lanchong.common.CookieUtils;
-import com.lanchong.common.UserInfo;
+import com.lanchong.cons.UserInfo;
 import com.lanchong.common.entity.Member;
 import com.lanchong.common.service.CreditService;
 import com.lanchong.exception.Assert;
+import com.lanchong.home.service.FriendService;
 import com.lanchong.ucenter.entity.Members;
 import com.lanchong.ucenter.service.MemberService;
 import com.lanchong.util.JsonResult;
 import com.lanchong.util.StringUtil;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -29,6 +32,8 @@ public class MemberController{
     MemberService memberService;
     @Autowired
     CreditService creditService;
+    @Autowired
+    FriendService friendService;
 
     @PostMapping("signUp")
     @ApiOperation(value = "注册", notes = "注册")
@@ -57,6 +62,15 @@ public class MemberController{
         JsonResult jr = new JsonResult();
         jr.attr("member",memberService.getMember(userInfo.getUid()));
         return jr.toJson();
+    }
+
+    @GetMapping("follow")
+    @ApiImplicitParam( name = "好友的用户编号", value = "fuid", paramType = "query")
+    @ApiOperation(value = "关注好友", notes = "手机号是否注册")
+    public String follows(Integer fuid){
+        UserInfo userInfo = CookieUtils.getUserIfo(true);
+        friendService.follow(userInfo,fuid);
+        return new JsonResult(true,"").toJson();
     }
 
 
@@ -95,6 +109,20 @@ public class MemberController{
         jr.adMap(creditService.summary(userInfo.getUid()).rowMap());
         return jr.toJson();
     }
+
+
+    @GetMapping("friends")
+    @ApiImplicitParams({ @ApiImplicitParam(defaultValue = "0", name = "page", value = "页数", paramType = "query"),
+            @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
+    @ApiOperation(value = "我的好友", notes = "我的好友")
+    public String myFriend(int page,int pageSize){
+        UserInfo userInfo = CookieUtils.getUserIfo(true);
+        JsonResult jr = new JsonResult();
+        jr.setList(friendService.ofMine(userInfo.getUid(),page,pageSize));
+        return jr.toJson();
+    }
+
+
 
     /**
      * 检查图形验证码
