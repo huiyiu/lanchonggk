@@ -1,5 +1,7 @@
 package com.lanchong.common.entity;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -33,6 +35,15 @@ public class MemberCount {
     private Integer following;
     private Integer newfollower;
     private Integer blacklist;
+
+    @Transient
+    @ApiModelProperty(value = "积分数")
+    private Integer credits;
+
+
+    @Transient
+    @ApiModelProperty(value = "积分=")
+    private String creditFormulaExp;
 
     @Id
     @Column(name = "uid")
@@ -126,6 +137,7 @@ public class MemberCount {
 
     @Basic
     @Column(name = "friends")
+    @ApiModelProperty(value = "好友数")
     public Short getFriends() {
         return friends;
     }
@@ -136,6 +148,7 @@ public class MemberCount {
 
     @Basic
     @Column(name = "posts")
+    @ApiModelProperty(value = "发帖数")
     public Integer getPosts() {
         return posts;
     }
@@ -146,6 +159,7 @@ public class MemberCount {
 
     @Basic
     @Column(name = "threads")
+    @ApiModelProperty(value = "主题数")
     public Integer getThreads() {
         return threads;
     }
@@ -156,6 +170,7 @@ public class MemberCount {
 
     @Basic
     @Column(name = "digestposts")
+    @ApiModelProperty(value = "精华帖数")
     public Short getDigestposts() {
         return digestposts;
     }
@@ -166,6 +181,7 @@ public class MemberCount {
 
     @Basic
     @Column(name = "doings")
+    @ApiModelProperty(value = "记录数")
     public Short getDoings() {
         return doings;
     }
@@ -176,6 +192,7 @@ public class MemberCount {
 
     @Basic
     @Column(name = "blogs")
+    @ApiModelProperty(value = "日志数")
     public Short getBlogs() {
         return blogs;
     }
@@ -186,6 +203,7 @@ public class MemberCount {
 
     @Basic
     @Column(name = "albums")
+    @ApiModelProperty(value = "相册数")
     public Short getAlbums() {
         return albums;
     }
@@ -196,6 +214,7 @@ public class MemberCount {
 
     @Basic
     @Column(name = "sharings")
+    @ApiModelProperty(value = "分享数")
     public Short getSharings() {
         return sharings;
     }
@@ -226,6 +245,7 @@ public class MemberCount {
 
     @Basic
     @Column(name = "oltime")
+    @ApiModelProperty(value = "在线时间(小时)")
     public Short getOltime() {
         return oltime;
     }
@@ -342,5 +362,21 @@ public class MemberCount {
     public int hashCode() {
 
         return Objects.hash(uid, extcredits1, extcredits2, extcredits3, extcredits4, extcredits5, extcredits6, extcredits7, extcredits8, friends, posts, threads, digestposts, doings, blogs, albums, sharings, attachsize, views, oltime, todayattachs, todayattachsize, feeds, follower, following, newfollower, blacklist);
+    }
+
+    public Integer getCredits() {
+        return credits;
+    }
+
+    public void setCredits(Integer credits) {
+        this.credits = credits;
+    }
+
+    public String getCreditFormulaExp() {
+        return creditFormulaExp;
+    }
+
+    public void setCreditFormulaExp(String creditFormulaExp) {
+        this.creditFormulaExp = creditFormulaExp;
     }
 }

@@ -110,9 +110,7 @@ public class MemberController{
     @ApiOperation(value = "我的积分", notes = "我的积分")
     public String myIntegral(){
         UserInfo userInfo = CookieUtils.getUserIfo(true);
-        JsonResult jr = new JsonResult();
-        jr.adMap(creditService.summary(userInfo.getUid()).rowMap());
-        return jr.toJson();
+        return creditService.getCredits(userInfo.getUid()).toJson();
     }
 
 
