@@ -1,5 +1,8 @@
 package com.lanchong.common.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -12,7 +15,7 @@ public class Member {
     private String password;
     private Byte status;
     private Byte emailstatus;
-    private Byte avatarstatus;
+    private Boolean avatarstatus;
     private Byte videophotostatus;
     private Byte adminid;
     private Short groupid;
@@ -30,6 +33,10 @@ public class Member {
     private Byte conisbind;
     private Byte freeze;
 
+    @Transient
+    @ApiModelProperty(value = "头像地址")
+    private String avatarUrl;
+
     @Id
     @Column(name = "uid")
     public Integer getUid() {
@@ -42,6 +49,7 @@ public class Member {
 
     @Basic
     @Column(name = "email")
+    @ApiModelProperty(value = "邮箱")
     public String getEmail() {
         return email;
     }
@@ -52,6 +60,7 @@ public class Member {
 
     @Basic
     @Column(name = "username")
+    @ApiModelProperty(value = "用户名")
     public String getUsername() {
         return username;
     }
@@ -62,6 +71,7 @@ public class Member {
 
     @Basic
     @Column(name = "password")
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
@@ -82,6 +92,7 @@ public class Member {
 
     @Basic
     @Column(name = "emailstatus")
+    @ApiModelProperty(value = "是否设置邮箱")
     public Byte getEmailstatus() {
         return emailstatus;
     }
@@ -92,16 +103,18 @@ public class Member {
 
     @Basic
     @Column(name = "avatarstatus")
-    public Byte getAvatarstatus() {
+    @ApiModelProperty(value = "是否设置用户头像")
+    public Boolean getAvatarstatus() {
         return avatarstatus;
     }
 
-    public void setAvatarstatus(Byte avatarstatus) {
+    public void setAvatarstatus(Boolean avatarstatus) {
         this.avatarstatus = avatarstatus;
     }
 
     @Basic
     @Column(name = "videophotostatus")
+    @ApiModelProperty(value = "是否视频认证")
     public Byte getVideophotostatus() {
         return videophotostatus;
     }
@@ -152,6 +165,7 @@ public class Member {
 
     @Basic
     @Column(name = "regdate")
+    @ApiModelProperty(value = "注册时间")
     public Integer getRegdate() {
         return regdate;
     }
@@ -162,6 +176,7 @@ public class Member {
 
     @Basic
     @Column(name = "credits")
+    @ApiModelProperty(value = "总积分")
     public Integer getCredits() {
         return credits;
     }
@@ -294,5 +309,13 @@ public class Member {
     public int hashCode() {
 
         return Objects.hash(uid, email, username, password, status, emailstatus, avatarstatus, videophotostatus, adminid, groupid, groupexpiry, extgroupids, regdate, credits, notifysound, timeoffset, newpm, newprompt, accessmasks, allowadmincp, onlyacceptfriendpm, conisbind, freeze);
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 }

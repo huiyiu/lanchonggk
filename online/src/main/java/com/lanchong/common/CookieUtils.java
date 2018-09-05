@@ -170,6 +170,7 @@ public class CookieUtils {
         try {
             cookies.set("uid",members.getUid());
             cookies.set("username",members.getUsername());
+            cookies.set("avatarstatus",members.getAvatarstatus());
             cookies.set("mobile",members.getMobile());
             cookies.set("verify",setVerify(members.getUsername(),members.getUid()));
         } catch (CookieSerializationException e) {
@@ -218,7 +219,8 @@ public class CookieUtils {
             String username = cookies.get("username");
             String mobile = cookies.get("mobile");
             String uid = cookies.get("uid");
-            return new UserInfo(Integer.parseInt(uid),username,mobile);
+            String avatarstatus = cookies.get("avatarstatus");
+            return new UserInfo(Integer.parseInt(uid),username,mobile,Boolean.parseBoolean(avatarstatus));
         }else{
             Assert.unLogin("您尚未登陆！");
         }

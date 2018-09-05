@@ -1,11 +1,13 @@
 package com.lanchong.base;
 
 
-import java.io.File;
 
 public class AvatarUtils {
 
-    public static String getAvatarDir(Integer uid){
+    public static String  getAvatarDir(Integer uid,Boolean valid){
+        if(valid){
+            return "uc_server/images/noavatar_middle.gif";
+        }
         String idStr = String.format("%09d", uid);
        /* $dir1 = substr($uid, 0, 3);
         $dir2 = substr($uid, 3, 2);
@@ -17,7 +19,8 @@ public class AvatarUtils {
         String dir3 = idStr.substring(5,7);
         String left = idStr.substring(7);
         StringBuffer sb = new StringBuffer();
-        return sb.append(dir1).append("/")
+        return sb.append("uc_server/data/avatar/")
+                 .append(dir1).append("/")
                  .append(dir2).append("/")
                  .append(dir3).append("/")
                  .append(left).append("_avatar_middle.jpg")
@@ -25,6 +28,6 @@ public class AvatarUtils {
     }
 
     public static void main(String[] args) {
-        System.out.println(getAvatarDir(1));;
+        System.out.println(getAvatarDir(1,true));
     }
 }

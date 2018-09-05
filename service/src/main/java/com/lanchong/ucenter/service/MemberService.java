@@ -1,9 +1,11 @@
 package com.lanchong.ucenter.service;
 
+import com.lanchong.base.AvatarUtils;
 import com.lanchong.common.entity.*;
 import com.lanchong.common.mapper.*;
 import com.lanchong.common.repository.MemberProfileRepository;
 import com.lanchong.common.repository.MemberRepository;
+import com.lanchong.cons.UserInfo;
 import com.lanchong.exception.Assert;
 import com.lanchong.ucenter.entity.MemberFields;
 import com.lanchong.ucenter.entity.Members;
@@ -11,6 +13,7 @@ import com.lanchong.ucenter.mapper.MemberFieldsMapper;
 import com.lanchong.ucenter.mapper.MembersMapper;
 import com.lanchong.ucenter.repository.MembersRepository;
 import com.lanchong.util.DateUtils;
+import com.lanchong.util.JsonResult;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -173,18 +176,21 @@ public class MemberService {
      * @param pwd
      * @return
      */
-    public Members login(String phone,String pwd){
+    public UserInfo login(String phone, String pwd){
         pwd = DigestUtils.md5Hex(pwd);
         MemberProfile mp =  memberProfileRepository.findByMobile(phone);
         Assert.notNull(mp,"该用户不存在！");
         Members members = membersRepository.findByUid(mp.getUid());
         //Assert.isTrue(DigestUtils.md5Hex(pwd+"."+members.getSalt()).equals(members.getPassword()),"用户名或者密码不正确！");
         Assert.isTrue(DigestUtils.md5Hex(pwd+members.getSalt()).equals(members.getPassword()),"用户名或者密码不正确！");
-        return members;
+        Member member = memberRepository.findByUid(mp.getUid());
+        return new UserInfo(members.getUid(),members.getUsername(),mp.getMobile(),member.getAvatarstatus());
     }
 
     public Member getMember(Integer uid) {
-        return memberRepository.findByUid(uid);
+        Member m = memberRepository.findByUid(uid);
+        m.setAvatarUrl(AvatarUtils.getAvatarDir(uid,m.getAvatarstatus()));
+        return m;
     }
 
     public boolean userNameSignedIn(String username) {

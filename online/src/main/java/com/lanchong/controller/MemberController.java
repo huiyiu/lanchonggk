@@ -3,18 +3,15 @@ package com.lanchong.controller;
 import com.lanchong.common.Common;
 import com.lanchong.common.CookieUtils;
 import com.lanchong.cons.UserInfo;
-import com.lanchong.common.entity.Member;
 import com.lanchong.common.service.CreditService;
 import com.lanchong.exception.Assert;
 import com.lanchong.home.service.FriendService;
-import com.lanchong.ucenter.entity.Members;
 import com.lanchong.ucenter.service.MemberService;
 import com.lanchong.util.JsonResult;
 import com.lanchong.util.StringUtil;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,15 +45,14 @@ public class MemberController{
     @ApiOperation(value = "登陆(15829773057,a11111)", notes = "登陆")
     public String login(HttpServletRequest request,HttpServletResponse response,String phone, String pwd) {
         Assert.isTrue(StringUtil.isTelephone(phone),"请检查手机号码格式");
-        Members members = memberService.login(phone,pwd);
+       UserInfo userInfo = memberService.login(phone,pwd);
         JsonResult jr = new JsonResult();
-        jr.adMap(CookieUtils.markLogin(request,response,new UserInfo(members.getUid(),members.getUsername(),phone)));
+        jr.adMap(CookieUtils.markLogin(request,response,userInfo));
         return jr.toJson();
     }
 
     @GetMapping
     @ApiOperation(value = "获取用户信息", notes = "获取用户信息")
-    @ApiResponse(code = 200,response = Member.class,message = "用户基本信息")
     public String getUserInfo(){
         UserInfo userInfo = CookieUtils.getUserIfo(true);
         JsonResult jr = new JsonResult();
@@ -66,10 +62,19 @@ public class MemberController{
 
     @GetMapping("follow")
     @ApiImplicitParam( name = "好友的用户编号", value = "fuid", paramType = "query")
-    @ApiOperation(value = "关注好友", notes = "手机号是否注册")
+    @ApiOperation(value = "关注好友", notes = "关注好友")
     public String follows(Integer fuid){
         UserInfo userInfo = CookieUtils.getUserIfo(true);
         friendService.follow(userInfo,fuid);
+        return new JsonResult(true,"").toJson();
+    }
+
+    @GetMapping("unfollow")
+    @ApiImplicitParam( name = "好友的用户编号", value = "fuid", paramType = "query")
+    @ApiOperation(value = "取消关注好友", notes = "取消关注好友")
+    public String unfollow(Integer fuid){
+        UserInfo userInfo = CookieUtils.getUserIfo(true);
+        friendService.unfollow(userInfo,fuid);
         return new JsonResult(true,"").toJson();
     }
 
@@ -118,7 +123,7 @@ public class MemberController{
     public String myFriend(int page,int pageSize){
         UserInfo userInfo = CookieUtils.getUserIfo(true);
         JsonResult jr = new JsonResult();
-        jr.setList(friendService.ofMine(userInfo.getUid(),page,pageSize));
+        jr.setList(friendService.ofMine(userInfo,page,pageSize));
         return jr.toJson();
     }
 
@@ -133,6 +138,4 @@ public class MemberController{
         String verifyCodeTmp =  CookieUtils.get().get("vc");
         return !StringUtil.isEmpty(verifyCodeTmp) && DigestUtils.md5Hex(DigestUtils.md5Hex(verifyCode)+"TH").equalsIgnoreCase(verifyCodeTmp);
     }
-
-
 }

@@ -12,7 +12,6 @@ import com.lanchong.home.repository.FollowRepository;
 import com.lanchong.home.repository.FriendRepository;
 import com.lanchong.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -29,15 +28,13 @@ public class FriendService {
     FollowRepository followRepository;
     @Autowired
     FollowMapper followMapper;
-    @Value("${uc_server_data_avatar}")
-    String avatarDir;
 
-    public List<Friend> ofMine(Integer uid, int page, int pageSize) {
-        return friendRepository.findByUid(uid,PageRequest.of(page,pageSize))
+    public List<Friend> ofMine(UserInfo userInfo, int page, int pageSize) {
+        return friendRepository.findByUid(userInfo.getUid(),PageRequest.of(page,pageSize))
         .stream()
         .map(friend -> {
             friend.setgName(Constant.getFriendGroup(String.valueOf(friend.getGid())));
-            friend.setAvatar(avatarDir+ AvatarUtils.getAvatarDir(friend.getFuid()));
+            friend.setAvatar(AvatarUtils.getAvatarDir(friend.getFuid(),userInfo.getAvatarstatus()));
             return friend;
         }).collect(Collectors.toList())
         ;
@@ -56,5 +53,17 @@ public class FriendService {
         follow.setUsername(ui.getUsername());
         follow.setFusername(memberRepository.findByUid(fuid).getUsername());
         followMapper.insertSelective(follow);
+    }
+
+    /**
+     * 取消关注用户
+     * @param userInfo
+     * @param fuid
+     */
+    public void unfollow(UserInfo userInfo, Integer fuid) {
+        Follow follow = new Follow();
+        follow.setUid(userInfo.getUid());
+        follow.setFollowuid(fuid);
+        followMapper.delete(follow);
     }
 }
