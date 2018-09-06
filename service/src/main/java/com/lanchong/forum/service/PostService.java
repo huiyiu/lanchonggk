@@ -126,7 +126,7 @@ public class PostService {
             //获取用户阅读权限
             if(realReadPerm < readPerm){
                 Post postNo = new Post();
-                postNo.setThread(post.getThread());
+                BeanUtils.copyProperties(post,postNo);
                 return postNo;
             }
             post.setAttachments(getAttachment(pid));
