@@ -2,16 +2,21 @@ package com.lanchong.forum.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.lanchong.common.entity.Member;
+import com.lanchong.common.repository.UsergroupRepository;
 import com.lanchong.forum.entity.Attachment;
 import com.lanchong.forum.entity.AttachmentN;
 import com.lanchong.forum.entity.Post;
+import com.lanchong.forum.entity.Thread0;
 import com.lanchong.forum.mapper.AttachmentMapper;
 import com.lanchong.forum.mapper.PostMapper;
 import com.lanchong.forum.repository.AttachmentRepository;
 import com.lanchong.forum.repository.PostRepository;
+import com.lanchong.forum.repository.ThreadRepository;
 import com.lanchong.home.entity.Favorite;
 import com.lanchong.home.repository.FavoriteRepository;
 import com.lanchong.util.StringUtil;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,8 +41,12 @@ public class PostService {
     FavoriteRepository favoriteRepository;
     @Autowired
     PostMapper postMapper;
+    @Autowired
+    ThreadRepository threadRepository;
     @Value("${attachment.forum.dir}")
     String attachmentForum;
+    @Autowired
+    UsergroupRepository usergroupRepository;
 
     /**
      * 我的帖子
@@ -107,9 +116,19 @@ public class PostService {
      * @param pid
      * @return
      */
-    public Post getByPid(Integer pid) {
+    public Post getByPid(Integer pid,Member userInfo) {
+
         Post post = postRepository.findByPid(pid);
+        short usergroupid = userInfo.getGroupid();
+        Integer realReadPerm = usergroupRepository.findByGroupid(usergroupid).getStars()*10;
         if(null != post){
+            Byte readPerm = post.getThread().getReadperm();//帖子阅读权限
+            //获取用户阅读权限
+            if(realReadPerm < readPerm){
+                Post postNo = new Post();
+                postNo.setThread(post.getThread());
+                return postNo;
+            }
             post.setAttachments(getAttachment(pid));
         }
         return post;

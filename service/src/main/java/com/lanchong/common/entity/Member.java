@@ -41,6 +41,8 @@ public class Member {
     @ApiModelProperty(value = "头像地址")
     private String avatarUrl;
 
+    private Usergroup usergroup;
+
     @Id
     @Column(name = "uid")
     public Integer getUid() {
@@ -293,7 +295,7 @@ public class Member {
                 Objects.equals(avatarstatus, member.avatarstatus) &&
                 Objects.equals(videophotostatus, member.videophotostatus) &&
                 Objects.equals(adminid, member.adminid) &&
-                Objects.equals(groupid, member.groupid) &&
+               // Objects.equals(groupid, member.groupid) &&
                 Objects.equals(groupexpiry, member.groupexpiry) &&
                 Objects.equals(extgroupids, member.extgroupids) &&
                 Objects.equals(regdate, member.regdate) &&
@@ -312,7 +314,7 @@ public class Member {
     @Override
     public int hashCode() {
 
-        return Objects.hash(uid, email, username, password, status, emailstatus, avatarstatus, videophotostatus, adminid, groupid, groupexpiry, extgroupids, regdate, credits, notifysound, timeoffset, newpm, newprompt, accessmasks, allowadmincp, onlyacceptfriendpm, conisbind, freeze);
+        return Objects.hash(uid, email, username, password, status, emailstatus, avatarstatus, videophotostatus, adminid, groupexpiry, extgroupids, regdate, credits, notifysound, timeoffset, newpm, newprompt, accessmasks, allowadmincp, onlyacceptfriendpm, conisbind, freeze);
     }
 
     public String getAvatarUrl() {
@@ -329,5 +331,17 @@ public class Member {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    //@ManyToOne
+    @OneToOne
+    @JoinColumn(name = "groupid",referencedColumnName="groupid",insertable = false, updatable = false)
+    @JsonIgnore
+    public Usergroup getUsergroup() {
+        return usergroup;
+    }
+
+    public void setUsergroup(Usergroup usergroup) {
+        this.usergroup = usergroup;
     }
 }

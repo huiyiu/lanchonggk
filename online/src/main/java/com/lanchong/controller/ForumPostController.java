@@ -38,8 +38,8 @@ public class ForumPostController {
     @ApiOperation(value = "帖子详情", notes = "帖子详情",response = Post.class)
     @ApiImplicitParam(name = "pid", value = "帖子编号", paramType = "path",dataType = "Integer")
     public String postDetail(@PathVariable Integer pid){
-        //UserInfo userInfo = CookieUtils.getUserIfo(true);
-        Post post = postService.getByPid(pid);
+        Member userInfo = CookieUtils.getUserIfo(false);
+        Post post = postService.getByPid(pid,userInfo);
         JsonResult jr = new JsonResult();
         jr.attr("post",post);
         return jr.toJson();

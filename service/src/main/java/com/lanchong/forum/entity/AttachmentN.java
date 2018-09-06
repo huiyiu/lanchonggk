@@ -1,8 +1,10 @@
 package com.lanchong.forum.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lanchong.common.entity.Usergroup;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.jws.soap.SOAPBinding;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -29,6 +31,9 @@ public class AttachmentN implements Serializable{
     private Short width;
     private Byte thumb;
     private Integer picid;
+
+
+
 
     @Id
     @Column(name = "aid")

@@ -211,14 +211,23 @@ public class CookieUtils {
 
     /**
      *
-     * @param login
+     * @param forceLogin
      * @return
      */
-    public static Member getUserIfo(boolean login) {
-        if(login && checkVerify(getRequest(),getResponse())){
+    public static Member getUserIfo(boolean forceLogin) {
+        Boolean login = false;
+        if(checkVerify(getRequest(),getResponse())){
+            login = true;
+        }
+        if(login){
             Cookies cookies = Cookies.initFromServlet(getRequest(),getResponse());
             Map<String,String> cookiesMap = cookies.get();
             return ObjectUtils.mapper.convertValue(cookiesMap,Member.class);
+        }else if(!login&&!forceLogin){
+            Member visitor = new Member();
+            visitor.setUsername("游客");
+            visitor.setGroupid((short)7);
+            return  visitor;
         }else{
             Assert.unLogin("您尚未登陆！");
         }
