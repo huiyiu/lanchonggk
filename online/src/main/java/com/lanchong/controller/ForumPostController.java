@@ -1,6 +1,7 @@
 package com.lanchong.controller;
 
 import com.lanchong.common.CookieUtils;
+import com.lanchong.common.entity.Member;
 import com.lanchong.cons.UserInfo;
 import com.lanchong.forum.entity.Post;
 import com.lanchong.forum.service.PostService;
@@ -24,7 +25,7 @@ public class ForumPostController {
     @ApiImplicitParams({ @ApiImplicitParam(defaultValue = "0", name = "page", value = "页数", paramType = "query"),
             @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
     public String myPost(@RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "10")int pageSize){
-        UserInfo userInfo = CookieUtils.getUserIfo(true);
+        Member userInfo = CookieUtils.getUserIfo(true);
         Page pageInfo = postService.getByUid(userInfo.getUid(),page,pageSize);
         JsonResult jr = new JsonResult();
         jr.setTotalCount(pageInfo.getTotalElements());
@@ -49,7 +50,7 @@ public class ForumPostController {
     @ApiImplicitParams({ @ApiImplicitParam(defaultValue = "0", name = "page", value = "页数", paramType = "query"),
             @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
     public String myFavorite(@RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "10")int pageSize){
-        UserInfo userInfo = CookieUtils.getUserIfo(true);
+        Member userInfo = CookieUtils.getUserIfo(true);
         Page pageInfo = postService.getFavoriteByUid(userInfo.getUid(),page,pageSize);
         JsonResult jr = new JsonResult();
         jr.setTotalCount(pageInfo.getTotalElements());

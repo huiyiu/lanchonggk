@@ -2,6 +2,7 @@ package com.lanchong.home.service;
 
 
 import com.lanchong.base.AvatarUtils;
+import com.lanchong.common.entity.Member;
 import com.lanchong.common.repository.MemberRepository;
 import com.lanchong.cons.Constant;
 import com.lanchong.cons.UserInfo;
@@ -29,7 +30,7 @@ public class FriendService {
     @Autowired
     FollowMapper followMapper;
 
-    public List<Friend> ofMine(UserInfo userInfo, int page, int pageSize) {
+    public List<Friend> ofMine(Member userInfo, int page, int pageSize) {
         return friendRepository.findByUid(userInfo.getUid(),PageRequest.of(page,pageSize))
         .stream()
         .map(friend -> {
@@ -45,7 +46,7 @@ public class FriendService {
      * @param ui
      * @param fuid
      */
-    public void follow(UserInfo ui, Integer fuid) {
+    public void follow(Member ui, Integer fuid) {
         Follow follow = new Follow();
         follow.setFollowuid(fuid);
         follow.setUid(ui.getUid());
@@ -60,7 +61,7 @@ public class FriendService {
      * @param userInfo
      * @param fuid
      */
-    public void unfollow(UserInfo userInfo, Integer fuid) {
+    public void unfollow(Member userInfo, Integer fuid) {
         Follow follow = new Follow();
         follow.setUid(userInfo.getUid());
         follow.setFollowuid(fuid);

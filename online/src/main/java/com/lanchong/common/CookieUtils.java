@@ -1,7 +1,10 @@
 package com.lanchong.common;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.jscookie.javacookie.CookieSerializationException;
 import com.github.jscookie.javacookie.Cookies;
+import com.lanchong.common.entity.Member;
 import com.lanchong.cons.UserInfo;
 import com.lanchong.exception.Assert;
 import com.lanchong.util.Blowfish;
@@ -18,6 +21,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.security.Key;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
@@ -32,7 +36,6 @@ public class CookieUtils {
     private static final Key key = Blowfish.keyGenerator();
 
     private static final String BLOWFISHKEY = "o#$%$^^%&DF3GH%&%^&b";
-
 
     private static final int COOKIEEXPIRE = 60 * 60 * 24;
 
@@ -107,7 +110,7 @@ public class CookieUtils {
      * @param name
      * @return
      */
-    public static String getCookieValueByName(HttpServletRequest request, String name) {
+/*    public static String getCookieValueByName(HttpServletRequest request, String name) {
         Cookie cookies[] = request.getCookies();
         if (cookies != null) {
             for (int i = 0; i < cookies.length; i++) {
@@ -121,7 +124,7 @@ public class CookieUtils {
             }
         }
         return null;
-    }
+    }*/
     /**
      * 获取header某个值
      * @param request
@@ -165,27 +168,25 @@ public class CookieUtils {
     }
 
 
-    public static Map<String,String> markLogin(HttpServletRequest request, HttpServletResponse response, UserInfo members) {
+    public static Map<String,String> markLogin(HttpServletRequest request, HttpServletResponse response, Member member) {
         Cookies cookies = Cookies.initFromServlet(request,response);
-        try {
-            cookies.set("uid",members.getUid());
-            cookies.set("username",members.getUsername());
-            cookies.set("avatarstatus",members.getAvatarstatus());
-            cookies.set("mobile",members.getMobile());
-            cookies.set("verify",setVerify(members.getUsername(),members.getUid()));
-        } catch (CookieSerializationException e) {
-            Assert.error("cookie设置异常！");
+       // cookies.s
+
+        Map<String,Object> memberMap =   ObjectUtils.mapper.convertValue(member,HashMap.class);
+        for(Map.Entry<String,Object> m : memberMap.entrySet()){
+            cookies.set(m.getKey(),String.valueOf(m.getValue()));
         }
+        cookies.set("verify",setVerify(member.getUsername(),member.getUid()));
+        //Assert.error("cookie设置异常！");
         return cookies.get();
     }
 
     public static void markLogout(HttpServletRequest request,HttpServletResponse response) {
         Cookies cookies = Cookies.initFromServlet(request,response);
-        cookies.remove("uid");
-        //cookies.remove("nick");
-        cookies.remove("verify");
-        //cookies.remove("userLever");
-        //cookies.remove("userInfo");
+        Map<String,String> cookiesMap = cookies.get();
+        for(Map.Entry<String,String> m : cookiesMap.entrySet()){
+            cookies.remove( m.getKey());
+        }
     }
 
     public static HttpServletRequest getRequest() {
@@ -213,14 +214,11 @@ public class CookieUtils {
      * @param login
      * @return
      */
-    public static UserInfo getUserIfo(boolean login) {
+    public static Member getUserIfo(boolean login) {
         if(login && checkVerify(getRequest(),getResponse())){
             Cookies cookies = Cookies.initFromServlet(getRequest(),getResponse());
-            String username = cookies.get("username");
-            String mobile = cookies.get("mobile");
-            String uid = cookies.get("uid");
-            String avatarstatus = cookies.get("avatarstatus");
-            return new UserInfo(Integer.parseInt(uid),username,mobile,Boolean.parseBoolean(avatarstatus));
+            Map<String,String> cookiesMap = cookies.get();
+            return ObjectUtils.mapper.convertValue(cookiesMap,Member.class);
         }else{
             Assert.unLogin("您尚未登陆！");
         }

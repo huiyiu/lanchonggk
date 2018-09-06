@@ -13,4 +13,6 @@ public class UserInfo {
     private String username;
     private String mobile;
     private Boolean avatarstatus;//用户头像状态
+    private Integer groupid;//用户组
+    private Integer adminid;//管理用户组
 }

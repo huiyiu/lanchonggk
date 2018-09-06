@@ -2,6 +2,7 @@ package com.lanchong.controller;
 
 import com.lanchong.common.Common;
 import com.lanchong.common.CookieUtils;
+import com.lanchong.common.entity.Member;
 import com.lanchong.cons.UserInfo;
 import com.lanchong.common.service.CreditService;
 import com.lanchong.exception.Assert;
@@ -45,16 +46,26 @@ public class MemberController{
     @ApiOperation(value = "登陆(15829773057,a11111)", notes = "登陆")
     public String login(HttpServletRequest request,HttpServletResponse response,String phone, String pwd) {
         Assert.isTrue(StringUtil.isTelephone(phone),"请检查手机号码格式");
-       UserInfo userInfo = memberService.login(phone,pwd);
+        Member userInfo = memberService.login(phone,pwd);
         JsonResult jr = new JsonResult();
         jr.adMap(CookieUtils.markLogin(request,response,userInfo));
         return jr.toJson();
     }
 
+    @PostMapping("logout")
+    @ApiOperation(value = "登出", notes = "登出")
+    public String logout(HttpServletRequest request,HttpServletResponse response) {
+        CookieUtils.markLogout(request,response);
+        return new JsonResult().toJson();
+    }
+
+
+
+
     @GetMapping
     @ApiOperation(value = "获取用户信息", notes = "获取用户信息")
     public String getUserInfo(){
-        UserInfo userInfo = CookieUtils.getUserIfo(true);
+        Member userInfo = CookieUtils.getUserIfo(true);
         JsonResult jr = new JsonResult();
         jr.attr("member",memberService.getMember(userInfo.getUid()));
         return jr.toJson();
@@ -64,7 +75,7 @@ public class MemberController{
     @ApiImplicitParam( name = "好友的用户编号", value = "fuid", paramType = "query")
     @ApiOperation(value = "关注好友", notes = "关注好友")
     public String follows(Integer fuid){
-        UserInfo userInfo = CookieUtils.getUserIfo(true);
+        Member userInfo = CookieUtils.getUserIfo(true);
         friendService.follow(userInfo,fuid);
         return new JsonResult(true,"").toJson();
     }
@@ -73,7 +84,7 @@ public class MemberController{
     @ApiImplicitParam( name = "好友的用户编号", value = "fuid", paramType = "query")
     @ApiOperation(value = "取消关注好友", notes = "取消关注好友")
     public String unfollow(Integer fuid){
-        UserInfo userInfo = CookieUtils.getUserIfo(true);
+        Member userInfo = CookieUtils.getUserIfo(true);
         friendService.unfollow(userInfo,fuid);
         return new JsonResult(true,"").toJson();
     }
@@ -109,7 +120,7 @@ public class MemberController{
     @GetMapping("credits")
     @ApiOperation(value = "我的积分", notes = "我的积分")
     public String myIntegral(){
-        UserInfo userInfo = CookieUtils.getUserIfo(true);
+        Member userInfo = CookieUtils.getUserIfo(true);
         return creditService.getCredits(userInfo.getUid()).toJson();
     }
 
@@ -119,7 +130,7 @@ public class MemberController{
             @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
     @ApiOperation(value = "我的好友", notes = "我的好友")
     public String myFriend(int page,int pageSize){
-        UserInfo userInfo = CookieUtils.getUserIfo(true);
+        Member userInfo = CookieUtils.getUserIfo(true);
         JsonResult jr = new JsonResult();
         jr.setList(friendService.ofMine(userInfo,page,pageSize));
         return jr.toJson();

@@ -34,6 +34,10 @@ public class Member {
     private Byte freeze;
 
     @Transient
+    @ApiModelProperty(value = "手机号")
+    private String mobile;
+
+    @Transient
     @ApiModelProperty(value = "头像地址")
     private String avatarUrl;
 
@@ -317,5 +321,13 @@ public class Member {
 
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }

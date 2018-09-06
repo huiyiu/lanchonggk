@@ -5,7 +5,7 @@ package com.lanchong.base;
 public class AvatarUtils {
 
     public static String  getAvatarDir(Integer uid,Boolean valid){
-        if(valid){
+        if(!valid){
             return "uc_server/images/noavatar_middle.gif";
         }
         String idStr = String.format("%09d", uid);

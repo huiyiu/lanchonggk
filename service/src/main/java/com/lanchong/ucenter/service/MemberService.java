@@ -176,15 +176,17 @@ public class MemberService {
      * @param pwd
      * @return
      */
-    public UserInfo login(String phone, String pwd){
+    public Member login(String phone, String pwd){
         pwd = DigestUtils.md5Hex(pwd);
         MemberProfile mp =  memberProfileRepository.findByMobile(phone);
         Assert.notNull(mp,"该用户不存在！");
         Members members = membersRepository.findByUid(mp.getUid());
         //Assert.isTrue(DigestUtils.md5Hex(pwd+"."+members.getSalt()).equals(members.getPassword()),"用户名或者密码不正确！");
-        Assert.isTrue(DigestUtils.md5Hex(pwd+members.getSalt()).equals(members.getPassword()),"用户名或者密码不正确！");
+        Assert.isTrue(DigestUtils.md5Hex(pwd + members.getSalt()).equals(members.getPassword()),"用户名或者密码不正确！");
         Member member = memberRepository.findByUid(mp.getUid());
-        return new UserInfo(members.getUid(),members.getUsername(),mp.getMobile(),member.getAvatarstatus());
+        member.setMobile(mp.getMobile());
+        member.setPassword("");
+        return member;
     }
 
     public Member getMember(Integer uid) {
