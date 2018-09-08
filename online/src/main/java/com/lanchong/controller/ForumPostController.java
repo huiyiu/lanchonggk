@@ -59,6 +59,42 @@ public class ForumPostController {
         return jr.toJson();
     }
 
+    @PostMapping("favorThread")
+    @ApiOperation(value = "收藏帖子", notes = "收藏帖子")
+    public String favorThread(int tid){
+        Member userInfo = CookieUtils.getUserIfo(true);
+        postService.setFavorThread(userInfo,tid);
+        JsonResult jr = new JsonResult();
+        return jr.toJson();
+    }
+
+    @PostMapping("unfavorThread")
+    @ApiOperation(value = "取消收藏帖子", notes = "取消收藏帖子")
+    public String unfavorThread(int tid){
+        Member userInfo = CookieUtils.getUserIfo(true);
+        postService.unFavorThread(userInfo,tid);
+        JsonResult jr = new JsonResult();
+        return jr.toJson();
+    }
+
+    @PostMapping("favorForum")
+    @ApiOperation(value = "收藏板块", notes = "收藏板块")
+    public String favorForum(int fid){
+        Member userInfo = CookieUtils.getUserIfo(true);
+        postService.setFavorForum(userInfo,fid);
+        JsonResult jr = new JsonResult();
+        return jr.toJson();
+    }
+
+    @PostMapping("unfavorForum")
+    @ApiOperation(value = "取消收藏板块", notes = "取消收藏板块")
+    public String unFavorForum(int fid){
+        Member userInfo = CookieUtils.getUserIfo(true);
+        postService.unFavorForum(userInfo,fid);
+        JsonResult jr = new JsonResult();
+        return jr.toJson();
+    }
+
 
     @GetMapping("favorForum")
     @ApiOperation(value = "我收藏的板块", notes = "我收藏的板块",response = Post.class)

@@ -13,7 +13,9 @@ import com.lanchong.forum.repository.ForumRepository;
 import com.lanchong.forum.repository.PostRepository;
 import com.lanchong.forum.repository.ThreadRepository;
 import com.lanchong.home.entity.Favorite;
+import com.lanchong.home.mapper.FavoriteMapper;
 import com.lanchong.home.repository.FavoriteRepository;
+import com.lanchong.util.DateUtils;
 import com.lanchong.util.StringUtil;
 import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.BeanUtils;
@@ -40,6 +42,8 @@ public class PostService {
     FavoriteRepository favoriteRepository;
     @Autowired
     PostMapper postMapper;
+    @Autowired
+    FavoriteMapper favoriteMapper;
     @Autowired
     ThreadRepository threadRepository;
     @Value("${attachment.forum.dir}")
@@ -158,4 +162,33 @@ public class PostService {
     public Forum getForumByFid(Integer fid){
         return forumRepository.findByFid(fid);
     }
+
+    public void setFavorThread(Member userInfo, int tid) {
+        Favorite favorite = new Favorite();
+        favorite.setId(tid);
+        favorite.setIdtype(IDType.TID);
+        favorite.setTitle(threadRepository.findByTid(tid).getSubject());
+        favorite.setUid(userInfo.getUid());
+        favorite.setDateline(DateUtils.now());
+        favoriteMapper.insertSelective(favorite);
+    }
+
+    public void unFavorThread(Member userInfo, int tid) {
+        favoriteMapper.deleteByUidAndIdAndIdType(userInfo.getUid(),tid,IDType.TID);
+    }
+
+    public void setFavorForum(Member userInfo, int fid) {
+        Favorite favorite = new Favorite();
+        favorite.setId(fid);
+        favorite.setIdtype(IDType.FID);
+        favorite.setTitle(threadRepository.findByTid(fid).getSubject());
+        favorite.setUid(userInfo.getUid());
+        favorite.setDateline(DateUtils.now());
+        favoriteMapper.insertSelective(favorite);
+    }
+
+    public void unFavorForum(Member userInfo, int fid) {
+        favoriteMapper.deleteByUidAndIdAndIdType(userInfo.getUid(),fid,IDType.FID);
+    }
+
 }
