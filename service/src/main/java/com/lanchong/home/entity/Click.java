@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ldp_home_click", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_home_click",  catalog = "")
 public class Click {
     private Short clickid;
     private String name;

@@ -3,7 +3,7 @@ package com.lanchong.forum.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ldp_forum_typeoption", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_typeoption",  catalog = "")
 public class Typeoption {
     private Short optionid;
     private Short classid;

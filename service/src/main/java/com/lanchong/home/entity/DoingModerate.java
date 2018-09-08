@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ldp_home_doing_moderate", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_home_doing_moderate",  catalog = "")
 public class DoingModerate {
     private Integer id;
     private Byte status;

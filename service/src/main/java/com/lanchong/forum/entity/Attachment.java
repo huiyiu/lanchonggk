@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ldp_forum_attachment", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_attachment",  catalog = "")
 public class Attachment implements Serializable{
     private Integer aid;
     private Integer tid;

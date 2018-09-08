@@ -3,7 +3,7 @@ package com.lanchong.forum.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ldp_forum_postlog", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_postlog",  catalog = "")
 @IdClass(PostlogPK.class)
 public class Postlog {
     private Integer pid;

@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ldp_forum_post_tableid", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_post_tableid",  catalog = "")
 public class PostTableid {
     private Integer pid;
 

@@ -3,7 +3,7 @@ package com.lanchong.forum.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ldp_forum_spacecache", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_spacecache",  catalog = "")
 @IdClass(SpacecachePK.class)
 public class Spacecache {
     private Integer uid;

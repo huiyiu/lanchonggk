@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ldp_common_usergroup_field", schema = "lanchong", catalog = "")
+@Table(name = "ldp_common_usergroup_field",  catalog = "")
 public class UsergroupField {
     private Short groupid;
     private Byte readaccess;

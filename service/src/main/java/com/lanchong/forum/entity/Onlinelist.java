@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 //@Entity
-@Table(name = "ldp_forum_onlinelist", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_onlinelist",  catalog = "")
 public class Onlinelist {
     private Short groupid;
     private Byte displayorder;

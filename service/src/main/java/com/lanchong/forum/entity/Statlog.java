@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "ldp_forum_statlog", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_statlog",  catalog = "")
 @IdClass(StatlogPK.class)
 public class Statlog {
     private Date logdate;

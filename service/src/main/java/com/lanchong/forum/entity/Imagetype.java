@@ -3,7 +3,7 @@ package com.lanchong.forum.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ldp_forum_imagetype", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_imagetype",  catalog = "")
 public class Imagetype {
     private Short typeid;
     private Byte available;

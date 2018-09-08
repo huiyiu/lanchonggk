@@ -3,7 +3,7 @@ package com.lanchong.forum.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ldp_forum_replycredit", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_replycredit",  catalog = "")
 public class Replycredit {
     private Integer tid;
     private Integer extcredits;

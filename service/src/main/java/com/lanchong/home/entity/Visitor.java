@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ldp_home_visitor", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_home_visitor",  catalog = "")
 @IdClass(VisitorPK.class)
 public class Visitor {
     private Integer uid;

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ldp_home_feed_app", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_home_feed_app",  catalog = "")
 public class FeedApp {
     private Integer feedid;
     private Short appid;

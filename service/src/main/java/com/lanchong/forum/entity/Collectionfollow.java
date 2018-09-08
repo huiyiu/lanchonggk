@@ -3,7 +3,7 @@ package com.lanchong.forum.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ldp_forum_collectionfollow", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_collectionfollow",  catalog = "")
 @IdClass(CollectionfollowPK.class)
 public class Collectionfollow {
     private Integer uid;

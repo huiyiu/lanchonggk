@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ldp_home_surrounding_user", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_home_surrounding_user",  catalog = "")
 public class SurroundingUser {
     private Long poiId;
     private BigDecimal longitude;

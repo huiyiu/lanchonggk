@@ -3,7 +3,7 @@ package com.lanchong.forum.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ldp_forum_forum_threadtable", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_forum_threadtable",  catalog = "")
 @IdClass(ForumThreadtablePK.class)
 public class ForumThreadtable {
     private Short fid;

@@ -3,7 +3,7 @@ package com.lanchong.forum.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ldp_forum_polloption", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_polloption",  catalog = "")
 public class Polloption {
     private Integer polloptionid;
     private Integer tid;

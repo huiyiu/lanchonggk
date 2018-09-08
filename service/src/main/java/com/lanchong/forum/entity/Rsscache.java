@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 //@Entity
-@Table(name = "ldp_forum_rsscache", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_rsscache",  catalog = "")
 public class Rsscache {
     private Integer lastupdate;
     private Integer fid;

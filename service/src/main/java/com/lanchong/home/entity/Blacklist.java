@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ldp_home_blacklist", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_home_blacklist",  catalog = "")
 @IdClass(BlacklistPK.class)
 public class Blacklist {
     private Integer uid;

@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 //@Entity
-@Table(name = "ldp_forum_pollvoter", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_pollvoter",  catalog = "")
 public class Pollvoter {
     private Integer tid;
     private Integer uid;

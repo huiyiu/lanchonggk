@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ldp_home_blog_category", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_home_blog_category",  catalog = "")
 public class BlogCategory {
     private Integer catid;
     private Integer upid;

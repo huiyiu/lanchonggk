@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ldp_home_follow", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_home_follow",  catalog = "")
 @IdClass(FollowPK.class)
 public class Follow {
     private Integer uid;

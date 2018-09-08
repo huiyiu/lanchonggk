@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ldp_home_class", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_home_class",  catalog = "")
 public class HomeClass {
     private Integer classid;
     private String classname;

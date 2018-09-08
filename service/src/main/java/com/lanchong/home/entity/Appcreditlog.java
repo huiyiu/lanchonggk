@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ldp_home_appcreditlog", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_home_appcreditlog",  catalog = "")
 public class Appcreditlog {
     private Integer logid;
     private Integer uid;

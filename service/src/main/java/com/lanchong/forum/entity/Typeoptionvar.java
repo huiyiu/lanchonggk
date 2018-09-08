@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 //@Entity
-@Table(name = "ldp_forum_typeoptionvar", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_typeoptionvar",  catalog = "")
 public class Typeoptionvar {
     private Short sortid;
     private Integer tid;

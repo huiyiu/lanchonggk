@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 //@Entity
-@Table(name = "ldp_home_userapp", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_home_userapp",  catalog = "")
 public class Userapp {
     private Integer uid;
     private Integer appid;

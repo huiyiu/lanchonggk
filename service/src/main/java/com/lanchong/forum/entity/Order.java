@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 //@Entity
-@Table(name = "ldp_forum_order", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_order",  catalog = "")
 public class Order {
     private String orderid;
     private String status;

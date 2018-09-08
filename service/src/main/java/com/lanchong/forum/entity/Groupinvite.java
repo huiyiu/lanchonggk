@@ -3,7 +3,7 @@ package com.lanchong.forum.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ldp_forum_groupinvite", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_groupinvite",  catalog = "")
 public class Groupinvite {
     private Integer fid;
     private Integer uid;

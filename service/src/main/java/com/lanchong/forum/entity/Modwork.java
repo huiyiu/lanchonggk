@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import java.sql.Date;
 
 //@Entity
-@Table(name = "ldp_forum_modwork", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_modwork",  catalog = "")
 public class Modwork {
     private Integer uid;
     private String modaction;

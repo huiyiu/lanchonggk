@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 
 //@Entity
-@Table(name = "ldp_forum_tradelog", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_tradelog",  catalog = "")
 public class Tradelog {
     private Integer tid;
     private Integer pid;

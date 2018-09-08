@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ldp_home_follow_feed_archiver", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_home_follow_feed_archiver",  catalog = "")
 public class FollowFeedArchiver {
     private Integer feedid;
     private Integer uid;

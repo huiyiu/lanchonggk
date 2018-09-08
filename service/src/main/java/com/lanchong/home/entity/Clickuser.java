@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 //@Entity
-@Table(name = "ldp_home_clickuser", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_home_clickuser",  catalog = "")
 public class Clickuser {
     private Integer uid;
     private String username;

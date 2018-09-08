@@ -3,7 +3,7 @@ package com.lanchong.forum.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ldp_forum_grouplevel", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_grouplevel",  catalog = "")
 public class Grouplevel {
     private Short levelid;
     private Integer type;

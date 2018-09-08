@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 //@Entity
-@Table(name = "ldp_forum_ratelog", schema = "lanchonggk", catalog = "")
+@Table(name = "ldp_forum_ratelog",  catalog = "")
 public class Ratelog {
     private Integer pid;
     private Integer uid;
