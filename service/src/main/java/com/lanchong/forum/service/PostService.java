@@ -4,13 +4,12 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lanchong.common.entity.Member;
 import com.lanchong.common.repository.UsergroupRepository;
-import com.lanchong.forum.entity.Attachment;
-import com.lanchong.forum.entity.AttachmentN;
-import com.lanchong.forum.entity.Post;
-import com.lanchong.forum.entity.Thread0;
+import com.lanchong.cons.IDType;
+import com.lanchong.forum.entity.*;
 import com.lanchong.forum.mapper.AttachmentMapper;
 import com.lanchong.forum.mapper.PostMapper;
 import com.lanchong.forum.repository.AttachmentRepository;
+import com.lanchong.forum.repository.ForumRepository;
 import com.lanchong.forum.repository.PostRepository;
 import com.lanchong.forum.repository.ThreadRepository;
 import com.lanchong.home.entity.Favorite;
@@ -47,6 +46,8 @@ public class PostService {
     String attachmentForum;
     @Autowired
     UsergroupRepository usergroupRepository;
+    @Autowired
+    ForumRepository forumRepository;
 
     /**
      * 我的帖子
@@ -94,17 +95,17 @@ public class PostService {
 
     /**
      * 我的收藏
-     * @param uid
+     * @param userInfo
      * @param page
      * @param pageSize
      * @return
      */
-    public Page<Favorite> getFavoriteByUid(Integer uid, int page, int pageSize) {
-        Page<Favorite> postPage = favoriteRepository.findByUid(uid, PageRequest.of(page,pageSize, Sort.by(Sort.Order.desc("dateline"))));
+    public Page<Favorite> getFavoriteByUid(Member userInfo, int page, int pageSize) {
+        Page<Favorite> postPage = favoriteRepository.findByUidAndAndIdtype(userInfo.getUid(), IDType.TID, PageRequest.of(page,pageSize, Sort.by(Sort.Order.desc("dateline"))));
         postPage
-                .filter(favorite->favorite.getPost().getAttachment() != 0)
+               // .filter(favorite->favorite.getPost().getAttachment() != 0)
                 .map(favorite->{
-                    favorite.getPost().setAttachments(getAttachment(favorite.getPost().getPid()));
+                    favorite.setThread(getByTid(favorite.getId(),userInfo));
                             return favorite;
                         }
                 ).stream().collect(Collectors.toList());
@@ -113,24 +114,48 @@ public class PostService {
 
     /**
      * 获取帖子详情
-     * @param pid
+     * @param tid
      * @return
      */
-    public Post getByPid(Integer pid,Member userInfo) {
+    public Thread0 getByTid(Integer tid,Member userInfo) {
 
-        Post post = postRepository.findByPid(pid);
+        Thread0 thread = threadRepository.findByTid(tid);
         short usergroupid = userInfo.getGroupid();
         Integer realReadPerm = usergroupRepository.findByGroupid(usergroupid).getStars()*10;
-        if(null != post){
-            Byte readPerm = post.getThread().getReadperm();//帖子阅读权限
+        if(null != thread){
+            Byte readPerm = thread.getReadperm();//帖子阅读权限
             //获取用户阅读权限
             if(realReadPerm < readPerm){
                 Post postNo = new Post();
-                BeanUtils.copyProperties(post,postNo);
-                return postNo;
+                BeanUtils.copyProperties(thread,postNo);
+                return thread;
+            }else{
+                thread.setPost(postRepository.findByPid(tid));
+                thread.getPost().setAttachments(getAttachment(tid));
             }
-            post.setAttachments(getAttachment(pid));
         }
-        return post;
+        return thread;
+    }
+
+    /**
+     * 获取我收藏的板块
+     * @param userInfo
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    public Page getFavorforumByUid(Member userInfo, int page, int pageSize) {
+        Page<Favorite> postPage = favoriteRepository.findByUidAndAndIdtype(userInfo.getUid(), IDType.FID, PageRequest.of(page,pageSize, Sort.by(Sort.Order.desc("dateline"))));
+        postPage
+                .map(favorite->{
+                            favorite.setForum(getForumByFid(favorite.getId()));
+                            return favorite;
+                        }
+                ).stream().collect(Collectors.toList());
+        return postPage;
+    }
+
+    public Forum getForumByFid(Integer fid){
+        return forumRepository.findByFid(fid);
     }
 }

@@ -49,6 +49,18 @@ public class Thread0 {
     private Integer comments;
     private Short hidden;
 
+
+    private Post post;
+
+    @Transient
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
     @Id
     @Column(name = "tid")
     public Integer getTid() {

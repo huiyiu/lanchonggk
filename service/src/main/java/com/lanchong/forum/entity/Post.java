@@ -1,9 +1,7 @@
 package com.lanchong.forum.entity;
 
-import com.lanchong.home.entity.Favorite;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiResponse;
 
 import javax.persistence.*;
 import java.util.List;
@@ -52,7 +50,7 @@ public class Post {
 
     @ApiModelProperty(value = "附件列表")
     private List<Attachment> attachments;
-    private Thread0 thread;
+
 
     @Basic
     @Column(name = "pid")
@@ -403,15 +401,5 @@ public class Post {
         result = 31 * result + (position != null ? position.hashCode() : 0);
         result = 31 * result + (readuser != null ? readuser.hashCode() : 0);
         return result;
-    }
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "tid",referencedColumnName="tid",insertable = false, updatable = false)
-    public Thread0 getThread() {
-        return thread;
-    }
-
-    public void setThread(Thread0 thread) {
-        this.thread = thread;
     }
 }

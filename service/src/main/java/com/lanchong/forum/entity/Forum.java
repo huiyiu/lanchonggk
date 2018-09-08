@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Forum {
     private Integer fid;
     private Integer fup;
-    private Integer type;
+    private String type;
     private String name;
     private Byte status;
     private Short displayorder;
@@ -76,11 +76,11 @@ public class Forum {
 
     @Basic
     @Column(name = "type")
-    public Integer getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(String type) {
         this.type = type;
     }
 

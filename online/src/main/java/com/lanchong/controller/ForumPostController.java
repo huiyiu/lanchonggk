@@ -4,6 +4,7 @@ import com.lanchong.common.CookieUtils;
 import com.lanchong.common.entity.Member;
 import com.lanchong.cons.UserInfo;
 import com.lanchong.forum.entity.Post;
+import com.lanchong.forum.entity.Thread0;
 import com.lanchong.forum.service.PostService;
 import com.lanchong.util.JsonResult;
 import io.swagger.annotations.ApiImplicitParam;
@@ -20,7 +21,7 @@ public class ForumPostController {
     @Autowired
     PostService postService;
 
-    @GetMapping
+    @GetMapping("myThread")
     @ApiOperation(value = "我的帖子", notes = "我的帖子",response = Post.class)
     @ApiImplicitParams({ @ApiImplicitParam(defaultValue = "0", name = "page", value = "页数", paramType = "query"),
             @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
@@ -34,28 +35,43 @@ public class ForumPostController {
     }
 
 
-    @GetMapping("{pid}")
+    @GetMapping("{tid}")
     @ApiOperation(value = "帖子详情", notes = "帖子详情",response = Post.class)
-    @ApiImplicitParam(name = "pid", value = "帖子编号", paramType = "path",dataType = "Integer")
-    public String postDetail(@PathVariable Integer pid){
+    @ApiImplicitParam(name = "tid", value = "帖子编号", paramType = "path",dataType = "Integer")
+    public String postDetail(@PathVariable Integer tid){
         Member userInfo = CookieUtils.getUserIfo(false);
-        Post post = postService.getByPid(pid,userInfo);
+        Thread0 thread = postService.getByTid(tid,userInfo);
         JsonResult jr = new JsonResult();
-        jr.attr("post",post);
+        jr.attr("thread",thread);
         return jr.toJson();
     }
 
-    @GetMapping("favor")
-    @ApiOperation(value = "我的收藏", notes = "我的收藏",response = Post.class)
+    @GetMapping("favorThread")
+    @ApiOperation(value = "我收藏的帖子", notes = "我收藏的帖子",response = Post.class)
     @ApiImplicitParams({ @ApiImplicitParam(defaultValue = "0", name = "page", value = "页数", paramType = "query"),
             @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
     public String myFavorite(@RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "10")int pageSize){
         Member userInfo = CookieUtils.getUserIfo(true);
-        Page pageInfo = postService.getFavoriteByUid(userInfo.getUid(),page,pageSize);
+        Page pageInfo = postService.getFavoriteByUid(userInfo,page,pageSize);
         JsonResult jr = new JsonResult();
         jr.setTotalCount(pageInfo.getTotalElements());
         jr.setList(pageInfo.getContent());
         return jr.toJson();
     }
+
+
+    @GetMapping("favorForum")
+    @ApiOperation(value = "我收藏的板块", notes = "我收藏的板块",response = Post.class)
+    @ApiImplicitParams({ @ApiImplicitParam(defaultValue = "0", name = "page", value = "页数", paramType = "query"),
+            @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
+    public String myFavorForum(@RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "10")int pageSize){
+        Member userInfo = CookieUtils.getUserIfo(true);
+        Page pageInfo = postService.getFavorforumByUid(userInfo,page,pageSize);
+        JsonResult jr = new JsonResult();
+        jr.setTotalCount(pageInfo.getTotalElements());
+        jr.setList(pageInfo.getContent());
+        return jr.toJson();
+    }
+
 
 }

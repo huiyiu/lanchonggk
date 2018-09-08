@@ -1,7 +1,9 @@
 package com.lanchong.home.entity;
 
 import com.lanchong.forum.entity.AttachmentN;
+import com.lanchong.forum.entity.Forum;
 import com.lanchong.forum.entity.Post;
+import com.lanchong.forum.entity.Thread0;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
@@ -25,8 +27,30 @@ public class Favorite {
     @ApiModelProperty(value = "收藏时间")
     private Integer dateline;
 
-    @ApiModelProperty(value = "帖子")
-    private Post post;
+   /* @ApiModelProperty(value = "帖子")
+    private Post post;*/
+
+
+   private Thread0 thread;
+
+   private Forum forum;
+    @Transient
+    public Thread0 getThread() {
+        return thread;
+    }
+
+    public void setThread(Thread0 thread) {
+        this.thread = thread;
+    }
+
+    @Transient
+    public Forum getForum() {
+        return forum;
+    }
+
+    public void setForum(Forum forum) {
+        this.forum = forum;
+    }
 
     @Id
     @Column(name = "favid")
@@ -129,7 +153,7 @@ public class Favorite {
         return Objects.hash(favid, uid, id, idtype, spaceuid, title, description, dateline);
     }
 
-    @ManyToOne
+   /* @ManyToOne
     @JoinColumns({@JoinColumn(name = "id",insertable = false, updatable = false),@JoinColumn(name = "uid",insertable = false, updatable = false)})
     //@JoinColumns({@JoinColumn(name = "id"),@JoinColumn(name = "uid")})
     public Post getPost() {
@@ -138,5 +162,5 @@ public class Favorite {
 
     public void setPost(Post post) {
         this.post = post;
-    }
+    }*/
 }
