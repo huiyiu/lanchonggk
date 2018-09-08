@@ -41,6 +41,10 @@ public class Member {
     @ApiModelProperty(value = "头像地址")
     private String avatarUrl;
 
+    @Transient
+    @ApiModelProperty(value = "签名")
+    private String sightml;
+
     private Usergroup usergroup;
 
     @Id
@@ -343,5 +347,13 @@ public class Member {
 
     public void setUsergroup(Usergroup usergroup) {
         this.usergroup = usergroup;
+    }
+
+    public String getSightml() {
+        return sightml;
+    }
+
+    public void setSightml(String sightml) {
+        this.sightml = sightml;
     }
 }

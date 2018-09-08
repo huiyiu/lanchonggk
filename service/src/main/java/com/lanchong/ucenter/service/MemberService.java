@@ -3,6 +3,7 @@ package com.lanchong.ucenter.service;
 import com.lanchong.base.AvatarUtils;
 import com.lanchong.common.entity.*;
 import com.lanchong.common.mapper.*;
+import com.lanchong.common.repository.MemberFieldForumRepository;
 import com.lanchong.common.repository.MemberProfileRepository;
 import com.lanchong.common.repository.MemberRepository;
 import com.lanchong.cons.UserInfo;
@@ -49,6 +50,8 @@ public class MemberService {
     MemberFieldForumMapper memberFieldForumMapper;
     @Autowired
     MemberRepository memberRepository;
+    @Autowired
+    MemberFieldForumRepository memberFieldForumRepository;
 
     /**
      * 手机号是否注册
@@ -191,7 +194,8 @@ public class MemberService {
 
     public Member getMember(Integer uid) {
         Member m = memberRepository.findByUid(uid);
-        m.setAvatarUrl(AvatarUtils.getAvatarDir(uid,m.getAvatarstatus()));
+        m.setAvatarUrl(AvatarUtils.getAvatarDir(uid,m.getAvatarstatus()));//头像
+        m.setSightml(memberFieldForumRepository.findByUid(uid).getSightml()); //签名
         return m;
     }
 
