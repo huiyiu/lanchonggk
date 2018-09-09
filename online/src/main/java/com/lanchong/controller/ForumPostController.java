@@ -6,20 +6,37 @@ import com.lanchong.cons.UserInfo;
 import com.lanchong.forum.entity.Post;
 import com.lanchong.forum.entity.Thread0;
 import com.lanchong.forum.service.PostService;
+import com.lanchong.ucenter.service.AttachmentService;
 import com.lanchong.util.JsonResult;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.checkerframework.checker.units.qual.A;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 
 @RestController
 @RequestMapping("post")
+@Slf4j
 public class ForumPostController {
 
     @Autowired
     PostService postService;
+    @Value("${attachment.forum.dir}")
+    String attachmentDir;
+    @Value("${discuz.dir}")
+    String discuzDir;
+    @Autowired
+    AttachmentService attachmentService;
 
     @GetMapping("myThread")
     @ApiOperation(value = "我的帖子", notes = "我的帖子",response = Post.class)
@@ -110,4 +127,48 @@ public class ForumPostController {
     }
 
 
+    @PostMapping("/thread")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fid", value = "帖子所属板块", paramType = "query",required = true),
+            @ApiImplicitParam(name = "subject", value = "阅读权限", paramType = "query",required = true),
+            @ApiImplicitParam(name = "message", value = "内容", paramType = "query",required = true),
+            @ApiImplicitParam( name = "readaccess", value = "阅读权限", paramType = "query",defaultValue = "0"),
+            @ApiImplicitParam(name = "price", value = "价格", paramType = "query",defaultValue = "0"),
+    })
+    @ApiOperation(value = "发表帖子", notes = "发表帖子")
+    public String submitThread(Integer fid,String subject,String message,Integer readaccess,short price){
+        Member userInfo = CookieUtils.getUserIfo(true);
+        postService.postThread(userInfo,fid,subject,message,readaccess,price);
+        return new JsonResult<>().toJson();
+    }
+
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "tid", value = "帖子编号", paramType = "query",required = true),
+            @ApiImplicitParam(defaultValue = "0", name = "readaccess", value = "阅读权限", paramType = "query"),
+            @ApiImplicitParam(defaultValue = "1", name = "isImage", value = "是否图片（1为图片，-1为附件）", paramType = "query"),
+            @ApiImplicitParam(defaultValue = "", name = "desc", value = "描述信息", paramType = "query"),
+            @ApiImplicitParam(defaultValue = "0", name = "price", value = "价格", paramType = "query"),
+    })
+    @PostMapping("/upload")
+    @ApiOperation(value = "上传图片或者附件", notes = "上传图片或者附件")
+    public String upload(Integer pid,@RequestParam("file") MultipartFile file,Integer readaccess,Integer isImage, Integer tid,String desc,Short price) {
+        Member userInfo = CookieUtils.getUserIfo(true);
+        String dateStr = new DateTime().toString("yyyy/MM/dd");
+        if (null != file) {
+            //取得当前上传文件的文件名称
+            String fileName = file.getOriginalFilename();
+            //如果名称不为“”,说明该文件存在，否则说明该文件不存在
+            //本地上传图片方式
+            String attachmentUrl = dateStr + RandomStringUtils.random(16);
+            File newFile = new File(discuzDir + attachmentDir +attachmentUrl);
+            try {
+                file.transferTo(newFile);
+            } catch (Exception e) {
+               return  new JsonResult(false,"附件上传失败！").toJson();
+            }
+            attachmentService.uploadAttachment(userInfo.getUid(),tid,fileName,readaccess,isImage,desc,price,(int)file.getSize(),attachmentUrl);
+        }
+        return new JsonResult().toJson();
+    }
 }

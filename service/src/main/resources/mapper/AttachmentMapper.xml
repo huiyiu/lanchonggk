@@ -9,6 +9,26 @@
       <!--<result column="attachment" jdbcType="VARCHAR" property="attachment" />-->
     </association>
   </resultMap>
+  <insert id="insertN">
+    INSERT INTO `ldp_forum_attachment_${tableid}`(aid,tid,pid,uid,dateline,filename,filesize,attachment,remote,description,readperm,price,isimage,width,thumb,picid)
+    VALUES(${attachmentN.aid},
+     #{attachmentN.tid},
+     #{attachmentN.pid},
+     #{attachmentN.uid},
+     #{attachmentN.dateline},
+     #{attachmentN.filename},
+     #{attachmentN.filesize},
+     #{attachmentN.attachment},
+     '0',
+    #{attachmentN.description},
+    #{attachmentN.readperm},
+    #{attachmentN.price},
+    #{attachmentN.isimage},
+      '1024',
+       '0',
+       '0')
+  </insert>
+
   <select id="findByPid" resultMap="BaseResultMap">
     select a.*,b.attachment,b.description,b.isimage from ldp_forum_attachment a
     left join ldp_forum_attachment_0 b on b.aid = a.aid
@@ -50,4 +70,7 @@
     left join ldp_forum_attachment_9 b on b.aid = a.aid
     where a.pid = #{pid}
   </select>
+    <select id="findMaxByUid" resultType="com.lanchong.forum.entity.Attachment">
+      select * from ldp_forum_attachment where uid = #{uid} order by aid desc limit 1
+    </select>
 </mapper>

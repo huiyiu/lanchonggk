@@ -86,4 +86,13 @@ public class GlobalController {
 			log.warn("生成图片验证码失败："+e.getMessage());
 		}
 	}
+
+	/*@PostMapping(value="/upload")
+	@ResponseBody
+	public String upload(@RequestParam MultipartFile picFile){
+		Map<String,String>m = new HashMap<>();
+
+
+		return new Gson().toJson(m);
+	}*/
 }

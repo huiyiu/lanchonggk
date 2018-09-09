@@ -95,7 +95,7 @@ public class Attachment implements Serializable{
 
     @OneToOne
     @MapsId
-    @JoinColumn(name = "aid")
+    @JoinColumn(name = "aid",referencedColumnName="aid",insertable = false, updatable = false)
     public AttachmentN getAttachmentN() {
         return attachmentN;
     }

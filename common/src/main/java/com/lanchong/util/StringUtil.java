@@ -78,4 +78,5 @@ public class StringUtil {
     public static boolean isTrue(String v) {
         return "true".equalsIgnoreCase(v) || "1".equals(v);
     }
+
 }

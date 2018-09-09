@@ -3,11 +3,13 @@ package com.lanchong.forum.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lanchong.common.entity.Member;
+import com.lanchong.common.repository.UsergroupFieldRepository;
 import com.lanchong.common.repository.UsergroupRepository;
 import com.lanchong.cons.IDType;
 import com.lanchong.forum.entity.*;
 import com.lanchong.forum.mapper.AttachmentMapper;
 import com.lanchong.forum.mapper.PostMapper;
+import com.lanchong.forum.mapper.ThreadMapper;
 import com.lanchong.forum.repository.AttachmentRepository;
 import com.lanchong.forum.repository.ForumRepository;
 import com.lanchong.forum.repository.PostRepository;
@@ -51,7 +53,11 @@ public class PostService {
     @Autowired
     UsergroupRepository usergroupRepository;
     @Autowired
+    UsergroupFieldRepository usergroupFieldRepository;
+    @Autowired
     ForumRepository forumRepository;
+    @Autowired
+    ThreadMapper threadMapper;
 
     /**
      * 我的帖子
@@ -125,9 +131,9 @@ public class PostService {
 
         Thread0 thread = threadRepository.findByTid(tid);
         short usergroupid = userInfo.getGroupid();
-        Integer realReadPerm = usergroupRepository.findByGroupid(usergroupid).getStars()*10;
+        Integer realReadPerm = usergroupFieldRepository.findByGroupid(usergroupid).getReadaccess();
         if(null != thread){
-            Byte readPerm = thread.getReadperm();//帖子阅读权限
+            Integer readPerm = thread.getReadperm();//帖子阅读权限
             //获取用户阅读权限
             if(realReadPerm < readPerm){
                 Post postNo = new Post();
@@ -191,4 +197,23 @@ public class PostService {
         favoriteMapper.deleteByUidAndIdAndIdType(userInfo.getUid(),fid,IDType.FID);
     }
 
+    public void postThread(Member userInfo, Integer fid, String subject, String message, Integer readaccess, Short price) {
+
+        Thread0 thread = new Thread0();
+        thread.setAuthor(userInfo.getUsername());
+        thread.setAuthorid(userInfo.getUid());
+        thread.setDateline(DateUtils.now());
+        thread.setFid(fid);
+        thread.setPrice(price);
+        thread.setSubject(subject);
+        thread.setReadperm(readaccess);
+        threadMapper.insertSelective(thread);
+
+        Thread0 thread0 = threadMapper.findMaxByUid(userInfo.getUid());
+        Post post = new Post();
+        post.setPid(thread0.getTid());
+        BeanUtils.copyProperties(thread0,post);
+        post.setMessage(message);
+        postMapper.insertSelective(post);
+    }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lanchong.forum.mapper.ThreadMapper" >
+  <resultMap id="BaseResultMap" type="com.lanchong.forum.entity.Thread0" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+
+  </resultMap>
+
+    <select id="findMaxByUid" resultMap="BaseResultMap">
+      select * from ldp_forum_thread where authorid = #{uid} order by tid desc limit 1
+    </select>
+</mapper>

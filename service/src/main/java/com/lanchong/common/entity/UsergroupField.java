@@ -7,7 +7,7 @@ import java.util.Objects;
 @Table(name = "ldp_common_usergroup_field",  catalog = "")
 public class UsergroupField {
     private Short groupid;
-    private Byte readaccess;
+    private Integer readaccess;
     private Byte allowpost;
     private Byte allowreply;
     private Byte allowpostpoll;
@@ -129,11 +129,11 @@ public class UsergroupField {
 
     @Basic
     @Column(name = "readaccess")
-    public Byte getReadaccess() {
+    public Integer getReadaccess() {
         return readaccess;
     }
 
-    public void setReadaccess(Byte readaccess) {
+    public void setReadaccess(Integer readaccess) {
         this.readaccess = readaccess;
     }
 

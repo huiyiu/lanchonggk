@@ -24,10 +24,10 @@ public class AttachmentN implements Serializable{
     private Byte remote;
     @ApiModelProperty(value = "附件描述")
     private String description;
-    private Byte readperm;
+    private Integer readperm;
     private Short price;
     @ApiModelProperty(value = "是否为图片")
-    private Byte isimage;
+    private Integer isimage;
     private Short width;
     private Byte thumb;
     private Integer picid;
@@ -137,11 +137,11 @@ public class AttachmentN implements Serializable{
 
     @Basic
     @Column(name = "readperm")
-    public Byte getReadperm() {
+    public Integer getReadperm() {
         return readperm;
     }
 
-    public void setReadperm(Byte readperm) {
+    public void setReadperm(Integer readperm) {
         this.readperm = readperm;
     }
 
@@ -157,11 +157,11 @@ public class AttachmentN implements Serializable{
 
     @Basic
     @Column(name = "isimage")
-    public Byte getIsimage() {
+    public Integer getIsimage() {
         return isimage;
     }
 
-    public void setIsimage(Byte isimage) {
+    public void setIsimage(Integer isimage) {
         this.isimage = isimage;
     }
 

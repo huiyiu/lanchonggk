@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface  AttachmentRepository  extends JpaRepository<Attachment,Long> {
     List<Attachment> findByPid(Integer pid);
+
+    List<Attachment> findByTidAndUid(Integer tid, Integer uid);
 }

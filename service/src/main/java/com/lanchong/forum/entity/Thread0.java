@@ -11,7 +11,7 @@ public class Thread0 {
     private Short posttableid;
     private Short typeid;
     private Short sortid;
-    private Byte readperm;
+    private Integer readperm;
     private Short price;
     private String author;
     private Integer authorid;
@@ -113,11 +113,11 @@ public class Thread0 {
 
     @Basic
     @Column(name = "readperm")
-    public Byte getReadperm() {
+    public Integer getReadperm() {
         return readperm;
     }
 
-    public void setReadperm(Byte readperm) {
+    public void setReadperm(Integer readperm) {
         this.readperm = readperm;
     }
 
