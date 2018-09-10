@@ -52,7 +52,7 @@ public class UsergroupField {
     private Short maxmagicsweight;
     private Byte allowpostdebate;
     private Byte tradestick;
-    private Byte exempt;
+    private Integer exempt;
     private Short maxattachnum;
     private Byte allowposturl;
     private Byte allowrecommend;
@@ -579,11 +579,11 @@ public class UsergroupField {
 
     @Basic
     @Column(name = "exempt")
-    public Byte getExempt() {
+    public Integer getExempt() {
         return exempt;
     }
 
-    public void setExempt(Byte exempt) {
+    public void setExempt(Integer exempt) {
         this.exempt = exempt;
     }
 
