@@ -1,5 +1,10 @@
 package com.lanchong.controller;
 
+import com.google.common.collect.ArrayTable;
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.ImmutableTable;
+import com.google.common.collect.Table;
+import com.lanchong.base.FileUtils;
 import com.lanchong.common.CookieUtils;
 import com.lanchong.common.entity.Member;
 import com.lanchong.cons.UserInfo;
@@ -23,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("post")
@@ -130,15 +136,29 @@ public class ForumPostController {
     @PostMapping("/thread")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "fid", value = "帖子所属板块", paramType = "query",required = true),
-            @ApiImplicitParam(name = "subject", value = "阅读权限", paramType = "query",required = true),
+            @ApiImplicitParam(name = "subject", value = "主题", paramType = "query",required = true),
             @ApiImplicitParam(name = "message", value = "内容", paramType = "query",required = true),
             @ApiImplicitParam( name = "readaccess", value = "阅读权限", paramType = "query",defaultValue = "0"),
             @ApiImplicitParam(name = "price", value = "价格", paramType = "query",defaultValue = "0"),
     })
     @ApiOperation(value = "发表帖子", notes = "发表帖子")
-    public String submitThread(Integer fid,String subject,String message,Integer readaccess,short price){
+    public String submitThread(Integer fid,String subject,String message,Integer readaccess,Short price,@RequestParam("files") MultipartFile[] files){
         Member userInfo = CookieUtils.getUserIfo(true);
-        postService.postThread(userInfo,fid,subject,message,readaccess,price);
+        Table<String,Long,String> table = HashBasedTable.create();
+        if(null != files && files.length!=0){
+            String dateStr = new DateTime().toString("yyyy/MM/dd");
+            for(MultipartFile file : files){
+                String fileName = file.getOriginalFilename();
+                String attachmentUrl = dateStr + RandomStringUtils.randomAlphanumeric(16)+fileName.substring(fileName.lastIndexOf("."));
+                try {
+                    FileUtils.saveAsFile(file.getBytes(),discuzDir + attachmentDir + attachmentUrl);
+                } catch (Exception e) {
+                    return  new JsonResult(false,"附件上传失败！").toJson();
+                }
+                table.put(fileName,file.getSize(),attachmentUrl);
+            }
+        }
+        postService.postThread(userInfo,fid,subject,message,readaccess,price,table);
         return new JsonResult<>().toJson();
     }
 

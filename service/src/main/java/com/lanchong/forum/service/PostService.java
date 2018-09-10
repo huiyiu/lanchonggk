@@ -2,6 +2,7 @@ package com.lanchong.forum.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Table;
 import com.lanchong.common.entity.Member;
 import com.lanchong.common.repository.UsergroupFieldRepository;
 import com.lanchong.common.repository.UsergroupRepository;
@@ -17,6 +18,7 @@ import com.lanchong.forum.repository.ThreadRepository;
 import com.lanchong.home.entity.Favorite;
 import com.lanchong.home.mapper.FavoriteMapper;
 import com.lanchong.home.repository.FavoriteRepository;
+import com.lanchong.ucenter.service.AttachmentService;
 import com.lanchong.util.DateUtils;
 import com.lanchong.util.StringUtil;
 import org.checkerframework.checker.units.qual.A;
@@ -29,6 +31,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -58,6 +61,8 @@ public class PostService {
     ForumRepository forumRepository;
     @Autowired
     ThreadMapper threadMapper;
+    @Autowired
+    AttachmentService attachmentService;
 
     /**
      * 我的帖子
@@ -197,7 +202,17 @@ public class PostService {
         favoriteMapper.deleteByUidAndIdAndIdType(userInfo.getUid(),fid,IDType.FID);
     }
 
-    public void postThread(Member userInfo, Integer fid, String subject, String message, Integer readaccess, Short price) {
+    /**
+     * 发表帖子，带图片
+     * @param userInfo
+     * @param fid
+     * @param subject
+     * @param message
+     * @param readaccess
+     * @param price
+     * @param table
+     */
+    public void postThread(Member userInfo, Integer fid, String subject, String message, Integer readaccess, Short price, Table<String,Long,String> table) {
 
         Thread0 thread = new Thread0();
         thread.setAuthor(userInfo.getUsername());
@@ -215,5 +230,12 @@ public class PostService {
         BeanUtils.copyProperties(thread0,post);
         post.setMessage(message);
         postMapper.insertSelective(post);
+
+        Set<Table.Cell<String,Long,String>> cellset = table.cellSet();
+        for(Table.Cell<String,Long,String> temp : cellset){
+            if(null != temp){
+                attachmentService.uploadAttachment(userInfo.getUid(),thread0.getTid(),temp.getRowKey(),0,1,"",(short)0,temp.getColumnKey().intValue(),temp.getValue());
+            }
+        }
     }
 }
