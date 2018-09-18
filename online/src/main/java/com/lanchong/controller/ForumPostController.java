@@ -101,7 +101,7 @@ public class ForumPostController {
     }
 
     @PostMapping("favorForum")
-    @ApiOperation(value = "收藏板块", notes = "收藏板块")
+    @ApiOperation(value = "关注小板块", notes = "关注小板块")
     public String favorForum(int fid){
         Member userInfo = CookieUtils.getUserIfo(true);
         postService.setFavorForum(userInfo,fid);
@@ -110,7 +110,7 @@ public class ForumPostController {
     }
 
     @PostMapping("unfavorForum")
-    @ApiOperation(value = "取消收藏板块", notes = "取消收藏板块")
+    @ApiOperation(value = "取消关注小板块", notes = "取消关注小板块")
     public String unFavorForum(int fid){
         Member userInfo = CookieUtils.getUserIfo(true);
         postService.unFavorForum(userInfo,fid);
