@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lanchong.common.mapper.MemberMapper" >
+  <resultMap id="BaseResultMap" type="com.lanchong.common.entity.Member" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+  </resultMap>
+  <update id="setAvartarstatus">
+    UPDATE ldp_common_member SET
+    avatarstatus = 1
+    WHERE uid = #{uid}
+  </update>
+</mapper>

@@ -1,9 +1,10 @@
 package com.lanchong.controller;
 
+import com.lanchong.base.AvatarUtils;
+import com.lanchong.base.FileUtils;
 import com.lanchong.common.Common;
 import com.lanchong.common.CookieUtils;
 import com.lanchong.common.entity.Member;
-import com.lanchong.cons.UserInfo;
 import com.lanchong.common.service.CreditService;
 import com.lanchong.exception.Assert;
 import com.lanchong.home.service.FriendService;
@@ -13,17 +14,18 @@ import com.lanchong.util.StringUtil;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("member")
+@Slf4j
 public class MemberController{
 
     @Autowired
@@ -67,6 +69,27 @@ public class MemberController{
         jr.attr("member",memberService.getMember(userInfo.getUid()));
         return jr.toJson();
     }
+
+    @PostMapping("/avatar")
+    @ApiImplicitParam(name = "file", value = "头像", paramType = "query",required = true)
+    @ApiOperation(value = "修改头像", notes = "修改头像")
+    public String submitThread(@RequestParam("file") MultipartFile file){
+        Member userInfo = CookieUtils.getUserIfo(true);
+        if(null != file){
+            try {
+                FileUtils.saveAsFile(file.getBytes(), AvatarUtils.getAvatarDir(userInfo.getUid(),false));
+            } catch (Exception e) {
+                log.warn(userInfo.getUsername()+"头像上传失败!");
+                return  new JsonResult(false,"头像上传失败！").toJson();
+            }
+        }
+        memberService.setAvatar(userInfo);
+        JsonResult jr = new JsonResult();
+        jr.attr("avatarUrl",AvatarUtils.getAvatarDir(userInfo.getUid(),false));
+        return jr.toJson();
+    }
+
+
 
     @GetMapping("follow")
     @ApiImplicitParam( name = "好友的用户编号", value = "fuid", paramType = "query")

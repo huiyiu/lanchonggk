@@ -202,4 +202,8 @@ public class MemberService {
     public boolean userNameSignedIn(String username) {
         return membersRepository.findByUsername(username) != null;
     }
+
+    public void setAvatar(Member member) {
+        memberMapper.setAvartarstatus(member.getUid());
+    }
 }
