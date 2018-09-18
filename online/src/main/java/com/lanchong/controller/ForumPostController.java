@@ -8,9 +8,11 @@ import com.lanchong.base.FileUtils;
 import com.lanchong.common.CookieUtils;
 import com.lanchong.common.entity.Member;
 import com.lanchong.cons.UserInfo;
+import com.lanchong.forum.entity.Forum;
 import com.lanchong.forum.entity.Post;
 import com.lanchong.forum.entity.Thread0;
 import com.lanchong.forum.service.PostService;
+import com.lanchong.home.entity.Favorite;
 import com.lanchong.ucenter.service.AttachmentService;
 import com.lanchong.util.JsonResult;
 import io.swagger.annotations.ApiImplicitParam;
@@ -59,7 +61,7 @@ public class ForumPostController {
 
 
     @GetMapping("{tid}")
-    @ApiOperation(value = "帖子详情", notes = "帖子详情",response = Post.class)
+    @ApiOperation(value = "帖子详情", notes = "帖子详情",response = Thread0.class)
     @ApiImplicitParam(name = "tid", value = "帖子编号", paramType = "path",dataType = "Integer")
     public String postDetail(@PathVariable Integer tid){
         Member userInfo = CookieUtils.getUserIfo(false);
@@ -70,7 +72,7 @@ public class ForumPostController {
     }
 
     @GetMapping("favorThread")
-    @ApiOperation(value = "我收藏的帖子", notes = "我收藏的帖子",response = Post.class)
+    @ApiOperation(value = "我收藏的帖子", notes = "我收藏的帖子",response = Favorite.class)
     @ApiImplicitParams({ @ApiImplicitParam(defaultValue = "0", name = "page", value = "页数", paramType = "query"),
             @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
     public String myFavorite(@RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "10")int pageSize){
@@ -120,7 +122,7 @@ public class ForumPostController {
 
 
     @GetMapping("favorForum")
-    @ApiOperation(value = "我收藏的板块", notes = "我收藏的板块",response = Post.class)
+    @ApiOperation(value = "我收藏的板块", notes = "我收藏的板块",response = Favorite.class)
     @ApiImplicitParams({ @ApiImplicitParam(defaultValue = "0", name = "page", value = "页数", paramType = "query"),
             @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
     public String myFavorForum(@RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "10")int pageSize){
@@ -129,6 +131,15 @@ public class ForumPostController {
         JsonResult jr = new JsonResult();
         jr.setTotalCount(pageInfo.getTotalElements());
         jr.setList(pageInfo.getContent());
+        return jr.toJson();
+    }
+
+    @GetMapping("forms")
+    @ApiOperation(value = "获取所有板块", notes = "获取所有板块",response = Forum.class)
+    public String forums(){
+        Member userInfo = CookieUtils.getUserIfo(true);
+        JsonResult jr = new JsonResult();
+        jr.setList(postService.listForums(userInfo.getUid()));
         return jr.toJson();
     }
 

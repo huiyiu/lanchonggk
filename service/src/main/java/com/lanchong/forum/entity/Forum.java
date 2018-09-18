@@ -1,15 +1,21 @@
 package com.lanchong.forum.entity;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "ldp_forum_forum",  catalog = "")
 public class Forum {
+    @ApiModelProperty(value = "板块编号")
     private Integer fid;
+    @ApiModelProperty(value = "父板块编号，为0代表顶级板块")
     private Integer fup;
     private String type;
+    @ApiModelProperty(value = "板块名")
     private String name;
-    private Byte status;
+    private Integer status;
     private Short displayorder;
     private Short styleid;
     private Integer threads;
@@ -54,6 +60,13 @@ public class Forum {
     private Byte disablethumb;
     private Byte disablecollect;
 
+    @ApiModelProperty(value = "是否关注")
+    @Transient
+    private Boolean favored;
+
+    @ApiModelProperty(value = "子板块")
+    private List<Forum> forums;
+
     @Id
     @Column(name = "fid")
     public Integer getFid() {
@@ -96,16 +109,17 @@ public class Forum {
 
     @Basic
     @Column(name = "status")
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
     @Basic
     @Column(name = "displayorder")
+    @ApiModelProperty(value = "显示顺序")
     public Short getDisplayorder() {
         return displayorder;
     }
@@ -126,6 +140,7 @@ public class Forum {
 
     @Basic
     @Column(name = "threads")
+    @ApiModelProperty(value = "帖子数")
     public Integer getThreads() {
         return threads;
     }
@@ -136,6 +151,7 @@ public class Forum {
 
     @Basic
     @Column(name = "posts")
+    @ApiModelProperty(value = "帖子数")
     public Integer getPosts() {
         return posts;
     }
@@ -146,6 +162,7 @@ public class Forum {
 
     @Basic
     @Column(name = "todayposts")
+    @ApiModelProperty(value = "今日帖子数")
     public Integer getTodayposts() {
         return todayposts;
     }
@@ -156,6 +173,7 @@ public class Forum {
 
     @Basic
     @Column(name = "yesterdayposts")
+    @ApiModelProperty(value = "昨日帖子数")
     public Integer getYesterdayposts() {
         return yesterdayposts;
     }
@@ -656,5 +674,24 @@ public class Forum {
         result = 31 * result + (disablethumb != null ? disablethumb.hashCode() : 0);
         result = 31 * result + (disablecollect != null ? disablecollect.hashCode() : 0);
         return result;
+    }
+
+//    @OneToMany(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "fup",referencedColumnName="fid",insertable = false, updatable = false)
+   @Transient
+    public List<Forum> getForums() {
+        return forums;
+    }
+
+    public void setForums(List<Forum> forums) {
+        this.forums = forums;
+    }
+
+    public Boolean getFavored() {
+        return favored;
+    }
+
+    public void setFavored(Boolean favored) {
+        this.favored = favored;
     }
 }

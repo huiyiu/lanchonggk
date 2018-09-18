@@ -6,6 +6,7 @@ import com.google.common.collect.Table;
 import com.lanchong.common.entity.Member;
 import com.lanchong.common.repository.UsergroupFieldRepository;
 import com.lanchong.common.repository.UsergroupRepository;
+import com.lanchong.cons.ForumType;
 import com.lanchong.cons.IDType;
 import com.lanchong.forum.entity.*;
 import com.lanchong.forum.mapper.AttachmentMapper;
@@ -153,7 +154,7 @@ public class PostService {
     }
 
     /**
-     * 获取我收藏的板块
+     * 获取我收藏的帖子
      * @param userInfo
      * @param page
      * @param pageSize
@@ -237,5 +238,20 @@ public class PostService {
                 attachmentService.uploadAttachment(userInfo.getUid(),thread0.getTid(),temp.getRowKey(),0,1,"",(short)0,temp.getColumnKey().intValue(),temp.getValue());
             }
         }
+    }
+
+    public List<Forum> listForums(Integer uid){
+        return forumRepository.findByTypeAndStatus(ForumType.GROUP,1)
+                .stream()
+                .map(forum ->{
+                    forum.setForums(forumRepository.findByFupAndTypeAndStatus(forum.getFid(), ForumType.FORUM,1)
+                    .stream()
+                    .map(child->{
+                        child.setFavored(null != favoriteRepository.findByUidAndIdtypeAndId(uid,IDType.FID,child.getFid()));
+                                return child;
+                    }).collect(Collectors.toList()));
+                    return forum;
+                })
+                .collect(Collectors.toList());
     }
 }

@@ -5,6 +5,8 @@ import com.lanchong.forum.entity.Thread0;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Book 数据持久层操作接口
  *
@@ -13,4 +15,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ForumRepository extends PagingAndSortingRepository<Forum,Integer> {
     Forum findByFid(Integer fid);
+
+    List<Forum> findByTypeAndStatus(String group, int status);
+
+    List<Forum> findByFupAndTypeAndStatus(Integer fup,String group, int status);
 }
