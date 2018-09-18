@@ -1,9 +1,6 @@
 package com.lanchong.forum.repository;
 
-import com.lanchong.forum.entity.Post;
 import com.lanchong.forum.entity.Thread0;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 

@@ -43,7 +43,7 @@ public class MemberController{
     }
 
     @PostMapping("login")
-    @ApiOperation(value = "登陆(15829773057,a11111)", notes = "登陆")
+    @ApiOperation(value = "登陆(17011112222,admin)", notes = "登陆")
     public String login(HttpServletRequest request,HttpServletResponse response,String phone, String pwd) {
         Assert.isTrue(StringUtil.isTelephone(phone),"请检查手机号码格式");
         Member userInfo = memberService.login(phone,pwd);
@@ -58,9 +58,6 @@ public class MemberController{
         CookieUtils.markLogout(request,response);
         return new JsonResult().toJson();
     }
-
-
-
 
     @GetMapping
     @ApiOperation(value = "获取用户信息", notes = "获取用户信息")
@@ -98,6 +95,7 @@ public class MemberController{
         return new JsonResult(isSign,"").toJson();
     }
 
+
     @PostMapping("nameIsSign")
     @ApiOperation(value = "用户名是否注册", notes = "用户名是否注册")
     public String userNameCheck(String username){
@@ -125,6 +123,12 @@ public class MemberController{
     }
 
 
+    /**
+     * 获取我的好友
+     * @param page
+     * @param pageSize
+     * @return
+     */
     @GetMapping("friends")
     @ApiImplicitParams({ @ApiImplicitParam(defaultValue = "0", name = "page", value = "页数", paramType = "query"),
             @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})

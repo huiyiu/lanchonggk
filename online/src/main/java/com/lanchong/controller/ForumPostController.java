@@ -1,13 +1,10 @@
 package com.lanchong.controller;
 
-import com.google.common.collect.ArrayTable;
 import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.ImmutableTable;
 import com.google.common.collect.Table;
 import com.lanchong.base.FileUtils;
 import com.lanchong.common.CookieUtils;
 import com.lanchong.common.entity.Member;
-import com.lanchong.cons.UserInfo;
 import com.lanchong.forum.entity.Forum;
 import com.lanchong.forum.entity.Post;
 import com.lanchong.forum.entity.Thread0;
@@ -20,7 +17,6 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.checkerframework.checker.units.qual.A;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,9 +24,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.io.IOException;
 
 @RestController
 @RequestMapping("post")

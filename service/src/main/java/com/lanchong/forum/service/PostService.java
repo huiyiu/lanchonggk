@@ -175,6 +175,11 @@ public class PostService {
         return forumRepository.findByFid(fid);
     }
 
+    /**
+     * 收藏帖子
+     * @param userInfo
+     * @param tid
+     */
     public void setFavorThread(Member userInfo, int tid) {
         Favorite favorite = new Favorite();
         favorite.setId(tid);
@@ -185,10 +190,20 @@ public class PostService {
         favoriteMapper.insertSelective(favorite);
     }
 
+    /**
+     * 取消收藏帖子
+     * @param userInfo
+     * @param tid
+     */
     public void unFavorThread(Member userInfo, int tid) {
         favoriteMapper.deleteByUidAndIdAndIdType(userInfo.getUid(),tid,IDType.TID);
     }
 
+    /**
+     * 关注板块
+     * @param userInfo
+     * @param fid
+     */
     public void setFavorForum(Member userInfo, int fid) {
         Favorite favorite = new Favorite();
         favorite.setId(fid);
@@ -240,15 +255,22 @@ public class PostService {
         }
     }
 
+    /**
+     * 获取板块列表（用户是否关注子板块）
+     * @param uid
+     * @return
+     */
     public List<Forum> listForums(Integer uid){
         return forumRepository.findByTypeAndStatus(ForumType.GROUP,1)
                 .stream()
                 .map(forum ->{
+                    //设置子板块
                     forum.setForums(forumRepository.findByFupAndTypeAndStatus(forum.getFid(), ForumType.FORUM,1)
                     .stream()
                     .map(child->{
+                        //用户是否关注
                         child.setFavored(null != favoriteRepository.findByUidAndIdtypeAndId(uid,IDType.FID,child.getFid()));
-                                return child;
+                        return child;
                     }).collect(Collectors.toList()));
                     return forum;
                 })
