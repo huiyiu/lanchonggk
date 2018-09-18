@@ -50,7 +50,7 @@ public class ForumPostController {
             @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
     public String myPost(@RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "10")int pageSize){
         Member userInfo = CookieUtils.getUserIfo(true);
-        Page pageInfo = postService.getByUid(userInfo.getUid(),page,pageSize);
+        Page pageInfo = postService.getByUid(userInfo.getUid(),page-1,pageSize);
         JsonResult jr = new JsonResult();
         jr.setTotalCount(pageInfo.getTotalElements());
         jr.setList(pageInfo.getContent());
@@ -75,7 +75,7 @@ public class ForumPostController {
             @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
     public String myFavorite(@RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "10")int pageSize){
         Member userInfo = CookieUtils.getUserIfo(true);
-        Page pageInfo = postService.getFavoriteByUid(userInfo,page,pageSize);
+        Page pageInfo = postService.getFavoriteByUid(userInfo,page-1,pageSize);
         JsonResult jr = new JsonResult();
         jr.setTotalCount(pageInfo.getTotalElements());
         jr.setList(pageInfo.getContent());
@@ -125,7 +125,7 @@ public class ForumPostController {
             @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
     public String myFavorForum(@RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "10")int pageSize){
         Member userInfo = CookieUtils.getUserIfo(true);
-        Page pageInfo = postService.getFavorforumByUid(userInfo,page,pageSize);
+        Page pageInfo = postService.getFavorforumByUid(userInfo,page-1,pageSize);
         JsonResult jr = new JsonResult();
         jr.setTotalCount(pageInfo.getTotalElements());
         jr.setList(pageInfo.getContent());
