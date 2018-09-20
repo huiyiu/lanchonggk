@@ -11,8 +11,10 @@ import java.util.List;
 @IdClass(PostPK.class)
 @ApiModel
 public class Post {
+    @ApiModelProperty(value = "回帖编号")
     private Integer pid;
     private Integer fid;
+    @ApiModelProperty(value = "帖子编号")
     private Integer tid;
     private Byte first;
     @ApiModelProperty(value = "作者")
@@ -44,12 +46,13 @@ public class Post {
     @ApiModelProperty(value = "是否存在点评")
     private Byte comment;
     private Integer replycredit;
+    @ApiModelProperty(value = "帖子位置")
     private Integer position;
     private String readuser;
 
-
+/*
     @ApiModelProperty(value = "附件列表")
-    private List<Attachment> attachments;
+    private List<Attachment> attachments;*/
 
 
     @Basic
@@ -324,14 +327,14 @@ public class Post {
 
 
 
-    @Transient
+    /*@Transient
     public List<Attachment> getAttachments() {
         return attachments;
     }
 
     public void setAttachments(List<Attachment> attachments) {
         this.attachments = attachments;
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {

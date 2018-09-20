@@ -1,6 +1,9 @@
 package com.lanchong.forum.entity;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -49,8 +52,9 @@ public class Thread0 {
     private Integer comments;
     private Short hidden;
 
-
-    private Post post;
+    @ApiModelProperty(value = "附件列表")
+    private List<Attachment> attachments;
+  /*  private Post post;
 
     @Transient
     public Post getPost() {
@@ -59,7 +63,7 @@ public class Thread0 {
 
     public void setPost(Post post) {
         this.post = post;
-    }
+    }*/
 
     @Id
     @Column(name = "tid")
@@ -528,6 +532,15 @@ public class Thread0 {
                 Objects.equals(bgcolor, thread.bgcolor) &&
                 Objects.equals(comments, thread.comments) &&
                 Objects.equals(hidden, thread.hidden);
+    }
+
+    @Transient
+    public List<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
     }
 
     @Override

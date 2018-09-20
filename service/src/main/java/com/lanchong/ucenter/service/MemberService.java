@@ -206,4 +206,8 @@ public class MemberService {
     public void setAvatar(Member member) {
         memberMapper.setAvartarstatus(member.getUid());
     }
+
+    public void setSignhtml(Integer uid,String signhtml){
+        memberFieldForumMapper.setSignhtml(uid,signhtml);
+    }
 }

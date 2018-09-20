@@ -1,6 +1,10 @@
 package com.lanchong.forum.repository;
 
 import com.lanchong.forum.entity.Thread0;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +16,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ThreadRepository extends PagingAndSortingRepository<Thread0,Integer> {
     Thread0 findByTid(Integer tid);
+
+    Page<Thread0> findByAuthorid(Integer authorid,Pageable dateline);
 }

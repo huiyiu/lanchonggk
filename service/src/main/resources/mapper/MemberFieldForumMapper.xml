@@ -9,4 +9,7 @@
   <insert id="insert2">
      INSERT INTO ldp_common_member_field_forum(uid,medals,sightml,groupterms,`groups`) VALUES(#{uid},#{medals},#{sightml},#{groupterms},#{groups});
   </insert>
+  <update id="setSignhtml">
+    update ldp_common_member_field_forum set sightml = #{sign} where uid = #{uid}
+  </update>
 </mapper>

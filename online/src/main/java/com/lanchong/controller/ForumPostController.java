@@ -44,7 +44,22 @@ public class ForumPostController {
     @ApiOperation(value = "我的帖子", notes = "我的帖子",response = Post.class)
     @ApiImplicitParams({ @ApiImplicitParam(defaultValue = "0", name = "page", value = "页数", paramType = "query"),
             @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
-    public String myPost(@RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "10")int pageSize){
+    public String myThread(@RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "10")int pageSize){
+        Member userInfo = CookieUtils.getUserIfo(true);
+        Page pageInfo = postService.getThreadByUid(userInfo.getUid(),page-1,pageSize);
+        JsonResult jr = new JsonResult();
+        jr.setTotalCount(pageInfo.getTotalElements());
+        jr.setList(pageInfo.getContent());
+        return jr.toJson();
+    }
+
+
+    @GetMapping("posts")
+    @ApiOperation(value = "帖子回帖", notes = "帖子回帖",response = Post.class)
+    @ApiImplicitParams({ @ApiImplicitParam(defaultValue = "0", name = "page", value = "页数", paramType = "query"),
+            @ApiImplicitParam( name = "tid", value = "帖子编号", paramType = "query"),
+            @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
+    public String myPost(@RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "10")int pageSize,Integer tid){
         Member userInfo = CookieUtils.getUserIfo(true);
         Page pageInfo = postService.getByUid(userInfo.getUid(),page-1,pageSize);
         JsonResult jr = new JsonResult();

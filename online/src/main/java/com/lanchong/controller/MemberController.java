@@ -5,6 +5,7 @@ import com.lanchong.base.FileUtils;
 import com.lanchong.common.Common;
 import com.lanchong.common.CookieUtils;
 import com.lanchong.common.entity.Member;
+import com.lanchong.common.repository.MemberFieldForumRepository;
 import com.lanchong.common.service.CreditService;
 import com.lanchong.exception.Assert;
 import com.lanchong.home.service.FriendService;
@@ -34,6 +35,8 @@ public class MemberController{
     CreditService creditService;
     @Autowired
     FriendService friendService;
+    @Autowired
+    MemberFieldForumRepository memberFieldForumRepository;
 
     @PostMapping("signUp")
     @ApiOperation(value = "注册", notes = "注册")
@@ -143,6 +146,14 @@ public class MemberController{
     public String myIntegral(){
         Member userInfo = CookieUtils.getUserIfo(true);
         return creditService.getCredits(userInfo.getUid()).toJson();
+    }
+
+    @PostMapping("sightml")
+    @ApiOperation(value = "修改签名", notes = "修改签名")
+    public String sightml(String sign){
+        Member userInfo = CookieUtils.getUserIfo(true);
+        memberService.setSignhtml(userInfo.getUid(),sign);
+        return new JsonResult().toJson();
     }
 
 

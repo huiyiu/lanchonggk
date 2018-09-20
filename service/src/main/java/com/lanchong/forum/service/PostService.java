@@ -66,22 +66,41 @@ public class PostService {
     AttachmentService attachmentService;
 
     /**
+     * 帖子回帖
+     * @param tid
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    public Page<Post> getByUid(Integer tid, int page, int pageSize) {
+        Page<Post> postPage = postRepository.findByTid(tid, PageRequest.of(page,pageSize, Sort.by(Sort.Order.desc("dateline"))));
+        postPage
+                /*.filter(post->post.getAttachment() != 0)
+                .map(post->{
+                    post.setAttachments(getAttachment(post.getPid()));
+                    return post;
+                })*/
+                .stream().collect(Collectors.toList());
+        return postPage;
+    }
+
+    /**
      * 我的帖子
      * @param uid
      * @param page
      * @param pageSize
      * @return
      */
-    public Page<Post> getByUid(Integer uid, int page, int pageSize) {
-        Page<Post> postPage = postRepository.findByAuthorid(uid, PageRequest.of(page,pageSize, Sort.by(Sort.Order.desc("dateline"))));
+    public Page<Thread0> getThreadByUid(Integer uid, int page, int pageSize) {
+        Page<Thread0> postPage = threadRepository.findByAuthorid(uid, PageRequest.of(page,pageSize, Sort.by(Sort.Order.desc("dateline"))));
         postPage
-                .filter(post->post.getAttachment() != 0)
-                .map(post->{
-                    post.setAttachments(getAttachment(post.getPid()));
-                    return post;
-                }
-        ).stream().collect(Collectors.toList());
-        return postPage;
+                .filter(thread0->thread0.getAttachment() != 0)
+                .map(thread0->{
+                            thread0.setAttachments(getAttachment(thread0.getTid()));
+                            return thread0;
+                        }
+                ).stream().collect(Collectors.toList());
+         return postPage;
     }
 
     public PageInfo<Post> getAllByUid(Integer uid, int page, int pageSize) {
@@ -146,8 +165,8 @@ public class PostService {
                 BeanUtils.copyProperties(thread,postNo);
                 return thread;
             }else{
-                thread.setPost(postRepository.findByPid(tid));
-                thread.getPost().setAttachments(getAttachment(tid));
+                //thread.setPost(postRepository.findByPid(tid));
+                thread.setAttachments(getAttachment(tid));
             }
         }
         return thread;
