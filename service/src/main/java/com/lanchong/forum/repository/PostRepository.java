@@ -3,6 +3,7 @@ package com.lanchong.forum.repository;
 import com.lanchong.forum.entity.Post;
 import com.lanchong.ucenter.entity.Members;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -20,4 +21,6 @@ public interface PostRepository extends PagingAndSortingRepository<Post,Long> {
     Page<Post> findByTid(Integer tid,Pageable pageable);
 
     Post findByPid(Integer pid);
+
+    Page<Post> findByTidAndPidNot(Integer tid, Integer pid, Pageable pageable);
 }

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("post")
@@ -56,12 +57,12 @@ public class ForumPostController {
 
     @GetMapping("posts")
     @ApiOperation(value = "帖子回帖", notes = "帖子回帖",response = Post.class)
-    @ApiImplicitParams({ @ApiImplicitParam(defaultValue = "0", name = "page", value = "页数", paramType = "query"),
+    @ApiImplicitParams({ @ApiImplicitParam(defaultValue = "1", name = "page", value = "页数", paramType = "query"),
             @ApiImplicitParam( name = "tid", value = "帖子编号", paramType = "query"),
             @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
-    public String myPost(@RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "10")int pageSize,Integer tid){
+    public String myPost(int page, int pageSize,Integer tid){
         Member userInfo = CookieUtils.getUserIfo(true);
-        Page pageInfo = postService.getByUid(userInfo.getUid(),page-1,pageSize);
+        Page<Post> pageInfo = postService.getPostByTid(tid,page-1,pageSize);
         JsonResult jr = new JsonResult();
         jr.setTotalCount(pageInfo.getTotalElements());
         jr.setList(pageInfo.getContent());

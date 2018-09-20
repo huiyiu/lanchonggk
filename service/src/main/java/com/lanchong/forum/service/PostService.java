@@ -72,16 +72,10 @@ public class PostService {
      * @param pageSize
      * @return
      */
-    public Page<Post> getByUid(Integer tid, int page, int pageSize) {
-        Page<Post> postPage = postRepository.findByTid(tid, PageRequest.of(page,pageSize, Sort.by(Sort.Order.desc("dateline"))));
-        postPage
-                /*.filter(post->post.getAttachment() != 0)
-                .map(post->{
-                    post.setAttachments(getAttachment(post.getPid()));
-                    return post;
-                })*/
-                .stream().collect(Collectors.toList());
-        return postPage;
+    public Page<Post> getPostByTid(Integer tid, int page, int pageSize) {
+        return postRepository.findByTidAndPidNot(tid,tid, PageRequest.of(page,pageSize, Sort.by(Sort.Order.desc("dateline"))));
+
+
     }
 
     /**
