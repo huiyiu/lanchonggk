@@ -18,6 +18,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,6 +38,8 @@ public class MemberController{
     FriendService friendService;
     @Autowired
     MemberFieldForumRepository memberFieldForumRepository;
+    @Value("${discuz.dir}")
+    String discuzDir;
 
     @PostMapping("signUp")
     @ApiOperation(value = "注册", notes = "注册")
@@ -80,7 +83,7 @@ public class MemberController{
         Member userInfo = CookieUtils.getUserIfo(true);
         if(null != file){
             try {
-                FileUtils.saveAsFile(file.getBytes(), AvatarUtils.getAvatarDir(userInfo.getUid(),true));
+                FileUtils.saveAsFile(file.getBytes(), discuzDir+AvatarUtils.getAvatarDir(userInfo.getUid(),true));
             } catch (Exception e) {
                 log.warn(userInfo.getUsername()+"头像上传失败!");
                 return  new JsonResult(false,"头像上传失败！").toJson();
