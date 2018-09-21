@@ -80,7 +80,7 @@ public class MemberController{
         Member userInfo = CookieUtils.getUserIfo(true);
         if(null != file){
             try {
-                FileUtils.saveAsFile(file.getBytes(), AvatarUtils.getAvatarDir(userInfo.getUid(),false));
+                FileUtils.saveAsFile(file.getBytes(), AvatarUtils.getAvatarDir(userInfo.getUid(),true));
             } catch (Exception e) {
                 log.warn(userInfo.getUsername()+"头像上传失败!");
                 return  new JsonResult(false,"头像上传失败！").toJson();
