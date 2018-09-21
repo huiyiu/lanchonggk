@@ -88,7 +88,7 @@ public class MemberController{
         }
         memberService.setAvatar(userInfo);
         JsonResult jr = new JsonResult();
-        jr.attr("avatarUrl",AvatarUtils.getAvatarDir(userInfo.getUid(),false));
+        jr.attr("avatarUrl",AvatarUtils.getAvatarDir(userInfo.getUid(),true));
         return jr.toJson();
     }
 
