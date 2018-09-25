@@ -254,8 +254,9 @@ public class PostService {
         threadMapper.insertSelective(thread);
 
         Thread0 thread0 = threadMapper.findMaxByUid(userInfo.getUid());
+        Integer postId = postMapper.findMaxId();
         Post post = new Post();
-        post.setPid(thread0.getTid());
+        post.setPid(postId+1);
         BeanUtils.copyProperties(thread0,post);
         post.setMessage(message);
         postMapper.insertSelective(post);

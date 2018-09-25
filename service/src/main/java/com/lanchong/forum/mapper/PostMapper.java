@@ -8,4 +8,7 @@ import java.util.List;
 
 public interface PostMapper extends MyMapper<Post> {
     List<Post> findByAuthorid(@Param("authorid") Integer authorid);
+
+    Integer findMaxId();
+
 }

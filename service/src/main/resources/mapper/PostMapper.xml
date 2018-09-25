@@ -11,4 +11,7 @@
     from ldp_forum_post
     where authorid = #{authorid}
   </select>
+    <select id="findMaxId" resultType="java.lang.Integer">
+      select ifnull(max(pid),0) from  ldp_forum_post
+    </select>
 </mapper>
