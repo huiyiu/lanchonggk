@@ -166,12 +166,15 @@ public class ForumPostController {
     public String submitThread(Integer fid,String subject,String message,Integer readaccess,Short price,@RequestParam("files") MultipartFile[] files){
         Member userInfo = CookieUtils.getUserIfo(true);
         Table<String,Long,String> table = HashBasedTable.create();
+        Integer attach = 0;
         if(null != files && files.length!=0){
             String dateStr = new DateTime().toString("yyyy/MM/dd");
+            attach = 2;
             for(MultipartFile file : files){
                 String fileName = file.getOriginalFilename();
                 String attachmentUrl = dateStr + RandomStringUtils.randomAlphanumeric(16)+fileName.substring(fileName.lastIndexOf("."));
                 try {
+
                     FileUtils.saveAsFile(file.getBytes(),discuzDir + attachmentDir + attachmentUrl);
                 } catch (Exception e) {
                     return  new JsonResult(false,"附件上传失败！").toJson();
@@ -179,7 +182,7 @@ public class ForumPostController {
                 table.put(fileName,file.getSize(),attachmentUrl);
             }
         }
-        postService.postThread(userInfo,fid,subject,message,readaccess,price,table);
+        postService.postThread(userInfo,fid,subject,message,readaccess,price,table,attach);
         return new JsonResult<>().toJson();
     }
 
@@ -208,7 +211,7 @@ public class ForumPostController {
             } catch (Exception e) {
                return  new JsonResult(false,"附件上传失败！").toJson();
             }
-            attachmentService.uploadAttachment(userInfo.getUid(),tid,fileName,readaccess,isImage,desc,price,(int)file.getSize(),attachmentUrl);
+            attachmentService.uploadAttachment(userInfo.getUid(),tid,pid,fileName,readaccess,isImage,desc,price,(int)file.getSize(),attachmentUrl);
         }
         return new JsonResult().toJson();
     }

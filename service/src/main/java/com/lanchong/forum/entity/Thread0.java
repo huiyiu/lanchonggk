@@ -29,7 +29,7 @@ public class Thread0 {
     private Byte digest;
     private Byte rate;
     private Byte special;
-    private Byte attachment;
+    private Integer attachment;
     private Byte moderated;
     private Integer closed;
     private Byte stickreply;
@@ -267,11 +267,11 @@ public class Thread0 {
 
     @Basic
     @Column(name = "attachment")
-    public Byte getAttachment() {
+    public Integer getAttachment() {
         return attachment;
     }
 
-    public void setAttachment(Byte attachment) {
+    public void setAttachment(Integer attachment) {
         this.attachment = attachment;
     }
 

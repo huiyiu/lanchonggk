@@ -21,7 +21,7 @@ public class AttachmentService {
 
 
 
-    public JsonResult uploadAttachment(Integer uid,Integer tid,String fileName,Integer readaccess,Integer isImage,String desc,Short price,Integer fileSize,String attachmentUrl){
+    public JsonResult uploadAttachment(Integer uid,Integer tid,Integer pid,String fileName,Integer readaccess,Integer isImage,String desc,Short price,Integer fileSize,String attachmentUrl){
         List<Attachment> attachments = attachmentRepository.findByTidAndUid(tid,uid);
         Byte tableid = 1;
         if(null == attachments || attachments.isEmpty()){
@@ -32,7 +32,7 @@ public class AttachmentService {
         Attachment attachment = new Attachment();
         attachment.setTableid(tableid);
         attachment.setDownloads(0);
-        attachment.setPid(tid);
+        attachment.setPid(pid);
         attachment.setUid(uid);
         attachment.setTid(tid);
         attachmentMapper.insertSelective(attachment);

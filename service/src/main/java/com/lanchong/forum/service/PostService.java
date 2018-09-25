@@ -241,7 +241,7 @@ public class PostService {
      * @param price
      * @param table
      */
-    public void postThread(Member userInfo, Integer fid, String subject, String message, Integer readaccess, Short price, Table<String,Long,String> table) {
+    public void postThread(Member userInfo, Integer fid, String subject, String message, Integer readaccess, Short price, Table<String,Long,String> table,Integer attach) {
 
         Thread0 thread = new Thread0();
         thread.setAuthor(userInfo.getUsername());
@@ -251,6 +251,7 @@ public class PostService {
         thread.setPrice(price);
         thread.setSubject(subject);
         thread.setReadperm(readaccess);
+        thread.setAttachment(attach);
         threadMapper.insertSelective(thread);
 
         Thread0 thread0 = threadMapper.findMaxByUid(userInfo.getUid());
@@ -264,7 +265,7 @@ public class PostService {
         Set<Table.Cell<String,Long,String>> cellset = table.cellSet();
         for(Table.Cell<String,Long,String> temp : cellset){
             if(null != temp){
-                attachmentService.uploadAttachment(userInfo.getUid(),thread0.getTid(),temp.getRowKey(),0,1,"",(short)0,temp.getColumnKey().intValue(),temp.getValue());
+                attachmentService.uploadAttachment(userInfo.getUid(),thread0.getTid(),post.getPid(),temp.getRowKey(),0,1,"",(short)0,temp.getColumnKey().intValue(),temp.getValue());
             }
         }
     }
