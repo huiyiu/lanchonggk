@@ -168,7 +168,7 @@ public class ForumPostController {
         Table<String,Long,String> table = HashBasedTable.create();
         Integer attach = 0;
         if(null != files && files.length!=0){
-            String dateStr = new DateTime().toString("yyyy/MM/dd");
+            String dateStr = new DateTime().toString("yyyyMM/dd/");
             attach = 2;
             for(MultipartFile file : files){
                 String fileName = file.getOriginalFilename();
@@ -183,6 +183,7 @@ public class ForumPostController {
             }
         }
         postService.postThread(userInfo,fid,subject,message,readaccess,price,table,attach);
+        files = null;
         return new JsonResult<>().toJson();
     }
 
