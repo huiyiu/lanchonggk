@@ -20,6 +20,6 @@ public class DateUtils {
     public static void main(String[] args){
         System.out.println(now());//1534210316
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println(sdf.format(1534210316000L));
+        System.out.println(sdf.format(1538474584000L));
     }
 }
