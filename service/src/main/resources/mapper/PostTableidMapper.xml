@@ -8,6 +8,6 @@
   </resultMap>
 
   <select id="findMaxId" resultType="java.lang.Integer">
-    select ifnull(max(pid),0) from  ldp_forum_post
+    select ifnull(max(pid),0) from  ldp_forum_post_tableid
   </select>
 </mapper>
