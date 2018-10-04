@@ -70,7 +70,7 @@
     left join ldp_forum_attachment_9 b on b.aid = a.aid
     where a.pid = #{pid}
   </select>
-    <select id="findMaxByUid" resultType="com.lanchong.forum.entity.Attachment">
-      select * from ldp_forum_attachment where uid = #{uid} order by aid desc limit 1
+    <select id="findMaxAid" resultType="com.lanchong.forum.entity.Attachment">
+      select * from ldp_forum_attachment  order by aid desc limit 1
     </select>
 </mapper>

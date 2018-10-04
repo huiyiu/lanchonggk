@@ -37,7 +37,7 @@ public class AttachmentService {
         attachment.setTid(tid);
         attachmentMapper.insertSelective(attachment);
 
-        Attachment attachmentMax = attachmentMapper.findMaxByUid(uid);
+        Attachment attachmentMax = attachmentMapper.findMaxAid();
 
         AttachmentN attachmentN = new AttachmentN();
         attachmentN.setAid(attachmentMax.getAid());
@@ -47,7 +47,7 @@ public class AttachmentService {
         attachmentN.setFilesize(fileSize);
         attachmentN.setIsimage(isImage);
         attachmentN.setPrice(price);
-        attachmentN.setPid(tid);
+        attachmentN.setPid(pid);
         attachmentN.setUid(uid);
         attachmentN.setTid(tid);
         attachmentN.setAttachment(attachmentUrl);

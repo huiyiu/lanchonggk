@@ -10,7 +10,7 @@ import java.util.List;
 public interface AttachmentMapper extends MyMapper<Attachment> {
     List<Attachment> findByPid(@Param("pid")Integer pid);
 
-    Attachment findMaxByUid(@Param("uid") Integer uid);
+    Attachment findMaxAid();
 
     void insertN(@Param("tableid") Byte tableid, @Param("attachmentN") AttachmentN attachmentN);
 

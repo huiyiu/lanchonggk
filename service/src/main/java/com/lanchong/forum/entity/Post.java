@@ -36,7 +36,7 @@ public class Post {
     private Byte bbcodeoff;
     private Byte smileyoff;
     private Byte parseurloff;
-    private Byte attachment;
+    private Integer attachment;
     private Short rate;
     //
     @ApiModelProperty(value = "评分次数")
@@ -237,11 +237,11 @@ public class Post {
 
     @Basic
     @Column(name = "attachment")
-    public Byte getAttachment() {
+    public Integer getAttachment() {
         return attachment;
     }
 
-    public void setAttachment(Byte attachment) {
+    public void setAttachment(Integer attachment) {
         this.attachment = attachment;
     }
 
