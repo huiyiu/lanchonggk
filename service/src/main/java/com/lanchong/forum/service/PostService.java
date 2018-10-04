@@ -9,10 +9,7 @@ import com.lanchong.common.repository.UsergroupRepository;
 import com.lanchong.cons.ForumType;
 import com.lanchong.cons.IDType;
 import com.lanchong.forum.entity.*;
-import com.lanchong.forum.mapper.AttachmentMapper;
-import com.lanchong.forum.mapper.PostMapper;
-import com.lanchong.forum.mapper.PostTableidMapper;
-import com.lanchong.forum.mapper.ThreadMapper;
+import com.lanchong.forum.mapper.*;
 import com.lanchong.forum.repository.AttachmentRepository;
 import com.lanchong.forum.repository.ForumRepository;
 import com.lanchong.forum.repository.PostRepository;
@@ -67,6 +64,8 @@ public class PostService {
     AttachmentService attachmentService;
     @Autowired
     PostTableidMapper postTableidMapper;
+    @Autowired
+    NewThreadMapper newThreadMapper;
 
     /**
      * 帖子回帖
@@ -258,6 +257,12 @@ public class PostService {
         threadMapper.insertSelective(thread);
 
         Thread0 thread0 = threadMapper.findMaxByUid(userInfo.getUid());
+        Newthread newthread = new Newthread();
+        newthread.setTid(thread0.getTid());
+        newthread.setFid(fid);
+        newthread.setDateline(DateUtils.now());
+        newThreadMapper.insert(newthread);
+
         postTableidMapper.insert(new PostTableid());
         Integer postId = postTableidMapper.findMaxId();
         Post post = new Post();
