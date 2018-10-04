@@ -167,7 +167,7 @@ public class ForumPostController {
         Member userInfo = CookieUtils.getUserIfo(true);
         Table<String,Long,String> table = HashBasedTable.create();
         Integer attach = 0;
-        if(null != files && files.length!=0){
+        if(null != files && files.length > 0){
             String dateStr = new DateTime().toString("yyyyMM/dd/");
             attach = 2;
             for(MultipartFile file : files){

@@ -267,8 +267,8 @@ public class PostService {
         Integer postId = postTableidMapper.findMaxId();
         Post post = new Post();
         post.setPid(postId);
-        post.setAttachment(attach);
         BeanUtils.copyProperties(thread0,post);
+        post.setAttachment(attach);
         post.setMessage(message);
         postMapper.insertSelective(post);
 
