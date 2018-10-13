@@ -330,6 +330,7 @@ public class PostService {
             m.put("datetime",DateUtils.parse(post.getDateline()));
             m.put("pid",pid);
             m.put("ptid",tid);
+            //todo message中存在bbccode，不是真正的回帖内容。这里要进行过滤
            // m.put("message",StringUtil.substring(post.getMessage(),49));
             m.put("message", post.getMessage());
             m.put("message2",message);
