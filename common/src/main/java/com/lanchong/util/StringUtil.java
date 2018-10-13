@@ -79,4 +79,11 @@ public class StringUtil {
         return "true".equalsIgnoreCase(v) || "1".equals(v);
     }
 
+    public static String substring(String source, Integer len){
+        if(source.length() > len){
+            source = source.substring(0, len) + "...";
+        }
+        return source;
+    }
+
 }

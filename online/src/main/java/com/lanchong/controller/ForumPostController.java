@@ -188,6 +188,24 @@ public class ForumPostController {
     }
 
 
+
+    @PostMapping("/submitPost")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fid", value = "帖子所属板块", paramType = "query",required = true),
+            @ApiImplicitParam(name = "tid", value = "帖子编号", paramType = "query",required = true),
+            @ApiImplicitParam(name = "uid", value = "回帖人", paramType = "query",required = true),
+            @ApiImplicitParam(name = "pid", value = "回帖编号（如果传回帖编号，表示在帖子回帖上 进行回帖）", paramType = "query"),
+            @ApiImplicitParam(name = "message", value = "内容", paramType = "query",required = true),
+            @ApiImplicitParam( name = "imgUrl", value = "图片地址", paramType = "query",defaultValue = "")
+    })
+    @ApiOperation(value = "发表回复", notes = "发表回复")
+    public String submitThread(Integer fid,String message,Integer tid,String imgUrl,Integer uid,Integer pid){
+        postService.submitPost(fid,message,imgUrl,tid,uid,pid);
+        return new JsonResult<>().toJson();
+    }
+
+
+
     @ApiImplicitParams({
             @ApiImplicitParam(name = "tid", value = "帖子编号", paramType = "query",required = true),
             @ApiImplicitParam(defaultValue = "0", name = "readaccess", value = "阅读权限", paramType = "query"),

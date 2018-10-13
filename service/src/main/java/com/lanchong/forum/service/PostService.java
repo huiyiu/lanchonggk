@@ -3,6 +3,7 @@ package com.lanchong.forum.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Table;
+import com.lanchong.base.MessageFmtUtils;
 import com.lanchong.common.entity.Member;
 import com.lanchong.common.repository.UsergroupFieldRepository;
 import com.lanchong.common.repository.UsergroupRepository;
@@ -29,7 +30,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -300,5 +303,40 @@ public class PostService {
                     return forum;
                 })
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * 回帖
+     * @param fid
+     * @param message
+     * @param imgUrl
+     * @param tid
+     */
+    public void submitPost(Integer fid, String message, String imgUrl, Integer tid,Integer uid,Integer pid) {
+        postTableidMapper.insert(new PostTableid());
+        Integer postId = postTableidMapper.findMaxId();
+        Post post2 = new Post();
+        post2.setTid(tid);
+        post2.setPid(postId);
+        post2.setFid(fid);
+        post2.setAuthorid(uid);
+        if(!StringUtil.isEmpty(imgUrl)){
+            message = "[img]"+imgUrl+"[/img]\n" + message;
+        }
+        if(null != pid ){
+            Post post = postRepository.findByPid(pid);
+            Map<String,Object> m = new HashMap<>();
+            m.put("author",post.getAuthor());
+            m.put("datetime",DateUtils.parse(post.getDateline()));
+            m.put("pid",pid);
+            m.put("ptid",tid);
+           // m.put("message",StringUtil.substring(post.getMessage(),49));
+            m.put("message", post.getMessage());
+            m.put("message2",message);
+            message = MessageFmtUtils.formatMessage(m);
+        }
+        post2.setMessage(message);
+        postMapper.insertSelective(post2);
+
     }
 }

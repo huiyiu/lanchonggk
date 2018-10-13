@@ -21,5 +21,11 @@ public class DateUtils {
         System.out.println(now());//1534210316
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         System.out.println(sdf.format(1538476844000L));
+        System.out.println("中首次正式登场士大夫水水水水水水水水水水水水阿三发射点发射点发发射点法发飒飒发发发阿飞阿飞的撒法发".length());
+    }
+
+    public static String parse(Integer datetime){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return sdf.format(datetime+"000");
     }
 }
