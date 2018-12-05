@@ -98,7 +98,7 @@
     -->
     <!-- 基于INFO级别处理日志：具体控制台或者文件对日志级别的处理还要看所在appender配置的filter，如果没有配置filter，则使用root配置 -->
     <root level="WARN">
-        <appender-ref ref="STDOUT" />
+        <!--<appender-ref ref="STDOUT" />-->
        <!-- <appender-ref ref="DEBUG_OUT" />-->
         <appender-ref ref="WARN_OUT" />
         <appender-ref ref="ERROR_OUT" />
