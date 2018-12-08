@@ -11,6 +11,7 @@ import com.lanchong.forum.entity.Thread0;
 import com.lanchong.forum.service.PostService;
 import com.lanchong.home.entity.Favorite;
 import com.lanchong.ucenter.service.AttachmentService;
+import com.lanchong.ucenter.service.MemberService;
 import com.lanchong.util.JsonResult;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -40,6 +41,8 @@ public class ForumPostController {
     String discuzDir;
     @Autowired
     AttachmentService attachmentService;
+    @Autowired
+    MemberService memberService;
 
     @GetMapping("myThread")
     @ApiOperation(value = "我的帖子", notes = "我的帖子",response = Post.class)
@@ -208,6 +211,7 @@ public class ForumPostController {
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "tid", value = "帖子编号", paramType = "query",required = true),
+            @ApiImplicitParam(name = "uid", value = "用户编号", paramType = "query",required = true),
             @ApiImplicitParam(defaultValue = "0", name = "readaccess", value = "阅读权限", paramType = "query"),
             @ApiImplicitParam(defaultValue = "1", name = "isImage", value = "是否图片（1为图片，-1为附件）", paramType = "query"),
             @ApiImplicitParam(defaultValue = "", name = "desc", value = "描述信息", paramType = "query"),
@@ -215,8 +219,9 @@ public class ForumPostController {
     })
     @PostMapping("/upload")
     @ApiOperation(value = "上传图片或者附件", notes = "上传图片或者附件")
-    public String upload(Integer pid,@RequestParam("file") MultipartFile file,Integer readaccess,Integer isImage, Integer tid,String desc,Short price) {
-        Member userInfo = CookieUtils.getUserIfo(true);
+    public String upload(Integer pid,@RequestParam("file") MultipartFile file,Integer uid,Integer readaccess,Integer isImage, Integer tid,String desc,Short price) {
+        //Member userInfo = CookieUtils.getUserIfo(true);
+        memberService.existMember(uid);
         String dateStr = new DateTime().toString("yyyy/MM/dd");
         if (null != file) {
             //取得当前上传文件的文件名称
@@ -230,7 +235,7 @@ public class ForumPostController {
             } catch (Exception e) {
                return  new JsonResult(false,"附件上传失败！").toJson();
             }
-            attachmentService.uploadAttachment(userInfo.getUid(),tid,pid,fileName,readaccess,isImage,desc,price,(int)file.getSize(),attachmentUrl);
+            attachmentService.uploadAttachment(uid,tid,pid,fileName,readaccess,isImage,desc,price,(int)file.getSize(),attachmentUrl);
         }
         return new JsonResult().toJson();
     }

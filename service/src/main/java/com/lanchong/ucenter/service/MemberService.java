@@ -199,6 +199,12 @@ public class MemberService {
         return m;
     }
 
+    public void existMember(Integer uid){
+        Member m = memberRepository.findByUid(uid);
+        Assert.notNull(m,"用户不存在！");
+    }
+
+
     public boolean userNameSignedIn(String username) {
         return membersRepository.findByUsername(username) != null;
     }
