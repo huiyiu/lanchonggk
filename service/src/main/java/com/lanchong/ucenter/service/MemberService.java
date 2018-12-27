@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -197,6 +198,10 @@ public class MemberService {
         m.setAvatarUrl(AvatarUtils.getAvatarDir(uid,m.getAvatarstatus()));//头像
         m.setSightml(memberFieldForumRepository.findByUid(uid).getSightml()); //签名
         return m;
+    }
+
+    public Optional<Member> getBasicMember(Integer uid) {
+        return Optional.ofNullable(memberRepository.findByUid(uid));
     }
 
     public void existMember(Integer uid){

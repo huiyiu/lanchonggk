@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lanchong.mobile.mapper.AttachmentInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lanchong.mobile.entity.AttachmentInfo" >
+
+  </resultMap>
+
+    <select id="search" resultMap="BaseResultMap">
+      select * from ldp_mobile_attachment
+      where member_nm like '%${keywords}%'
+      or name like '%${keywords}%'
+      or marks like '%${keywords}%'
+      order by create_tm desc
+    </select>
+</mapper>
