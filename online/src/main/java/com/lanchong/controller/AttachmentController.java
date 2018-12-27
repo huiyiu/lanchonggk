@@ -56,6 +56,9 @@ public class AttachmentController {
             String filepath = discuzDir + attachmentDir +attachmentUrl;
             File newFile = new File(discuzDir + attachmentDir +attachmentUrl);
             try {
+                if(newFile.isDirectory()){
+                    newFile.mkdirs();
+                }
                 file.transferTo(newFile);
             } catch (Exception e) {
                 log.error("文件上传失败："+e.getMessage());
