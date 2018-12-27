@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 
 @RestController
-@RequestMapping("/attach")
+@RequestMapping("attachment")
 public class AttachmentController {
 
     @Autowired
