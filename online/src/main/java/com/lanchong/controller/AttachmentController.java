@@ -50,15 +50,17 @@ public class AttachmentController {
         if (null != file) {
             //取得当前上传文件的文件名称
             String fileName = file.getOriginalFilename();
+            String ext = "";
+            if(-1 != fileName.lastIndexOf(".")){
+                ext = fileName.substring(fileName.lastIndexOf("."));
+            }
             //如果名称不为“”,说明该文件存在，否则说明该文件不存在
             //本地上传图片方式
-            String attachmentUrl = dateStr + RandomStringUtils.randomAlphanumeric(16);
+            String attachmentUrl = dateStr + File.separator;
+            String fileNameNew = RandomStringUtils.randomAlphanumeric(16) + ext;
             String filepath = discuzDir + attachmentDir +attachmentUrl;
-            File newFile = new File(discuzDir + attachmentDir +attachmentUrl);
+            File newFile = new File(discuzDir + attachmentDir +attachmentUrl,fileNameNew);
             try {
-                if(newFile.isDirectory()){
-                    newFile.mkdirs();
-                }
                 file.transferTo(newFile);
             } catch (Exception e) {
                 log.error("文件上传失败："+e.getMessage());
