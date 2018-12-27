@@ -3,15 +3,14 @@ package com.lanchong.controller;
 import com.lanchong.mobile.service.AttachmentInfoService;
 import com.lanchong.ucenter.service.MemberService;
 import com.lanchong.util.JsonResult;
-import com.lanchong.util.StringUtil;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +21,7 @@ import java.io.File;
 
 @RestController
 @RequestMapping("attachment")
+@Slf4j
 public class AttachmentController {
 
     @Autowired
@@ -58,6 +58,7 @@ public class AttachmentController {
             try {
                 file.transferTo(newFile);
             } catch (Exception e) {
+                log.error("文件上传失败："+e.getMessage());
                 return  new JsonResult(false,"附件上传失败！").toJson();
             }
             //todo
