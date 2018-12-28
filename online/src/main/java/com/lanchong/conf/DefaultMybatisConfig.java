@@ -69,6 +69,9 @@ public class DefaultMybatisConfig {
         sessionFactory.setDataSource(masterDataSource);
         sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver()
                 .getResources(DefaultMybatisConfig.MAPPER_LOCATION));
+        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+        configuration.setMapUnderscoreToCamelCase(true);
+        sessionFactory.setConfiguration(configuration);
         return sessionFactory.getObject();
     }
 

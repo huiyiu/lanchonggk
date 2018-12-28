@@ -1,5 +1,9 @@
 package com.lanchong.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.lanchong.common.CookieUtils;
+import com.lanchong.common.entity.Member;
+import com.lanchong.mobile.entity.AttachmentInfo;
 import com.lanchong.mobile.service.AttachmentInfoService;
 import com.lanchong.ucenter.service.MemberService;
 import com.lanchong.util.JsonResult;
@@ -11,13 +15,11 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("attachment")
@@ -72,5 +74,30 @@ public class AttachmentController {
             attachmentInfoService.save(uid,filepath+fileNameNew,fileNameNew,name,descs,marks);
         }
         return new JsonResult().toJson();
+    }
+
+    /**
+     * 搜索视频
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("search")
+    @ApiImplicitParams({
+            @ApiImplicitParam(defaultValue = "", name = "keyWords", value = "关注字", paramType = "query"),
+            @ApiImplicitParam(defaultValue = "1", name = "page", value = "页数", paramType = "query"),
+            @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
+    @ApiOperation(value = "搜索视频", notes = "搜索视频")
+    public String search(String keyWords,@RequestParam(defaultValue = "1")Integer page,@RequestParam(defaultValue = "10")Integer pageSize){
+
+        JsonResult jr = new JsonResult();
+        PageInfo<AttachmentInfo> pages= attachmentInfoService.search(keyWords,page,pageSize);
+        jr.setList(pages.getList().stream().map(attach->{
+            String path = attachmentDir+attach.getPathUrl();
+            attach.setPathUrl(path);
+            return attach;
+        }).collect(Collectors.toList()));
+        jr.setTotalCount(pages.getTotal());
+        return jr.toJson();
     }
 }
