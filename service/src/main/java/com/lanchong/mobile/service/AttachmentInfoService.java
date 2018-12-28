@@ -39,7 +39,7 @@ public class AttachmentInfoService {
         aif.setPathUrl(pathUrl);
         if(aif.getVideo()){
             aif.setDuration(FileUtils.ReadVideoTime(new File(filePath)));
-            aif.setDuration(FileUtils.ReadVideoSize(new File(filePath)));
+            aif.setSize(FileUtils.ReadVideoSize(new File(filePath)));
         }
         //aif.set
         attachmentInfoMapper.insertUseGeneratedKeys(aif);

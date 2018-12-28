@@ -46,7 +46,7 @@ public class AttachmentController {
     public String upload(@RequestParam("file") MultipartFile file, String uid, Integer readaccess, String name, String marks, String descs, Short price) {
         //Member userInfo = CookieUtils.getUserIfo(true);
         memberService.existMember(Integer.parseInt(uid));
-        String dateStr = new DateTime().toString("yyyy/MM/dd");
+        String dateStr = new DateTime().toString("yyyyMM/dd");
         if (null != file) {
             //取得当前上传文件的文件名称
             String fileName = file.getOriginalFilename();
@@ -56,10 +56,9 @@ public class AttachmentController {
             }
             //如果名称不为“”,说明该文件存在，否则说明该文件不存在
             //本地上传图片方式
-            String attachmentUrl = dateStr + File.separator;
             String fileNameNew = RandomStringUtils.randomAlphanumeric(16) + ext;
-            String filepath = discuzDir + attachmentDir +attachmentUrl;
-            File newFile = new File(discuzDir + attachmentDir +attachmentUrl,fileNameNew);
+            String filepath = discuzDir + attachmentDir ;
+            File newFile = new File(new File(filepath).getAbsolutePath(),fileNameNew);
             try {
                 if (!newFile.getParentFile().exists()){
                     newFile.getParentFile().mkdirs();
@@ -70,7 +69,7 @@ public class AttachmentController {
                 return  new JsonResult(false,"附件上传失败！").toJson();
             }
             //todo
-            attachmentInfoService.save(uid,filepath,attachmentUrl,name,descs,marks);
+            attachmentInfoService.save(uid,filepath+fileNameNew,fileNameNew,name,descs,marks);
         }
         return new JsonResult().toJson();
     }
