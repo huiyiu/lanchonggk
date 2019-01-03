@@ -5,11 +5,21 @@
 
   </resultMap>
 
-    <select id="search" resultMap="BaseResultMap">
+    <select id="searchVideo" resultMap="BaseResultMap">
       select * from ldp_mobile_attachment
       where member_nm like '%${keywords}%'
       or name like '%${keywords}%'
       or marks like '%${keywords}%'
+      and video = 1
+      order by create_tm desc
+    </select>
+
+  <select id="searchDoc" resultMap="BaseResultMap">
+      select * from ldp_mobile_attachment
+      where member_nm like '%${keywords}%'
+      or name like '%${keywords}%'
+      or marks like '%${keywords}%'
+      and doc = 1
       order by create_tm desc
     </select>
 </mapper>
