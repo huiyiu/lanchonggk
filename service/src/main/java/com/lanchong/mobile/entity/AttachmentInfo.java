@@ -56,4 +56,5 @@ public class AttachmentInfo {
     @ApiModelProperty(value = "是否文档")
     private Boolean doc;
 
+
 }
