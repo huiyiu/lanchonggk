@@ -1,5 +1,8 @@
 package com.lanchong;
 
+import org.jasypt.encryption.StringEncryptor;
+import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
+import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,6 +28,8 @@ public class GKApplication {
     String discuzDir;
     @Value("${attachment.forum.dir}")
     String attachmentDir;
+    @Value("${jasypt.encryptor.password}")
+    String jasyptPwd;
     /**
      * 文件上传临时路径
      *
@@ -40,5 +45,15 @@ public class GKApplication {
         }
         factory.setLocation(realPath);
         return factory.createMultipartConfig();
+    }
+
+    @Bean("stringEncryptor")
+    public StringEncryptor stringEncryptor() {
+        PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
+        SimpleStringPBEConfig config = new SimpleStringPBEConfig();
+        config.setPassword(jasyptPwd);
+        config.setPoolSize("1");
+        encryptor.setConfig(config);
+        return encryptor;
     }
 }
