@@ -21,7 +21,6 @@ import com.lanchong.home.repository.FavoriteRepository;
 import com.lanchong.ucenter.service.AttachmentService;
 import com.lanchong.util.DateUtils;
 import com.lanchong.util.StringUtil;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

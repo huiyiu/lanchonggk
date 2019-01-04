@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class AttachmentInfoService {
@@ -20,9 +22,18 @@ public class AttachmentInfoService {
     @Autowired
     MemberService memberService;
 
-    public PageInfo<AttachmentInfo> search(String keywords,int page,int pageSize) {
+    public AttachmentInfo getById(String id){
+        return Optional.ofNullable(attachmentInfoMapper.selectByPrimaryKey(id)).orElse(null);
+    }
+
+    public PageInfo<AttachmentInfo> searchVideo(String keywords,int page,int pageSize) {
         PageHelper.startPage(page,pageSize);
-        return new PageInfo<>(attachmentInfoMapper.search(keywords));
+        return new PageInfo<>(attachmentInfoMapper.searchVideo(keywords));
+    }
+
+    public PageInfo<AttachmentInfo> searchDoc(String keywords,int page,int pageSize) {
+        PageHelper.startPage(page,pageSize);
+        return new PageInfo<>(attachmentInfoMapper.searchDoc(keywords));
     }
 
     public AttachmentInfo save(String uid,String filePath,String pathUrl,String name,String descs,String marks){
@@ -44,6 +55,11 @@ public class AttachmentInfoService {
         //aif.set
         attachmentInfoMapper.insertUseGeneratedKeys(aif);
         return  aif;
+    }
+
+
+    public Boolean idDocument(AttachmentInfo aif){
+        return aif != null && Arrays.asList("doc","docx","ppt","pptx","xls","xlsx","pdf").contains(aif.getType());
     }
 
 

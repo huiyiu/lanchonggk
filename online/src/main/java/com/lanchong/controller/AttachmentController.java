@@ -1,6 +1,7 @@
 package com.lanchong.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.lanchong.base.AccessLimitService;
 import com.lanchong.common.CookieUtils;
 import com.lanchong.common.entity.Member;
 import com.lanchong.mobile.entity.AttachmentInfo;
@@ -30,6 +31,8 @@ public class AttachmentController {
     MemberService memberService;
     @Autowired
     AttachmentInfoService attachmentInfoService;
+    @Autowired
+    AccessLimitService accessLimitService;
     @Value("${discuz.dir}")
     String discuzDir;
     @Value("${attachment.forum.dir}")
@@ -82,7 +85,7 @@ public class AttachmentController {
      * @param pageSize
      * @return
      */
-    @GetMapping("search")
+    @GetMapping("searchVideo")
     @ApiImplicitParams({
             @ApiImplicitParam(defaultValue = "", name = "keyWords", value = "关注字", paramType = "query"),
             @ApiImplicitParam(defaultValue = "1", name = "page", value = "页数", paramType = "query"),
@@ -91,13 +94,64 @@ public class AttachmentController {
     public String search(String keyWords,@RequestParam(defaultValue = "1")Integer page,@RequestParam(defaultValue = "10")Integer pageSize){
 
         JsonResult jr = new JsonResult();
-        PageInfo<AttachmentInfo> pages= attachmentInfoService.search(keyWords,page,pageSize);
+        PageInfo<AttachmentInfo> pages= attachmentInfoService.searchVideo(keyWords,page,pageSize);
         jr.setList(pages.getList().stream().map(attach->{
             String path = attachmentDir+attach.getPathUrl();
             attach.setPathUrl(path);
             return attach;
         }).collect(Collectors.toList()));
         jr.setTotalCount(pages.getTotal());
+        return jr.toJson();
+    }
+
+
+    /**
+     * 搜索文档
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("searchDoc")
+    @ApiImplicitParams({
+            @ApiImplicitParam(defaultValue = "", name = "keyWords", value = "关注字", paramType = "query"),
+            @ApiImplicitParam(defaultValue = "1", name = "page", value = "页数", paramType = "query"),
+            @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
+    @ApiOperation(value = "搜索文档", notes = "搜索文档")
+    public String searchDoc(String keyWords,@RequestParam(defaultValue = "1")Integer page,@RequestParam(defaultValue = "10")Integer pageSize){
+
+        JsonResult jr = new JsonResult();
+        PageInfo<AttachmentInfo> pages= attachmentInfoService.searchDoc(keyWords,page,pageSize);
+        jr.setList(pages.getList().stream().map(attach->{
+            String path = attachmentDir+attach.getPathUrl();
+            attach.setPathUrl(path);
+            return attach;
+        }).collect(Collectors.toList()));
+        jr.setTotalCount(pages.getTotal());
+        return jr.toJson();
+    }
+
+
+    @GetMapping("{id}")
+    @ApiImplicitParam(name = "id", value = "文档编号", paramType = "path",required = true)
+    @ApiOperation(value = "预览文档", notes = "预览文档，返回docId,在前端解析")
+    public String getDoc(@PathVariable  String id){
+        JsonResult jr = new JsonResult();
+        AttachmentInfo attachmentInfo = attachmentInfoService.getById(id);
+        if(null == attachmentInfo){
+            jr.setResultMsg("文档不存在！");
+            return jr.toJson();
+        }
+        if(!attachmentInfoService.idDocument(attachmentInfo)){
+            jr.setResultMsg("该文档不支持预览！");
+            return jr.toJson();
+        }
+        if(accessLimitService.tryAcquire()){
+            // 这里查看文档，看是否取得docId。有的话直接返回，没有进行请求
+        }else{
+            jr.setResultMsg("请稍后重试。。。");
+        }
+        //TODO 注意替换
+        jr.attr("docId","doc-gkjraanw4f89uu5");
         return jr.toJson();
     }
 }

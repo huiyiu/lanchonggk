@@ -52,4 +52,8 @@ public class AttachmentInfo {
     @Column
     @ApiModelProperty(value = "是否视频")
     private Boolean video;
+    @Column
+    @ApiModelProperty(value = "是否文档")
+    private Boolean doc;
+
 }

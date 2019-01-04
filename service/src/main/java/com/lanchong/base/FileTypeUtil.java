@@ -37,6 +37,7 @@ public class FileTypeUtil {
 		mFileTypes.put("d0cf11e0a1b11ae10000", "vsd"); //Visio 绘图     
 		mFileTypes.put("5374616E64617264204A", "mdb"); //MS Access (mdb)      
 		mFileTypes.put("252150532D41646F6265", "ps");
+		mFileTypes.put("255044462D312E", "pdf"); //Adobe Acrobat (pdf)
 		mFileTypes.put("255044462d312e350d0a", "pdf"); //Adobe Acrobat (pdf)   
 		mFileTypes.put("2e524d46000000120001", "rmvb"); //rmvb/rm相同  
 		mFileTypes.put("464c5601050000000900", "flv"); //flv与f4v相同  
@@ -152,7 +153,7 @@ public class FileTypeUtil {
 	 * 方法描述：测试
 	 */
 	public static void main(String[] args) throws Exception {
-		final String fileType = getFileType("C:\\Users\\admin\\Desktop\\开票信息 - 工会.docx");
+		final String fileType = getFileType("C:\\Users\\admin\\Desktop\\工控\\3.个案服务协议书-merged.pdf");
 		System.out.println(fileType);
 	}
 

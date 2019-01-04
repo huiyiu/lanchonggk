@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface AttachmentInfoMapper extends MyMapper<AttachmentInfo> {
 
-    List<AttachmentInfo> search(@Param("keywords") String keywords);
+    List<AttachmentInfo> searchVideo(@Param("keywords") String keywords);
+
+    List<AttachmentInfo> searchDoc(@Param("keywords") String keywords);
 
 }
