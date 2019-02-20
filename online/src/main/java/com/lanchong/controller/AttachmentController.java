@@ -145,13 +145,8 @@ public class AttachmentController {
             jr.setResultMsg("该文档不支持预览！");
             return jr.toJson();
         }
-        if(accessLimitService.tryAcquire()){
-            // 这里查看文档，看是否取得docId。有的话直接返回，没有进行请求
-        }else{
-            jr.setResultMsg("请稍后重试。。。");
-        }
-        //TODO 注意替换
-        jr.attr("docId","doc-gkjraanw4f89uu5");
+        //todo
+        jr.attr("url","");
         return jr.toJson();
     }
 }
