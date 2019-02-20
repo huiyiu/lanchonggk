@@ -15,20 +15,22 @@ public class AttachmentFavor {
     @Column
     private Long id;
     @Column
+    @ApiModelProperty(value = "附件编号")
+    private Integer aid;
+    @Column
     @ApiModelProperty(value = "作者")
     private Integer authorId;
-
+    @Column
+    @ApiModelProperty(value = "作者")
+    private String author;
     @Column
     @ApiModelProperty(value = "关注者")
     private Integer userId;
     @Column
-    @ApiModelProperty(value = "附件编号")
-    private Integer aid;
-    @Column
     @ApiModelProperty(value = "附件类型，doc指文档，video是视频,unknown未知")
     private String aidType;
     @Column
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "关注时间")
     private Integer createTime;
 
 }

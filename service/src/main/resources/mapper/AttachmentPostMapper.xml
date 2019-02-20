@@ -8,4 +8,7 @@
 <select id="getNextPosition" resultType="Integer">
     select ifnull(position,1) from ldp_mobile_attachment_post where aid = #{aid}
 </select>
+    <select id="getPosts" resultMap="BaseResultMap">
+        SELECT * from ldp_mobile_attachment_post where aid = #{aid} order by createTime desc
+    </select>
 </mapper>

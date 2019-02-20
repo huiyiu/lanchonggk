@@ -14,19 +14,19 @@ public class AttachmentPost {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column
-    private Integer id;
+    private Long id;
     @Column
     @ApiModelProperty(value = "附件编号")
-    private String aid;
+    private Long aid;
     @Column
     @ApiModelProperty(value = "作者")
     private String author;
     @Column
     @ApiModelProperty(value = "作者编号")
-    private String authorId;
+    private Long authorId;
     @Column
     @ApiModelProperty(value = "评论者编号")
-    private String userId;
+    private Long userId;
     @Column
     @ApiModelProperty(value = "帖子主题，标题")
     private String title;
@@ -37,6 +37,9 @@ public class AttachmentPost {
     @ApiModelProperty(value = "楼层")
     private Integer position;
     @ApiModelProperty(value = "回帖时间")
-    private Date createTime;
+    private Integer createTime;
+    @Transient
+    @ApiModelProperty(value = "用户头像地址")
+    private String userAvatar;
 
 }

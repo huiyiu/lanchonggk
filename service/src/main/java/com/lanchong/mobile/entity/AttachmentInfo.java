@@ -17,10 +17,10 @@ public class AttachmentInfo {
     private Long id;
     @Column
     @ApiModelProperty(value = "用户编号")
-    private String memberId;
+    private Long authorId;
     @Column
     @ApiModelProperty(value = "用户名称")
-    private String memberNm;
+    private String author;
     @Column
     @ApiModelProperty(value = "附件名")
     private String name;

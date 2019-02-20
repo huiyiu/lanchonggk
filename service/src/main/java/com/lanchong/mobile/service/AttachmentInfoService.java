@@ -9,6 +9,7 @@ import com.lanchong.mobile.entity.AttachmentPost;
 import com.lanchong.mobile.mapper.AttachmentInfoMapper;
 import com.lanchong.mobile.mapper.AttachmentPostMapper;
 import com.lanchong.ucenter.service.MemberService;
+import com.lanchong.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class AttachmentInfoService {
     @Autowired
     MemberService memberService;
 
-    public AttachmentInfo getById(String id){
+    public AttachmentInfo getById(Long id){
         return Optional.ofNullable(attachmentInfoMapper.selectByPrimaryKey(id)).orElse(null);
     }
 
@@ -40,13 +41,13 @@ public class AttachmentInfoService {
         return new PageInfo<>(attachmentInfoMapper.searchDoc(keywords));
     }
 
-    public AttachmentInfo save(String uid,String filePath,String pathUrl,String name,String descs,String marks){
+    public AttachmentInfo save(Long uid,String filePath,String pathUrl,String name,String descs,String marks){
         AttachmentInfo aif = new AttachmentInfo();
         aif.setCreateTm(new Date());
-        String authorName = memberService.getBasicMember(Integer.parseInt(uid)).get().getUsername();
-        aif.setMemberNm(authorName);
+        String authorName = memberService.getBasicMember(uid.intValue()).get().getUsername();
+        aif.setAuthor(authorName);
         aif.setName(name);
-        aif.setMemberId(uid);
+        aif.setAuthorId(uid);
         aif.setDescs(descs);
         aif.setType(FileTypeUtil.getFileType(filePath));
         aif.setMarks(marks);
@@ -69,16 +70,16 @@ public class AttachmentInfoService {
         return aif != null && Arrays.asList("doc","docx","ppt","pptx","xls","xlsx","pdf").contains(aif.getType());
     }
 
-    public AttachmentPost post(String aid,String uid,String message){
+    public AttachmentPost post(Long aid,Long uid,String message){
         AttachmentInfo attachmentInfo = getById(aid);
         if(attachmentInfo != null){
 
             AttachmentPost attachmentPost = new AttachmentPost();
             attachmentPost.setAid(aid);
             attachmentPost.setPosition(1);
-            attachmentPost.setAuthor(attachmentInfo.getMemberNm());
-            attachmentPost.setAuthorId(attachmentInfo.getMemberId());
-            attachmentPost.setCreateTime(new Date());
+            attachmentPost.setAuthor(attachmentInfo.getAuthor());
+            attachmentPost.setAuthorId(attachmentInfo.getAuthorId());
+            attachmentPost.setCreateTime(DateUtils.dayTime());
             attachmentPost.setUserId(uid);
             attachmentPost.setMessage(message);
             attachmentPost.setPosition(getNextPosition(aid));
@@ -88,9 +89,13 @@ public class AttachmentInfoService {
         return null;
     }
 
-    public Integer getNextPosition(String aid){
+    public Integer getNextPosition(Long aid){
         return Optional.of(attachmentPostMapper.getNextPosition(aid) + 1).orElse(1);
     }
 
 
+    public PageInfo<AttachmentPost> getList(String aid, Integer page, Integer pageSize) {
+        PageHelper.startPage(page,pageSize);
+        return new PageInfo<>(attachmentPostMapper.getPosts(aid));
+    }
 }

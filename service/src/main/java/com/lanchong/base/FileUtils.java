@@ -74,7 +74,7 @@ public class FileUtils {
      * @param source
      * @return
      */
-    public static String ReadVideoSize(File source) {
+    public static String ReadFileSize(File source) {
         String size = "";
         try (FileInputStream fis = new FileInputStream(source);
              FileChannel fc = fis.getChannel()) {
