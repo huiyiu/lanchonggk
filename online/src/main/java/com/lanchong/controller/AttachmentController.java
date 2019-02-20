@@ -2,8 +2,6 @@ package com.lanchong.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.lanchong.base.AccessLimitService;
-import com.lanchong.common.CookieUtils;
-import com.lanchong.common.entity.Member;
 import com.lanchong.mobile.entity.AttachmentInfo;
 import com.lanchong.mobile.service.AttachmentInfoService;
 import com.lanchong.ucenter.service.MemberService;
@@ -48,9 +46,9 @@ public class AttachmentController {
     })
     @PostMapping("/upload")
     @ApiOperation(value = "上传图片或者附件", notes = "上传图片或者附件")
-    public String upload(@RequestParam("file") MultipartFile file, String uid, Integer readaccess, String name, String marks, String descs, Short price) {
+    public String upload(@RequestParam("file") MultipartFile file, Long uid, Integer readaccess, String name, String marks, String descs, Short price) {
         //Member userInfo = CookieUtils.getUserIfo(true);
-        memberService.existMember(Integer.parseInt(uid));
+        memberService.existMember(uid.intValue());
         String dateStr = new DateTime().toString("yyyyMM/dd");
         if (null != file) {
             //取得当前上传文件的文件名称
@@ -134,7 +132,7 @@ public class AttachmentController {
     @GetMapping("{id}")
     @ApiImplicitParam(name = "id", value = "文档编号", paramType = "path",required = true)
     @ApiOperation(value = "预览文档", notes = "预览文档，返回docId,在前端解析")
-    public String getDoc(@PathVariable  String id){
+    public String getDoc(@PathVariable  Long id){
         JsonResult jr = new JsonResult();
         AttachmentInfo attachmentInfo = attachmentInfoService.getById(id);
         if(null == attachmentInfo){

@@ -11,6 +11,6 @@ public interface AttachmentPostMapper extends MyMapper<AttachmentPost> {
 
     Integer getNextPosition(Long aid);
 
-    List<AttachmentPost> getPosts(@Param("aid") String aid);
+    List<AttachmentPost> getPosts(@Param("aid") Long aid);
 
 }

@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.lanchong.base.AccessLimitService;
 import com.lanchong.base.AvatarUtils;
 import com.lanchong.common.entity.Member;
+import com.lanchong.mobile.entity.AttachmentFavor;
 import com.lanchong.mobile.entity.AttachmentInfo;
 import com.lanchong.mobile.entity.AttachmentPost;
 import com.lanchong.mobile.mapper.AttachmentFavorMapper;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -47,6 +49,7 @@ public class AttachmentPostController {
     AttachmentFavorMapper attachmentFavorMapper;
     @Autowired
     AttachmentInfoMapper attachmentInfoMapper;
+
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "uid", value = "用户编号", paramType = "query",required = true),
@@ -85,11 +88,12 @@ public class AttachmentPostController {
      */
     @GetMapping("replies")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "uid", value = "", paramType = "query",required = true),
             @ApiImplicitParam(name = "aid", value = "", paramType = "query",required = true),
             @ApiImplicitParam(defaultValue = "1", name = "page", value = "页数", paramType = "query"),
             @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
     @ApiOperation(value = "回帖列表", notes = "回帖列表")
-    public String search(String aid,@RequestParam(defaultValue = "1")Integer page,@RequestParam(defaultValue = "10")Integer pageSize){
+    public String search(Long uid,Long aid,@RequestParam(defaultValue = "1")Integer page,@RequestParam(defaultValue = "10")Integer pageSize){
 
         JsonResult jr = new JsonResult();
         PageInfo<AttachmentPost> pages= attachmentInfoService.getList(aid,page,pageSize);
@@ -97,6 +101,10 @@ public class AttachmentPostController {
             Member m = memberService.getMember(attach.getUserId().intValue());
             String path = AvatarUtils.getAvatarDir(attach.getUserId().intValue(),m.getAvatarstatus());
             attach.setUserAvatar(path);
+            List<AttachmentFavor> favors = attachmentFavorMapper.getByPid(attach.getId());
+            attach.setFavorCounts(favors.size());
+            //是否点过赞
+            attach.setFavored(favors.stream().anyMatch(favor->favor.getAuthorId().equals(uid)));
             return attach;
         }).collect(Collectors.toList()));
         jr.setTotalCount(pages.getTotal());

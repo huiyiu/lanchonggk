@@ -94,7 +94,7 @@ public class AttachmentInfoService {
     }
 
 
-    public PageInfo<AttachmentPost> getList(String aid, Integer page, Integer pageSize) {
+    public PageInfo<AttachmentPost> getList(Long aid, Integer page, Integer pageSize) {
         PageHelper.startPage(page,pageSize);
         return new PageInfo<>(attachmentPostMapper.getPosts(aid));
     }

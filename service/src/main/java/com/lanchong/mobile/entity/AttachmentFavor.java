@@ -15,8 +15,8 @@ public class AttachmentFavor {
     @Column
     private Long id;
     @Column
-    @ApiModelProperty(value = "附件编号")
-    private Integer aid;
+    @ApiModelProperty(value = "回帖编号")
+    private Integer pid;
     @Column
     @ApiModelProperty(value = "作者")
     private Integer authorId;

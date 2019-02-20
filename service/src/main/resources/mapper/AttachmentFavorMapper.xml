@@ -4,6 +4,9 @@
   <resultMap id="BaseResultMap" type="com.lanchong.mobile.entity.AttachmentFavor" >
 
   </resultMap>
+    <select id="getByPid" resultMap="BaseResultMap">
+      SELECT * from ldp_mobile_attachment_favor where pid= #{pid}
+    </select>
 
 
 </mapper>

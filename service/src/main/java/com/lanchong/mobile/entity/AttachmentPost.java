@@ -14,6 +14,7 @@ public class AttachmentPost {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column
+    @ApiModelProperty(value = "回帖编号")
     private Long id;
     @Column
     @ApiModelProperty(value = "附件编号")
@@ -36,10 +37,17 @@ public class AttachmentPost {
     @Column
     @ApiModelProperty(value = "楼层")
     private Integer position;
+    @Column
     @ApiModelProperty(value = "回帖时间")
     private Integer createTime;
     @Transient
     @ApiModelProperty(value = "用户头像地址")
     private String userAvatar;
+    @Transient
+    @ApiModelProperty(value = "评论点赞数")
+    private Integer favorCounts;
+    @Transient
+    @ApiModelProperty(value = "当前看贴用户是否点过赞")
+    private Boolean favored;
 
 }
