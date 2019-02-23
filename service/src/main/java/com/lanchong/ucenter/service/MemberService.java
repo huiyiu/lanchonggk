@@ -204,9 +204,10 @@ public class MemberService {
         return Optional.ofNullable(memberRepository.findByUid(uid));
     }
 
-    public void existMember(Integer uid){
+    public Member existMember(Integer uid){
         Member m = memberRepository.findByUid(uid);
         Assert.notNull(m,"用户不存在！");
+        return m;
     }
 
 

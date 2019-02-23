@@ -4,6 +4,9 @@
   <resultMap id="BaseResultMap" type="com.lanchong.mobile.entity.AttachmentInfo" >
 
   </resultMap>
+    <update id="addViews">
+        update ldp_mobile_attachment set views = ifnull(views,0) + 1 where id=#{id}
+    </update>
 
     <select id="searchVideo" resultMap="BaseResultMap">
       select * from ldp_mobile_attachment

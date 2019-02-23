@@ -22,14 +22,17 @@ public class AttachmentInfo {
     @ApiModelProperty(value = "用户名称")
     private String author;
     @Column
+    @ApiModelProperty(value = "帖子标题")
+    private String subject;
+    @Column
     @ApiModelProperty(value = "附件名")
     private String name;
     @Column
     @ApiModelProperty(value = "上传时间")
     private Date createTm;
-    @Column
+    /*@Column
     @ApiModelProperty(value = "查看次数")
-    private Long count;
+    private Long count;*/
     @ApiModelProperty(value = "标签")
     private String marks;
     @Column
@@ -38,6 +41,9 @@ public class AttachmentInfo {
     @Column
     @ApiModelProperty(value = "附件路径")
     private String pathUrl;
+    @Column
+    @ApiModelProperty(value = "内容")
+    private String content;
     @Column
     @ApiModelProperty(value = "描述")
     private String descs;
@@ -55,6 +61,19 @@ public class AttachmentInfo {
     @Column
     @ApiModelProperty(value = "是否文档")
     private Boolean doc;
-
-
+    @Column
+    @ApiModelProperty(value = "查看数")
+    private Long views;
+    @Column
+    @ApiModelProperty(value = "分享数")
+    private Long shares;
+    @Transient
+    @ApiModelProperty(value = "点赞数")
+    private Long favors;
+    @Transient
+    @ApiModelProperty(value = "评论数")
+    private Long comments;
+    @Transient
+    @ApiModelProperty(value = "当前看贴用户是否点过赞")
+    private Boolean favored;
 }

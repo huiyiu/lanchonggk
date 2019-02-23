@@ -41,18 +41,20 @@ public class AttachmentInfoService {
         return new PageInfo<>(attachmentInfoMapper.searchDoc(keywords));
     }
 
-    public AttachmentInfo save(Long uid,String filePath,String pathUrl,String name,String descs,String marks){
+    public AttachmentInfo save(Long uid,String filePath,String pathUrl,String subject,String content,String descs,String marks){
         AttachmentInfo aif = new AttachmentInfo();
         aif.setCreateTm(new Date());
         String authorName = memberService.getBasicMember(uid.intValue()).get().getUsername();
         aif.setAuthor(authorName);
-        aif.setName(name);
+        aif.setSubject(subject);
         aif.setAuthorId(uid);
+        aif.setContent(content);
         aif.setDescs(descs);
         aif.setType(FileTypeUtil.getFileType(filePath));
         aif.setMarks(marks);
         aif.setImage(FileTypeUtil.isImage(aif.getType()));
         aif.setVideo(FileTypeUtil.isVideo(aif.getType()));
+        aif.setViews(0L);
         aif.setDoc(idDocument(aif));
         aif.setPathUrl(pathUrl);
         if(aif.getVideo()){
@@ -67,7 +69,7 @@ public class AttachmentInfoService {
 
 
     public Boolean idDocument(AttachmentInfo aif){
-        return aif != null && Arrays.asList("doc","docx","ppt","pptx","xls","xlsx","pdf").contains(aif.getType());
+        return aif != null && Arrays.asList("doc","docx","ppt","pptx","xls","xlsx","pdf","txt").contains(aif.getType());
     }
 
     public AttachmentPost post(Long aid,Long uid,String message){
@@ -80,7 +82,6 @@ public class AttachmentInfoService {
             attachmentPost.setAuthor(attachmentInfo.getAuthor());
             attachmentPost.setAuthorId(attachmentInfo.getAuthorId());
             attachmentPost.setCreateTime(DateUtils.dayTime());
-            attachmentPost.setUserId(uid);
             attachmentPost.setMessage(message);
             attachmentPost.setPosition(getNextPosition(aid));
             attachmentPostMapper.insertUseGeneratedKeys(attachmentPost);

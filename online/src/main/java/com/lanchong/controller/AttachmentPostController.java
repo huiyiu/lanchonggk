@@ -53,30 +53,28 @@ public class AttachmentPostController {
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "uid", value = "用户编号", paramType = "query",required = true),
-            @ApiImplicitParam( name = "aid", value = "阅读权限", paramType = "query",required = true),
+            @ApiImplicitParam( name = "aid", value = "帖子编号", paramType = "query",required = true),
             @ApiImplicitParam( name = "message", value = "回帖内容", paramType = "query",required = true)
     })
     @PostMapping("/reply")
     @ApiOperation(value = "回帖", notes = "回帖")
-    public String upload(Long uid, Long aid, String message) {
+    public String reply(Long uid, Long aid, String message) {
         //Member userInfo = CookieUtils.getUserIfo(true);
-        memberService.existMember(uid.intValue());
+        Member m = memberService.existMember(uid.intValue());
         AttachmentInfo ai = attachmentInfoRepository.findById(aid).orElse(null);
         if(null == ai){
             new JsonResult(false,"该附件或视频不存在！");
         }
         AttachmentPost ap = new AttachmentPost();
         ap.setAid(aid);
-        ap.setUserId(uid);
         ap.setCreateTime(DateUtils.dayTime());
         ap.setMessage(message);
         ap.setPosition(attachmentPostMapper.getNextPosition(aid));
-        ap.setAuthor(ai.getAuthor());
-        ap.setAuthorId(ai.getAuthorId());
-        ap.setTitle(ai.getName());
+        ap.setAuthor(m.getUsername());
+        ap.setAuthorId(uid);
         attachmentPostMapper.insertSelective(ap);
-        ai.setCount(ai.getCount()+1);
-        attachmentInfoMapper.updateByPrimaryKeySelective(ai);
+        /*ai.setCount(ai.getCount()+1);
+        attachmentInfoMapper.updateByPrimaryKeySelective(ai);*/
         return new JsonResult().toJson();
     }
 
@@ -88,8 +86,8 @@ public class AttachmentPostController {
      */
     @GetMapping("replies")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "uid", value = "", paramType = "query",required = true),
-            @ApiImplicitParam(name = "aid", value = "", paramType = "query",required = true),
+            @ApiImplicitParam(name = "uid", value = "用户编号", paramType = "query",required = true),
+            @ApiImplicitParam(name = "aid", value = "帖子编号", paramType = "query",required = true),
             @ApiImplicitParam(defaultValue = "1", name = "page", value = "页数", paramType = "query"),
             @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
     @ApiOperation(value = "回帖列表", notes = "回帖列表")
@@ -98,13 +96,15 @@ public class AttachmentPostController {
         JsonResult jr = new JsonResult();
         PageInfo<AttachmentPost> pages= attachmentInfoService.getList(aid,page,pageSize);
         jr.setList(pages.getList().stream().map(attach->{
-            Member m = memberService.getMember(attach.getUserId().intValue());
-            String path = AvatarUtils.getAvatarDir(attach.getUserId().intValue(),m.getAvatarstatus());
+            Long authorId = attach.getAuthorId();
+            Member m = memberService.getMember(authorId.intValue());
+            String path = AvatarUtils.getAvatarDir(authorId.intValue(),m.getAvatarstatus());
             attach.setUserAvatar(path);
-            List<AttachmentFavor> favors = attachmentFavorMapper.getByPid(attach.getId());
-            attach.setFavorCounts(favors.size());
+            //获取回帖点赞数
+            //点赞数
+            attach.setFavorCounts(attachmentFavorMapper.getFavorCount(attach.getId(),1));
             //是否点过赞
-            attach.setFavored(favors.stream().anyMatch(favor->favor.getAuthorId().equals(uid)));
+            attach.setFavored(attachmentFavorMapper.getByPid(attach.getId(),1).stream().anyMatch(favor->favor.getUserId().equals(uid)));
             return attach;
         }).collect(Collectors.toList()));
         jr.setTotalCount(pages.getTotal());

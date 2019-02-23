@@ -12,4 +12,6 @@ public interface AttachmentInfoMapper extends MyMapper<AttachmentInfo> {
 
     List<AttachmentInfo> searchDoc(@Param("keywords") String keywords);
 
+    void addViews(@Param("id") Long id);
+
 }

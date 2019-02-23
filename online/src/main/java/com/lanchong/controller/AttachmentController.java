@@ -2,7 +2,12 @@ package com.lanchong.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.lanchong.base.AccessLimitService;
+import com.lanchong.mobile.entity.AttachmentFavor;
 import com.lanchong.mobile.entity.AttachmentInfo;
+import com.lanchong.mobile.entity.AttachmentPost;
+import com.lanchong.mobile.mapper.AttachmentFavorMapper;
+import com.lanchong.mobile.mapper.AttachmentInfoMapper;
+import com.lanchong.mobile.mapper.AttachmentPostMapper;
 import com.lanchong.mobile.service.AttachmentInfoService;
 import com.lanchong.ucenter.service.MemberService;
 import com.lanchong.util.JsonResult;
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -35,18 +41,24 @@ public class AttachmentController {
     String discuzDir;
     @Value("${attachment.forum.dir}")
     String attachmentDir;
+    @Autowired
+    AttachmentPostMapper attachmentPostMapper;
+    @Autowired
+    AttachmentFavorMapper attachmentFavorMapper;
+    @Autowired
+    AttachmentInfoMapper attachmentInfoMapper;
 
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "name", value = "附件名称", paramType = "query",required = true),
+            @ApiImplicitParam(name = "subject", value = "标题", paramType = "query",required = true),
+            @ApiImplicitParam(name = "name", value = "附件名称", paramType = "query"),
             @ApiImplicitParam(name = "uid", value = "用户编号", paramType = "query",required = true),
-            @ApiImplicitParam(defaultValue = "0", name = "readaccess", value = "阅读权限", paramType = "query"),
             @ApiImplicitParam(defaultValue = "", name = "marks", value = "附件标签，以','分隔", paramType = "query"),
             @ApiImplicitParam(defaultValue = "", name = "descs", value = "描述信息", paramType = "query"),
-            @ApiImplicitParam(defaultValue = "0", name = "price", value = "价格", paramType = "query"),
+            @ApiImplicitParam(name = "content", value = "内容", paramType = "query",required = true)
     })
     @PostMapping("/upload")
     @ApiOperation(value = "上传图片或者附件", notes = "上传图片或者附件")
-    public String upload(@RequestParam("file") MultipartFile file, Long uid, Integer readaccess, String name, String marks, String descs, Short price) {
+    public String upload(@RequestParam("file") MultipartFile file, Long uid, String subject, String content, String marks, String descs, Short price) {
         //Member userInfo = CookieUtils.getUserIfo(true);
         memberService.existMember(uid.intValue());
         String dateStr = new DateTime().toString("yyyyMM/dd");
@@ -72,7 +84,7 @@ public class AttachmentController {
                 return  new JsonResult(false,"附件上传失败！").toJson();
             }
             //todo
-            attachmentInfoService.save(uid,filepath+fileNameNew,fileNameNew,name,descs,marks);
+            attachmentInfoService.save(uid,filepath+fileNameNew,fileNameNew,subject,content,descs,marks);
         }
         return new JsonResult().toJson();
     }
@@ -103,6 +115,34 @@ public class AttachmentController {
     }
 
 
+    @GetMapping("detail")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "uid", value = "关注字", paramType = "query",required = true),
+            @ApiImplicitParam(name = "aid", value = "页数", paramType = "query",required = true)
+            })
+    @ApiOperation(value = "帖子详情", notes = "帖子详情")
+    public String detail(Long uid,Long aid){
+        JsonResult jr = new JsonResult();
+        AttachmentInfo ai = attachmentInfoService.getById(aid);
+        if(null != ai){
+            attachmentInfoMapper.addViews(aid);
+            //当前登陆用户是否已点赞
+            List<AttachmentFavor> favors= attachmentFavorMapper.getByPid(aid,0);
+            ai.setFavored(favors.stream().anyMatch(af->af.getUserId().equals(uid.intValue())));
+            //点赞数
+            ai.setFavors(Long.valueOf(favors.size()));
+            //评论数
+            List<AttachmentPost> aps = attachmentPostMapper.getPosts(aid);
+            ai.setComments((Long.valueOf(aps.size())));
+            //点击数
+            ai.setViews(ai.getViews()+1);
+            //分享数 todo
+            //ai.setShares();
+        }
+        jr.attr("ai",ai);
+        return jr.toJson();
+    }
+
     /**
      * 搜索文档
      * @param page
@@ -111,7 +151,7 @@ public class AttachmentController {
      */
     @GetMapping("searchDoc")
     @ApiImplicitParams({
-            @ApiImplicitParam(defaultValue = "", name = "keyWords", value = "关注字", paramType = "query"),
+            @ApiImplicitParam(name = "keyWords", value = "关注字", paramType = "query"),
             @ApiImplicitParam(defaultValue = "1", name = "page", value = "页数", paramType = "query"),
             @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
     @ApiOperation(value = "搜索文档", notes = "搜索文档")
@@ -128,7 +168,6 @@ public class AttachmentController {
         return jr.toJson();
     }
 
-
     @GetMapping("{id}")
     @ApiImplicitParam(name = "id", value = "文档编号", paramType = "path",required = true)
     @ApiOperation(value = "预览文档", notes = "预览文档，返回docId,在前端解析")
@@ -144,7 +183,22 @@ public class AttachmentController {
             return jr.toJson();
         }
         //todo
-        jr.attr("url","");
+        jr.attr("url",attachmentInfo.getPathUrl());
         return jr.toJson();
     }
+
+    @GetMapping("/reward")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "uid", value = "用户编号", paramType = "query",required = true),
+            @ApiImplicitParam(name = "aid", value = "帖子编号", paramType = "query",required = true),
+            @ApiImplicitParam(defaultValue = "1",name = "rewards", value = "金币数(默认1虫币)", paramType = "query",required = true)
+    })
+    @ApiOperation(value = "打赏", notes = "打赏")
+    public String reward(@PathVariable  Long uid,Long aid,Integer rewards){
+        JsonResult jr = new JsonResult();
+
+        return jr.toJson();
+    }
+
+
 }
