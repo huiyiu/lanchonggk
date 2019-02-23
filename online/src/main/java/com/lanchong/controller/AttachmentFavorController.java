@@ -94,7 +94,7 @@ public class AttachmentFavorController {
             @ApiImplicitParam( name = "pid", value = "帖子编号", paramType = "query",required = true),
             @ApiImplicitParam( name = "pidType", value = "0：帖子；1：跟帖", paramType = "query",required = true)
     })
-    @PostMapping("/follow")
+    @PostMapping("/unfollow")
     @ApiOperation(value = "帖子取消点赞", notes = "帖子取消点赞")
     public String unFlollow(Long uid, Long pid, Integer pidType) {
         //Member userInfo = CookieUtils.getUserIfo(true);
