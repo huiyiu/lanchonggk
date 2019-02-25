@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -106,7 +107,7 @@ public class AttachmentController {
         JsonResult jr = new JsonResult();
         PageInfo<AttachmentInfo> pages= attachmentInfoService.searchVideo(keyWords,page,pageSize);
         jr.setList(pages.getList().stream().map(attach->{
-            String path = attachmentDir+attach.getPathUrl();
+            String path = "preview" + attach.getPathUrl();
             attach.setPathUrl(path);
             return attach;
         }).collect(Collectors.toList()));
@@ -135,7 +136,7 @@ public class AttachmentController {
             List<AttachmentPost> aps = attachmentPostMapper.getPosts(aid);
             ai.setComments((Long.valueOf(aps.size())));
             //点击数
-            ai.setViews(ai.getViews()+1);
+            ai.setViews(Optional.ofNullable(ai.getViews()).orElse(0L)+1);
             //分享数 todo
             //ai.setShares();
         }
@@ -160,7 +161,7 @@ public class AttachmentController {
         JsonResult jr = new JsonResult();
         PageInfo<AttachmentInfo> pages= attachmentInfoService.searchDoc(keyWords,page,pageSize);
         jr.setList(pages.getList().stream().map(attach->{
-            String path = attachmentDir+attach.getPathUrl();
+            String path = "preview" + attach.getPathUrl();
             attach.setPathUrl(path);
             return attach;
         }).collect(Collectors.toList()));

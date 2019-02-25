@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "ldp_mobile_attachment_favor", catalog = "")
@@ -31,6 +32,6 @@ public class AttachmentFavor {
     private Integer pidType;
     @Column
     @ApiModelProperty(value = "关注时间")
-    private Integer createTime;
+    private Date createTime;
 
 }

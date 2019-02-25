@@ -10,19 +10,23 @@
 
     <select id="searchVideo" resultMap="BaseResultMap">
       select * from ldp_mobile_attachment
-      where member_nm like '%${keywords}%'
-      or name like '%${keywords}%'
-      or marks like '%${keywords}%'
-      and video = 1
+      <where>
+          video = 1
+          <if test="keywords !=null and keywords != ''">
+            and   (name like '%${keywords}%' or marks like '%${keywords}%')
+          </if>
+      </where>
       order by create_tm desc
     </select>
 
   <select id="searchDoc" resultMap="BaseResultMap">
       select * from ldp_mobile_attachment
-      where member_nm like '%${keywords}%'
-      or name like '%${keywords}%'
-      or marks like '%${keywords}%'
-      and doc = 1
+      <where>
+          doc = 1
+          <if test="keywords !=null and keywords != ''">
+              and   (name like '%${keywords}%' or marks like '%${keywords}%')
+          </if>
+      </where>
       order by create_tm desc
     </select>
 </mapper>

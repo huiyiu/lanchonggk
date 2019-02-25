@@ -6,9 +6,9 @@
   </resultMap>
 
 <select id="getNextPosition" resultType="Integer">
-    select ifnull(position,1) from ldp_mobile_attachment_post where aid = #{aid}
+    select ifnull(position,1) from ldp_mobile_attachment_post where aid = #{aid} order by create_time desc limit 1
 </select>
     <select id="getPosts" resultMap="BaseResultMap">
-        SELECT * from ldp_mobile_attachment_post where aid = #{aid} order by createTime desc
+        SELECT * from ldp_mobile_attachment_post where aid = #{aid} order by create_time desc
     </select>
 </mapper>

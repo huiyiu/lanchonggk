@@ -16,7 +16,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan(basePackages = DefaultMybatisConfig.PACKAGE, sqlSessionFactoryRef="defaultsessionFactory")
+@MapperScan(basePackages = DefaultMybatisConfig.PACKAGE, sqlSessionFactoryRef="sessionFactory")
 public class DefaultMybatisConfig {
 
     // 精确到 master 目录，以便跟其他数据源隔离
@@ -40,7 +40,7 @@ public class DefaultMybatisConfig {
     @Value("${spring.datasource.druid.min-idle}")
     private int minIdle;
 
-    @Bean(name = "defaultDataSource")
+    @Bean(name = "dataSource")
     @Primary
     public DataSource defaultMybatisConfig() {
         DruidDataSource dataSource = new DruidDataSource();
@@ -55,15 +55,15 @@ public class DefaultMybatisConfig {
         return dataSource;
     }
 
-    @Bean(name = "defaultTransactionManager")
+    @Bean(name = "transactionManager")
     @Primary
     public DataSourceTransactionManager defaultTransactionManager() {
         return new DataSourceTransactionManager(defaultMybatisConfig());
     }
 
-    @Bean(name = "defaultsessionFactory")
+    @Bean(name = "sessionFactory")
     @Primary
-    public SqlSessionFactory defaultsessionFactory(@Qualifier("defaultDataSource") DataSource masterDataSource)
+    public SqlSessionFactory defaultsessionFactory(@Qualifier("dataSource") DataSource masterDataSource)
             throws Exception {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(masterDataSource);
@@ -75,9 +75,9 @@ public class DefaultMybatisConfig {
         return sessionFactory.getObject();
     }
 
-    @Bean(name = "defaultSessionTemplate")
+    @Bean(name = "sessionTemplate")
     @Primary
-    public SqlSessionTemplate defaultSessionTemplate(@Qualifier("defaultsessionFactory") SqlSessionFactory sqlSessionFactory){
+    public SqlSessionTemplate defaultSessionTemplate(@Qualifier("sessionFactory") SqlSessionFactory sqlSessionFactory){
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 }

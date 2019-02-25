@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,9 +68,9 @@ public class AttachmentPostController {
         }
         AttachmentPost ap = new AttachmentPost();
         ap.setAid(aid);
-        ap.setCreateTime(DateUtils.dayTime());
+        ap.setCreateTime(new Date());
         ap.setMessage(message);
-        ap.setPosition(attachmentPostMapper.getNextPosition(aid));
+        ap.setPosition(attachmentInfoService.getNextPosition(aid));
         ap.setAuthor(m.getUsername());
         ap.setAuthorId(uid);
         attachmentPostMapper.insertSelective(ap);

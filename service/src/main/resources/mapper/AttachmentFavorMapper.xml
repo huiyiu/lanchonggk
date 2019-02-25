@@ -4,17 +4,17 @@
   <resultMap id="BaseResultMap" type="com.lanchong.mobile.entity.AttachmentFavor" >
 
   </resultMap>
-    <update id="addViews">
+  <!--  <update id="addViews">
         update ldp_mobile_attachment_favor set views = ifnull(views,0) + 1 where
-    </update>
+    </update>-->
     <delete id="deleteFavor">
-    DELETE from ldp_mobile_attachment_favor where pid= #{pid} and idType =#{idType} and userId = #{uid}
+    DELETE from ldp_mobile_attachment_favor where pid= #{pid} and pid_type =#{pidType} and user_id = #{uid}
   </delete>
   <select id="getByPid" resultMap="BaseResultMap">
-      SELECT * from ldp_mobile_attachment_favor where pid= #{pid} and idType =#{idType}
+      SELECT * from ldp_mobile_attachment_favor where pid= #{pid} and pid_type =#{pidType}
     </select>
   <select id="getFavorCount" resultType="java.lang.Long">
-      SELECT count(id) from ldp_mobile_attachment_favor where pid= #{pid} and idType =#{idType}
+      SELECT count(id) from ldp_mobile_attachment_favor where pid= #{pid} and pid_type =#{pidType}
   </select>
 
 

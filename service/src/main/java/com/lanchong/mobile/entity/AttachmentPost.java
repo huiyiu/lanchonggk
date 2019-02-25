@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "ldp_mobile_attachment_post", catalog = "")
@@ -38,7 +39,7 @@ public class AttachmentPost {
     private Integer position;
     @Column
     @ApiModelProperty(value = "回帖时间")
-    private Integer createTime;
+    private Date createTime;
     @Transient
     @ApiModelProperty(value = "作者头像地址")
     private String userAvatar;
