@@ -81,7 +81,7 @@ public class AttachmentInfoService {
             attachmentPost.setPosition(1);
             attachmentPost.setAuthor(attachmentInfo.getAuthor());
             attachmentPost.setAuthorId(attachmentInfo.getAuthorId());
-            attachmentPost.setCreateTime(DateUtils.dayTime());
+            attachmentPost.setCreateTime(new Date());
             attachmentPost.setMessage(message);
             attachmentPost.setPosition(getNextPosition(aid));
             attachmentPostMapper.insertUseGeneratedKeys(attachmentPost);
@@ -91,7 +91,7 @@ public class AttachmentInfoService {
     }
 
     public Integer getNextPosition(Long aid){
-        return Optional.of(attachmentPostMapper.getNextPosition(aid) + 1).orElse(1);
+        return attachmentPostMapper.getNextPosition(aid) + 1;
     }
 
 
