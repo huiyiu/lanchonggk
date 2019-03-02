@@ -8,6 +8,7 @@ import com.lanchong.mobile.entity.AttachmentInfo;
 import com.lanchong.mobile.entity.AttachmentPost;
 import com.lanchong.mobile.mapper.AttachmentInfoMapper;
 import com.lanchong.mobile.mapper.AttachmentPostMapper;
+import com.lanchong.mobile.repository.AttachmentInfoRepository;
 import com.lanchong.ucenter.service.MemberService;
 import com.lanchong.util.DateUtils;
 import com.lanchong.util.StringUtil;
@@ -30,6 +31,8 @@ public class AttachmentInfoService {
     AttachmentPostMapper attachmentPostMapper;
     @Autowired
     MemberService memberService;
+    @Autowired
+    AttachmentInfoRepository attachmentInfoRepository;
 
     @Value("${discuz.dir}")
     String discuzDir;
@@ -54,6 +57,16 @@ public class AttachmentInfoService {
         }else{
             return imageDir;
         }
+    }
+
+
+    public String getAbsolutePath(AttachmentInfo ai){
+        String absolutePath = "";
+        if(null == ai || StringUtil.isEmpty(ai.getPathUrl())){
+            return absolutePath;
+        }
+        absolutePath = discuzDir + genFilePath(ai.getAType())+ ai.getPathUrl();
+        return absolutePath;
     }
 
     public String getAccessPath(AttachmentInfo ai){
@@ -97,17 +110,19 @@ public class AttachmentInfoService {
         aif.setAuthorId(uid);
         aif.setContent(content);
         aif.setDescs(descs);
-        aif.setType(FileTypeUtil.getFileType(filePath));
         aif.setMarks(marks);
         aif.setAType(aType);
         aif.setViews(0L);
         aif.setName(fileName);
         aif.setPathUrl(filePath);
         if(2 == aType || 0 == aType){
-            aif.setDuration(FileUtils.ReadVideoTime(new File(filePath)));
+            aif.setDuration(FileUtils.ReadVideoTime(new File(getAbsolutePath(aif))));
         }
-        aif.setSize(FileUtils.ReadFileSize(new File(filePath)));
-        //
+        if(3 != aType) {
+            aif.setType(FileTypeUtil.getFileType(getAbsolutePath(aif)));
+            aif.setSize(FileUtils.ReadFileSize(new File(getAbsolutePath(aif))));
+        }
+        attachmentInfoMapper.insert(aif);
         return  aif;
     }
 

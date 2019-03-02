@@ -28,6 +28,9 @@ public class AttachmentInfo {
     @ApiModelProperty(value = "附件名")
     private String name;
     @Column
+    @ApiModelProperty(value = "存储名")
+    private String aName;
+    @Column
     @ApiModelProperty(value = "上传时间")
     private Date createTm;
     /*@Column
@@ -53,14 +56,8 @@ public class AttachmentInfo {
     @ApiModelProperty(value = "时长(*分*秒)")
     private String duration;
     @Column
-    @ApiModelProperty(value = "是否图片")
-    private Boolean image;
-    @Column
-    @ApiModelProperty(value = "是否视频")
-    private Boolean video;
-    @Column
-    @ApiModelProperty(value = "是否文档")
-    private Boolean doc;
+    @ApiModelProperty(value = "附件类型，0：秒拍，1：文档，2：视频，3：图片")
+    private Integer aType;
     @Column
     @ApiModelProperty(value = "查看数")
     private Long views;

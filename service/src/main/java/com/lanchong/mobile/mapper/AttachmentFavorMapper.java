@@ -14,7 +14,7 @@ public interface AttachmentFavorMapper extends MyMapper<AttachmentFavor> {
      * @param pid
      * @return
      */
-    List<AttachmentFavor> getByPid(@Param("pid") Long pid, @Param("idType") Integer idType);
+    List<AttachmentFavor> getByPid(@Param("pid") Long pid, @Param("pidType") Integer idType);
 
 
 
@@ -25,7 +25,7 @@ public interface AttachmentFavorMapper extends MyMapper<AttachmentFavor> {
      * @param idType
      * @return
      */
-    Long getFavorCount(@Param("pid") Long pid, @Param("idType") Integer idType);
+    Long getFavorCount(@Param("pid") Long pid, @Param("pidType") Integer idType);
 
     /**
      * 帖子取消点赞

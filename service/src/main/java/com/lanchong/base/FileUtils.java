@@ -1,9 +1,8 @@
 package com.lanchong.base;
 
+import it.sauronsoftware.jave.Encoder;
+import it.sauronsoftware.jave.EncoderException;
 import lombok.extern.slf4j.Slf4j;
-import ws.schild.jave.MultimediaInfo;
-import ws.schild.jave.MultimediaObject;
-
 import java.io.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -52,19 +51,24 @@ public class FileUtils {
      */
     public static String ReadVideoTime(File source) {
         String length = "";
+
+        Encoder encoder = new Encoder();
+
+        FileChannel fc= null;
+
+        String size = "";
+
+        it.sauronsoftware.jave.MultimediaInfo m = null;
         try {
-            MultimediaObject instance = new MultimediaObject(source);
-            MultimediaInfo result = instance.getInfo();
-            long ls = result.getDuration() / 1000;
-            //int hour = (int) (ls / 3600);
-            int minute = (int) (ls % 3600) / 60;
-            //int second = (int) (ls - hour * 3600 - minute * 60);
-            int second = (int) (ls - - minute * 60);
-            length = minute + "''" + second + "'''";
-        } catch (Exception e) {
+            m = encoder.getInfo(source);
+            long ls = m.getDuration();
+            //System.out.println("此视频时长为:"+ls/60000+"分"+(ls)/1000+"秒！");
+            System.out.println("此视频时长为:"+(ls)/1000+"秒！");
+            size = String.valueOf(ls/1000);
+        } catch (EncoderException e) {
             e.printStackTrace();
         }
-        return length;
+        return size;
     }
 
 

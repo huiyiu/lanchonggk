@@ -222,4 +222,9 @@ public class MemberService {
     public void setSignhtml(Integer uid,String signhtml){
         memberFieldForumMapper.setSignhtml(uid,signhtml);
     }
+
+    public void adminGroup(Long uid) {
+        Member m = existMember(uid.intValue());
+        Assert.isTrue(1== m.getGroupid(),"当前用户没有权限发布！");
+    }
 }

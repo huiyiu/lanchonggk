@@ -22,11 +22,32 @@
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/ws.schild/jave-core -->
-        <dependency>
+        <!--<dependency>
             <groupId>ws.schild</groupId>
             <artifactId>jave-core</artifactId>
             <version>2.4.5</version>
         </dependency>
+
+        <dependency>
+            <groupId>ws.schild</groupId>
+            <artifactId>jave-native-win32</artifactId>
+            <version>2.4.5</version>
+        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/ws.schild/jave-all-deps -->
+        <!--<dependency>
+            <groupId>ws.schild</groupId>
+            <artifactId>jave-all-deps</artifactId>
+            <version>2.4.5</version>
+        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/com.github.dadiyang/jave -->
+        <dependency>
+            <groupId>com.github.dadiyang</groupId>
+            <artifactId>jave</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
+
 
         <!-- https://mvnrepository.com/artifact/com.baidubce/bce-java-sdk -->
         <dependency>
@@ -51,13 +72,15 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>2.0.4.RELEASE</version>
+            <version>2.1.0.RELEASE</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-            <version>2.0.4.RELEASE</version>
+            <version>2.1.0.RELEASE</version>
         </dependency>
+
 
     </dependencies>
 
