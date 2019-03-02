@@ -64,7 +64,7 @@ public class AttachmentInfoService {
         if(3 == ai.getAType()){
             List<String> paths = Arrays.asList(ai.getPathUrl().split(","))
                     .stream().map(pathUrl->
-                            discuzUrl + genFilePath(ai.getAType())+ai.getPathUrl()
+                            discuzUrl + genFilePath(ai.getAType())+ pathUrl
                     ).collect(Collectors.toList());
             accessPath =    String.join(",",paths);
 
