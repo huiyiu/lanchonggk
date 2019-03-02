@@ -10,14 +10,13 @@ import com.lanchong.util.JsonResult;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -106,9 +105,9 @@ public class PubController {
             @ApiImplicitParam(defaultValue = "", name = "descs", value = "描述信息", paramType = "query"),
             @ApiImplicitParam(name = "content", value = "内容", paramType = "query")
     })
-    @PostMapping("/image")
-    @ApiOperation(value = "发布图片", notes = "发布图片")
-    public String uploadPictures(@RequestParam("files") MultipartFile[] files, Long uid, String subject, String content, String marks, String descs, String name) {
+    @PostMapping(value = "/image",headers="content-type=multipart/form-data")
+    @ApiOperation(value = "发布图片", notes = "发布图片",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String uploadPictures(@ApiParam(value="文件",required=true,allowMultiple = true,type="file") @RequestPart("files") MultipartFile[] files, Long uid, String subject, String content, String marks, String descs, String name) {
         //Member userInfo = CookieUtils.getUserIfo(true);
         memberService.existMember(uid.intValue());
 
@@ -138,8 +137,8 @@ public class PubController {
                     return  new JsonResult(false,"附件上传失败！").toJson();
                 }
                 //todo
-                attachmentInfoService.save(uid, String.join(",", pictures),name,subject,content,descs,marks,3);
             }
+            attachmentInfoService.save(uid, String.join(",", pictures),name,subject,content,descs,marks,3);
         }
         return new JsonResult().toJson();
     }
