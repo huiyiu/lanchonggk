@@ -106,7 +106,7 @@ public class PubController {
             @ApiImplicitParam(defaultValue = "", name = "descs", value = "描述信息", paramType = "query"),
             @ApiImplicitParam(name = "content", value = "内容", paramType = "query")
     })
-    @PostMapping("/submit")
+    @PostMapping("/image")
     @ApiOperation(value = "发布图片", notes = "发布图片")
     public String uploadPictures(@RequestParam("files") MultipartFile[] files, Long uid, String subject, String content, String marks, String descs, String name) {
         //Member userInfo = CookieUtils.getUserIfo(true);

@@ -1,4 +1,4 @@
-package com.lanchong.controller2;
+package com.lanchong.contro;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("post")
