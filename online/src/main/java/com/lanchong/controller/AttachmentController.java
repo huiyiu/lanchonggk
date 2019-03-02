@@ -15,14 +15,10 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,6 +38,10 @@ public class AttachmentController {
     String discuzDir;
     @Value("${attachment.forum.dir}")
     String attachmentDir;
+    @Value("${filePreview.url}")
+    String filePreviewUrl;
+    @Value("${discuz.url}")
+    String discuzUrl;
     @Autowired
     AttachmentPostMapper attachmentPostMapper;
     @Autowired
@@ -49,6 +49,7 @@ public class AttachmentController {
     @Autowired
     AttachmentInfoMapper attachmentInfoMapper;
 
+/*
     @ApiImplicitParams({
             @ApiImplicitParam(name = "subject", value = "标题", paramType = "query",required = true),
             @ApiImplicitParam(name = "name", value = "附件名称", paramType = "query"),
@@ -88,27 +89,56 @@ public class AttachmentController {
             attachmentInfoService.save(uid,filepath+fileNameNew,fileNameNew,subject,content,descs,marks);
         }
         return new JsonResult().toJson();
-    }
+    }*/
 
     /**
-     * 搜索视频
+     * 搜索（不加关键字获取最新）视频,秒拍，文档，图片
      * @param page
      * @param pageSize
      * @return
      */
-    @GetMapping("searchVideo")
+    @GetMapping("search")
     @ApiImplicitParams({
-            @ApiImplicitParam(defaultValue = "", name = "keyWords", value = "关注字", paramType = "query"),
+            @ApiImplicitParam(defaultValue = "", name = "keyWords", value = "关键字", paramType = "query"),
             @ApiImplicitParam(defaultValue = "1", name = "page", value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "page", value = "aType,文档类型", paramType = "query",required = true),
             @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
-    @ApiOperation(value = "搜索视频", notes = "搜索视频")
-    public String search(String keyWords,@RequestParam(defaultValue = "1")Integer page,@RequestParam(defaultValue = "10")Integer pageSize){
+    @ApiOperation(value = "搜索视频,秒拍，文档", notes = "搜索视频,秒拍，文档")
+    public String search(String keyWords,Integer aType,@RequestParam(defaultValue = "1")Integer page,@RequestParam(defaultValue = "10")Integer pageSize){
 
         JsonResult jr = new JsonResult();
-        PageInfo<AttachmentInfo> pages= attachmentInfoService.searchVideo(keyWords,page,pageSize);
+        PageInfo<AttachmentInfo> pages= attachmentInfoService.search(aType,keyWords,page,pageSize);
         jr.setList(pages.getList().stream().map(attach->{
-            String path = "preview" + attach.getPathUrl();
-            attach.setPathUrl(path);
+            /*String path = discuzUrl +attachmentInfoService.genFilePath(attach.getAType())+attach.getPathUrl();
+            attach.setPathUrl(path);*/
+            attach.setPathUrl(attachmentInfoService.getAccessPath(attach));
+            return attach;
+        }).collect(Collectors.toList()));
+        jr.setTotalCount(pages.getTotal());
+        return jr.toJson();
+    }
+
+    /**
+     * 获取关注用户 的 视频，帖子，文档，图片
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("fovors")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "uid", value = "用户编号", paramType = "query",required = true),
+            @ApiImplicitParam(defaultValue = "1", name = "page", value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "page", value = "aType,文档类型", paramType = "query",required = true),
+            @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
+    @ApiOperation(value = "获取关注用户 的 视频，帖子，文档，图片", notes = "获取关注用户 的 视频，帖子，文档，图片")
+    public String myFollow(Long uid,Integer aType,@RequestParam(defaultValue = "1")Integer page,@RequestParam(defaultValue = "10")Integer pageSize){
+        memberService.existMember(uid.intValue());
+        JsonResult jr = new JsonResult();
+        PageInfo<AttachmentInfo> pages= attachmentInfoService.getMyFavors(uid,aType,page,pageSize);
+        jr.setList(pages.getList().stream().map(attach->{
+            /*String path = discuzUrl +attachmentInfoService.genFilePath(attach.getAType())+attach.getPathUrl();
+            attach.setPathUrl(path);*/
+            attach.setPathUrl(attachmentInfoService.getAccessPath(attach));
             return attach;
         }).collect(Collectors.toList()));
         jr.setTotalCount(pages.getTotal());
@@ -118,8 +148,8 @@ public class AttachmentController {
 
     @GetMapping("detail")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "uid", value = "关注字", paramType = "query",required = true),
-            @ApiImplicitParam(name = "aid", value = "页数", paramType = "query",required = true)
+            @ApiImplicitParam(name = "uid", value = "用户编号", paramType = "query",required = true),
+            @ApiImplicitParam(name = "aid", value = "帖子编号", paramType = "query",required = true)
             })
     @ApiOperation(value = "帖子详情", notes = "帖子详情")
     public String detail(Long uid,Long aid){
@@ -139,35 +169,13 @@ public class AttachmentController {
             ai.setViews(Optional.ofNullable(ai.getViews()).orElse(0L)+1);
             //分享数 todo
             //ai.setShares();
+            ai.setPathUrl(attachmentInfoService.getAccessPath(ai));
         }
         jr.attr("ai",ai);
         return jr.toJson();
     }
 
-    /**
-     * 搜索文档
-     * @param page
-     * @param pageSize
-     * @return
-     */
-    @GetMapping("searchDoc")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "keyWords", value = "关注字", paramType = "query"),
-            @ApiImplicitParam(defaultValue = "1", name = "page", value = "页数", paramType = "query"),
-            @ApiImplicitParam(defaultValue = "10", name = "pageSize", value = "页面大小", paramType = "query")})
-    @ApiOperation(value = "搜索文档", notes = "搜索文档")
-    public String searchDoc(String keyWords,@RequestParam(defaultValue = "1")Integer page,@RequestParam(defaultValue = "10")Integer pageSize){
 
-        JsonResult jr = new JsonResult();
-        PageInfo<AttachmentInfo> pages= attachmentInfoService.searchDoc(keyWords,page,pageSize);
-        jr.setList(pages.getList().stream().map(attach->{
-            String path = "preview" + attach.getPathUrl();
-            attach.setPathUrl(path);
-            return attach;
-        }).collect(Collectors.toList()));
-        jr.setTotalCount(pages.getTotal());
-        return jr.toJson();
-    }
 
     @GetMapping("{id}")
     @ApiImplicitParam(name = "id", value = "文档编号", paramType = "path",required = true)
@@ -184,11 +192,11 @@ public class AttachmentController {
             return jr.toJson();
         }
         //todo
-        jr.attr("url",attachmentInfo.getPathUrl());
+        jr.attr("url",filePreviewUrl + attachmentInfo.getPathUrl());
         return jr.toJson();
     }
 
-    @GetMapping("/reward")
+   /* @GetMapping("/reward")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "uid", value = "用户编号", paramType = "query",required = true),
             @ApiImplicitParam(name = "aid", value = "帖子编号", paramType = "query",required = true),
@@ -199,7 +207,7 @@ public class AttachmentController {
         JsonResult jr = new JsonResult();
 
         return jr.toJson();
-    }
+    }*/
 
 
 }

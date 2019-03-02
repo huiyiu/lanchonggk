@@ -1,4 +1,4 @@
-package com.lanchong.controller;
+package com.lanchong.controller2;
 
 import com.lanchong.base.AvatarUtils;
 import com.lanchong.base.FileUtils;

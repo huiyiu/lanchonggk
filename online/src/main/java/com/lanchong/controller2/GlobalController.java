@@ -1,4 +1,4 @@
-package com.lanchong.controller;
+package com.lanchong.controller2;
 
 import com.github.jscookie.javacookie.Cookies;
 import com.google.code.kaptcha.impl.DefaultKaptcha;

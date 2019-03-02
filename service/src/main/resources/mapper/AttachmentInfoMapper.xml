@@ -11,7 +11,7 @@
     <select id="searchVideo" resultMap="BaseResultMap">
       select * from ldp_mobile_attachment
       <where>
-          video = 1
+          aType = #{aType}
           <if test="keywords !=null and keywords != ''">
             and   (name like '%${keywords}%' or marks like '%${keywords}%')
           </if>
@@ -28,5 +28,8 @@
           </if>
       </where>
       order by create_tm desc
+    </select>
+    <select id="getMyFavors" resultMap="BaseResultMap">
+        SELECT * from ldp_mobile_attachment where a_type = #{aType} and author_id in( select followuid from ldp_home_follow where uid=#{uid} )
     </select>
 </mapper>

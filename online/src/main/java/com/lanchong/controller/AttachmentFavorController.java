@@ -12,7 +12,6 @@ import com.lanchong.mobile.repository.AttachmentInfoRepository;
 import com.lanchong.mobile.repository.AttachmentPostRepository;
 import com.lanchong.mobile.service.AttachmentInfoService;
 import com.lanchong.ucenter.service.MemberService;
-import com.lanchong.util.DateUtils;
 import com.lanchong.util.JsonResult;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -23,8 +22,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("attachmentFavor")

@@ -1,4 +1,4 @@
-package com.lanchong.controller;
+package com.lanchong.controller2;
 
 import com.google.gson.Gson;
 import com.greenpineyu.fel.FelEngine;
